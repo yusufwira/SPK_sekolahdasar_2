@@ -22,20 +22,22 @@ export class SekolahService {
     return this.http.get("http://localhost/revisi_ta/sekolah/sekolah_detail.php?id_sekolah="+this.id);
   }
 
-  Rating(idsekolah, iduser, rating){
-    return this.http.get("http://localhost/ta_backend/sekolah/rating.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&rating="+rating);
+  Rating(idsekolah, iduser, rating, idkriteria){
+    //console.log(idsekolah)
+    return this.http.get("http://localhost/revisi_ta/sekolah/rating.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&rating="+rating+"&id_kriteria="+idkriteria);
   }
 
-  Review(idsekolah, iduser, review){
-    return this.http.get("http://localhost/ta_backend/sekolah/review.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&review="+review);
+  Review(idsekolah, iduser, review, idkriteria){
+    console.log(idsekolah)
+    return this.http.get("http://localhost/revisi_ta/sekolah/review.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&review="+review+"&id_kriteria="+idkriteria);
   }
 
   GetRating(ids){
-    return this.http.get("http://localhost/ta_backend/sekolah/get_rating.php?id_sekolah="+ids);
+    return this.http.get("http://localhost/revisi_ta/sekolah/rating_get.php?id_sekolah="+ids);
   }
 
   GetReview(){
-    return this.http.get("http://localhost/ta_backend/sekolah/get_review.php?id_sekolah="+this.id);
+    return this.http.get("http://localhost/revisi_ta/sekolah/review_get.php?id_sekolah="+this.id);
   }
 
   DetailEkstra():Observable<any>{
@@ -43,11 +45,11 @@ export class SekolahService {
   }
 
   ListSekolah():Observable<any>{
-    return this.http.get("http://localhost/ta_backend/sekolah/list.php");
+    return this.http.get("http://localhost/revisi_ta/sekolah/list_sekolah.php");
   }
 
   ListSekolah_ortu():Observable<any>{
-    return this.http.get("http://localhost/ta_backend/sekolah/list_sekolah_ortu.php");
+    return this.http.get("http://localhost/revisi_ta/sekolah/list_ortu_sekolah.php");
   }
 
   ListSekolahAdmin(id):Observable<any>{

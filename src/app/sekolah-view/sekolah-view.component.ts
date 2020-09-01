@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { Router,ActivatedRoute } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { SekolahService } from '../sekolah.service';
+import { KriteriaService } from '../kriteria.service';
 import {Map,tileLayer,marker} from 'leaflet';
 
 @Component({
@@ -12,11 +13,13 @@ import {Map,tileLayer,marker} from 'leaflet';
 })
 export class SekolahViewComponent implements OnInit {
 
-  constructor(public sekolah:SekolahService,private route: ActivatedRoute,public alertController: AlertController, private router: Router,public menu: MenuController) { }
+  constructor(public kriteria:KriteriaService, public sekolah:SekolahService,private route: ActivatedRoute,public alertController: AlertController, private router: Router,public menu: MenuController) { }
 
   arr_foto:any;
   arr_eks:any;
   arr_detail:any;
+  arr_kriteria:any;
+
   nama_sekolah="";
   alamat="";
   no_telp="";
@@ -55,14 +58,16 @@ export class SekolahViewComponent implements OnInit {
   address:string[];
 
   arr_komen:any;
+  arr_rating:any;
   ratings=0.0;
   ngOnInit(){    
     this.sekolah.id = this.route.snapshot.params['id'];
+    this.id_sekolah =  this.route.snapshot.params['id'];
     this.sekolah.DetailSekolah().subscribe((data) => {    
       console.log(data);
       console.log(data['detail']['Fasilitas']); 
       this.arr_detail =  data['detail'];
-      this.id_sekolah = data['idinfo_sekolah'];
+      this.id_sekolah = data['npsn'];
       this.nama_sekolah = data['nama_sekolah'];
       this.alamat = data['alamat_sekolah'];
       this.no_telp = data['notelp_sekolah'];
@@ -80,7 +85,14 @@ export class SekolahViewComponent implements OnInit {
       this.arr_eks = data;                      
     });
 
-    //this.getReview();
+    this.kriteria.dataKriteria().subscribe((data) => {        
+      this.arr_kriteria = data       
+      console.log(data)              
+    });
+
+
+   this.getRating();
+    this.getReview();
    
     
   }
@@ -92,6 +104,13 @@ export class SekolahViewComponent implements OnInit {
         console.log(this.arr_komen); 
       }   
                            
+    });
+  }
+
+  getRating(){
+    this.sekolah.GetRating(this.id_sekolah).subscribe((data) => {        
+      this.arr_rating = data       
+      console.log(data)              
     });
   }
 
@@ -140,7 +159,7 @@ export class SekolahViewComponent implements OnInit {
   rating3=false;
   rating4=false;
   rating5=false;
-  rating(number):void{
+  rating(number,id_kriteria):void{
     console.log(number);
     if(number == 1){
       this.rating1 = true;
@@ -177,12 +196,43 @@ export class SekolahViewComponent implements OnInit {
       this.rating4=true;
       this.rating5=true
     }
-    var id_user = localStorage['iduser'];
-    this.sekolah.Rating(this.id_sekolah,id_user,number).subscribe((data) => {    
-      console.log(data); 
-      this.peringatan();           
-    });
 
+    var id_user = localStorage['iduser'];
+   // console.log(this.id_sekolah)
+   if(this.kriteria_rating == ""){
+    this.peringatan('Gagal', "Kritera yang ingin diberi rating belum dipilih")
+    this.rating1 = false;
+      this.rating2=false;
+      this.rating3=false;
+      this.rating4=false;
+      this.rating5=false
+   }
+   else{
+    this.sekolah.Rating(this.id_sekolah,id_user,number,this.kriteria_rating).subscribe((data) => {    
+      console.log(data); 
+      this.peringatan('Terima Kasih','Anda sudah memberikan rating pada sekolah ini'); 
+      this.getRating();          
+    });
+   }
+
+
+
+   
+    
+
+  }
+
+
+  kriteria_rating = "";
+  optionsKriteriaRating():void{
+    let item = this.kriteria_rating;
+    this.kriteria_rating = item;
+    this.rating1 = false;
+      this.rating2=false;
+      this.rating3=false;
+      this.rating4=false;
+      this.rating5=false
+    console.log(this.kriteria_rating)
   }
 
   public komentar="";
@@ -191,9 +241,16 @@ export class SekolahViewComponent implements OnInit {
     //console.log(this.komentar)    
    }
 
+  kriteria_review = "";
+  optionsKriteriaReview():void{
+    let item = this.kriteria_review;
+    this.kriteria_review = item;
+    console.log(this.kriteria_review)
+  }
+
    kirimKomentar():void{
     var id_user = localStorage['iduser'];
-    this.sekolah.Review(this.id_sekolah,id_user,this.komentar).subscribe((data) => {    
+    this.sekolah.Review(this.id_sekolah,id_user,this.komentar, this.kriteria_review).subscribe((data) => {    
       console.log(data);  
       this.getReview();          
     });
@@ -201,10 +258,10 @@ export class SekolahViewComponent implements OnInit {
    }
 
 
-   peringatan(){
+   peringatan(header, message){
     const alert =  this.alertController.create({
-     header: 'Terima Kasih',
-     message: 'Anda sudah memberikan rating pada sekolah ini',
+     header: header,
+     message: message,
      buttons: ['OK']
    }).then(alert=> alert.present());;
   }

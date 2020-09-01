@@ -46,9 +46,8 @@
               </ion-row> -->
 
               <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "Super_Admin"' class="card-action" >                                    
-                <ion-button color="success"  routerLink="/sekolah-view/{{data.idinfo_sekolah}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
-                <ion-button color="primary" (click)="validasi(data.idinfo_sekolah, 'Tervalidasi')">Terima</ion-button> 
-                <ion-button color="danger" (click)="validasi(data.idinfo_sekolah, 'Tertolak')">Tolak</ion-button> &nbsp;                
+                <ion-button color="primary" (click)="validasi(data.npsn, 'Tervalidasi')">Terima</ion-button> 
+                <ion-button color="danger" (click)="validasi(data.npsn, 'Tertolak')">Tolak</ion-button> &nbsp;                
               </ion-row> 
 
               <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "admin_sekolah"' class="card-action" >                                            
@@ -66,7 +65,7 @@
 
   </div> 
 
-  <ion-fab *ngIf="cek == false" horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab *ngIf="cek == true" horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

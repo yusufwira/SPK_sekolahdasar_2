@@ -108,27 +108,52 @@
       </ion-col>      
     </ion-row>
 
+    <ion-row>
+      <ion-col  size='12'>
+        <ion-card>
+          <ion-card-header color="tertiary">
+            Rating
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item slot="start" *ngFor="let data of arr_rating | keyvalue">
+              {{data.key}} : {{data.value}} <ion-icon name="star" style="font-size: 20px; color: yellow;"></ion-icon>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
 
     <ion-row>
       <ion-col size='12'>
         <ion-card >
           <ion-card-header color="tertiary">
-            Rating
+            Input Rating
           </ion-card-header>
-          <ion-card-content>          
-            <ion-item class="star">
-              <!-- <ion-icon name="star" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp; -->
-              <ion-icon *ngIf="rating1 == false" name="star-outline" style="font-size: 40px;" (click)="rating(1)"></ion-icon> 
-              <ion-icon *ngIf="rating1 == true" name="star"  (click)="rating(1)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-              <ion-icon *ngIf="rating2 == false" name="star-outline" style="font-size: 40px;" (click)="rating(2)"></ion-icon> 
-              <ion-icon *ngIf="rating2 == true" name="star"  (click)="rating(2)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-              <ion-icon *ngIf="rating3 == false" name="star-outline" style="font-size: 40px;" (click)="rating(3)"></ion-icon> 
-              <ion-icon *ngIf="rating3 == true" name="star"  (click)="rating(3)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-              <ion-icon *ngIf="rating4 == false" name="star-outline" style="font-size: 40px;" (click)="rating(4)"></ion-icon> 
-              <ion-icon *ngIf="rating4 == true" name="star"  (click)="rating(4)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-              <ion-icon *ngIf="rating5 == false" name="star-outline" style="font-size: 40px;" (click)="rating(5)"></ion-icon> 
-              <ion-icon *ngIf="rating5 == true" name="star"  (click)="rating(5)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-            </ion-item>                 
+          <ion-card-content>        
+            <div >
+              <ion-select [(ngModel)]="kriteria_rating" (ionChange)="optionsKriteriaRating()">
+                <ion-select-option value="">
+                  select kriteria
+                </ion-select-option>
+                <ion-select-option *ngFor="let data of arr_kriteria" value="{{data.id}}">
+                  {{data.nama_kriteria}}
+                </ion-select-option>
+              </ion-select>
+              <ion-item class="star" >              
+                <!-- <ion-icon name="star" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp; -->
+                <ion-icon *ngIf="rating1 == false" name="star-outline" style="font-size: 40px;" (click)="rating(1)"></ion-icon> 
+                <ion-icon *ngIf="rating1 == true" name="star"  (click)="rating(1)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating2 == false" name="star-outline" style="font-size: 40px;" (click)="rating(2)"></ion-icon> 
+                <ion-icon *ngIf="rating2 == true" name="star"  (click)="rating(2)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating3 == false" name="star-outline" style="font-size: 40px;" (click)="rating(3)"></ion-icon> 
+                <ion-icon *ngIf="rating3 == true" name="star"  (click)="rating(3)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating4 == false" name="star-outline" style="font-size: 40px;" (click)="rating(4)"></ion-icon> 
+                <ion-icon *ngIf="rating4 == true" name="star"  (click)="rating(4)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating5 == false" name="star-outline" style="font-size: 40px;" (click)="rating(5)"></ion-icon> 
+                <ion-icon *ngIf="rating5 == true" name="star"  (click)="rating(5)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+              </ion-item> 
+            </div>  
+                           
           </ion-card-content>
         </ion-card>
       </ion-col>      
@@ -141,13 +166,21 @@
             Komentar
           </ion-card-header>
           <ion-card-content>
-            <ion-item>
+            <ion-select  [(ngModel)]="kriteria_review" (ionChange)="optionsKriteriaReview()">
+              <ion-select-option value="">
+                select kriteria
+              </ion-select-option>
+              <ion-select-option *ngFor="let data of arr_kriteria" value="{{data.id}}">
+                {{data.nama_kriteria}}
+              </ion-select-option>
+            </ion-select>
+            <ion-item>              
               <ion-input type="text" placeholder="Tulis disini" slot="start" (input)="inputKomen($event)"></ion-input>
               <ion-button  color="light" slot="end" (click)="kirimKomentar()">Kirim</ion-button>
             </ion-item>
             <br>
             <div class="komen" *ngFor="let komen of arr_komen">
-             <b>{{komen.nama}}</b> <br>
+             <b>{{komen.nama}} ({{komen.nama_kriteria}})</b> <br>
              <p slot="start">{{komen.review}}</p><i slot="end">{{komen.tanggal}}</i>
              <br>
             </div>

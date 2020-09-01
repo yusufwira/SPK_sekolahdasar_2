@@ -31,7 +31,7 @@
           </ion-col>
         </ion-row>
   </ion-card>
-  <ion-card class="list" *ngFor="let data of datas" routerLink="/sekolah-view/{{data.idinfo_sekolah}}">
+  <ion-card class="list" *ngFor="let data of datas" routerLink="/sekolah-view/{{data.npsn}}">
     <ion-card-header color="tertiary">
       <b style="font-size: 20px;">{{data.nama_sekolah}}</b>
     </ion-card-header>
@@ -40,10 +40,6 @@
     </ion-card-content>
     <ion-card-content>
       <div class="detail">
-      <ion-icon name="star" style="color: orange;"></ion-icon>
-      {{data.jumlah_like}}<br>
-      <ion-icon name="thumbs-up"  style="color: blue;"></ion-icon>
-      {{data.jumlah_komeh}} Review<br>
       <ion-icon name="location"  style="color: red;"></ion-icon>
       {{data.alamat_sekolah}}<br>
       <ion-icon name="call"  style="color: green;"></ion-icon>
