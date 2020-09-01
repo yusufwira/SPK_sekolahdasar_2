@@ -1,0 +1,23 @@
+<ion-header >
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button> &nbsp;&nbsp;&nbsp;&nbsp;
+    </ion-buttons>
+    <ion-title >
+      Ubah Sekolah
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div padding class="button">
+    <ion-button color="tertiary" routerLink="/sekolah-update/{{idsekolah}}"> 
+      Ubah Informasi Sekolah
+    </ion-button>
+    <ion-button color="tertiary"  routerLink="/sekolah-update-gambar/{{idsekolah}}"> 
+      Ubah Foto Sekolah
+    </ion-button>
+    <ion-button color="tertiary"  routerLink="/sekolah-update-ekstra/{{idsekolah}}"> 
+      Ubah Daftar Ekstrakurikuler Sekolah
+    </ion-button>
+  </div>
+</ion-content>

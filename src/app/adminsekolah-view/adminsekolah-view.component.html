@@ -1,0 +1,88 @@
+
+
+<ion-content>
+
+  <div class="bg">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button> 
+  </ion-buttons>
+    <img src="http://localhost/ta_backend/Auth/profile/{{username}}/{{photo}}" alt="">
+    <h2 style="color: white;"><b>{{nama}}</b></h2>
+  </div>
+  <ion-grid>
+    <ion-card>
+      <ion-card-header color="tertiary">
+        Informasi Admin
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>        
+          <ion-label >  
+            <ion-icon name="person"></ion-icon>   &nbsp;       
+            Nama Lengkap : <a>{{nama}}</a>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="home"></ion-icon> &nbsp;
+            Alamat Lengkap : <a>{{alamat}}</a>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="locate"></ion-icon> &nbsp;
+            Kecamatan : <a>{{kecamatan}}</a>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="call"></ion-icon> &nbsp;
+            Nomor telp : <a>{{notlp}}</a>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="mail-outline"></ion-icon> &nbsp;
+            Email : <a>{{email}}</a>
+          </ion-label>
+        </ion-item>       
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header color="tertiary">
+        Informasi Sekolah
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="sekolah" routerLink="../../sekolah-view/{{idSekolah}}">
+              <img src="http://localhost/ta_backend/sekolah/image/{{username}}/{{foto}}">
+            </ion-col>                                                              
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <ion-label>
+                Nama Sekolah : <br><a>{{nama_sekolah}}</a>
+              </ion-label>
+            </ion-item>  
+            <ion-item>
+              <ion-label>
+                Alamat Sekolah : <br><a>{{alamat_sekolah}}</a>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                Nomer Telp Sekolah : <br><a>{{notelp_sekolah}}</a>
+              </ion-label>
+            </ion-item>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ion-grid>
+
+  
+  
+  </ion-content>
+  
+  
+  

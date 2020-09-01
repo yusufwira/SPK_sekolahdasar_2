@@ -1,0 +1,22 @@
+
+<ion-content text-center>
+	<div class="bg">
+		<div class="head" text-center>
+			<h1>School Finder</h1>
+			<h5>Sistem Penunjang Keputusan</h5>			
+		</div>
+		<div class="inputs">
+			<ion-item class="trp">
+				<ion-label fixed>Username :</ion-label>
+				<ion-input type="text"  (input)="inputusername($event)" class="input"></ion-input>
+			</ion-item ><br>
+			<ion-item class="pass trp">
+				<ion-label fixed>Password   :</ion-label>
+				<ion-input type="password"  (input)="inputpassword($event)"></ion-input>
+			</ion-item>
+			<button class="login" ion-button block (click)="login()"><b>LOGIN</b></button>	
+			<button class="register" ion-button block routerLink="/register/"><b>Register</b></button>	
+		</div>
+		
+	</div>
+</ion-content>

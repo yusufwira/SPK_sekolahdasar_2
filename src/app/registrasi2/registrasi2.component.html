@@ -1,0 +1,79 @@
+<ion-content>
+	<div class="bg" text-center>
+		<div class="head">
+			<h2>Registration Menu</h2>
+		</div>
+		<br>
+		<div class="inputs">
+			<ion-item >
+				<ion-label fixed>Nama Lengkap :</ion-label>
+				<ion-input type="text"  (input)="inputnama($event)"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label fixed>Alamat :</ion-label>
+				<ion-input type="text" class="alamat"  (input)="inputalamat($event)"></ion-input>
+			</ion-item>
+			<ion-item>
+		        <ion-label>Kecamatan</ion-label>
+		        <ion-select  [(ngModel)]="kecamatan" (ionChange)="optionsFn()">
+		            <ion-select-option value="Asemrowo">Asemrowo</ion-select-option>
+		            <ion-select-option value="Benowo">Benowo</ion-select-option>
+		            <ion-select-option value="Bubutan">Bubutan</ion-select-option>
+		            <ion-select-option value="Bulak">Bulak</ion-select-option>
+		            <ion-select-option value="Dukuh Paki">Dukuh Pakis</ion-select-option>
+		            <ion-select-option value="Gayungan">Gayungan</ion-select-option>
+		            <ion-select-option value="Genteng">Genteng</ion-select-option>
+		            <ion-select-option value="Gubeng">Gubeng</ion-select-option>
+		            <ion-select-option value="Gunung Anyar">Gunung Anyar</ion-select-option>
+		            <ion-select-option value="Jambangan">Jambangan</ion-select-option>
+		            <ion-select-option value="Karang Pilang">Karang Pilang</ion-select-option>
+		            <ion-select-option value="Kenjeran">Kenjeran</ion-select-option>
+		            <ion-select-option value="Krembangan">Krembangan</ion-select-option>
+		            <ion-select-option value="Lakarsantri">Lakarsantri</ion-select-option>
+		            <ion-select-option value="Mulyorejo">Mulyorejo</ion-select-option>
+		            <ion-select-option value="Pabean Cantikan">Pabean Cantikan</ion-select-option>
+		            <ion-select-option value="Pakal">Pakal</ion-select-option>
+		            <ion-select-option value="Rungkut">Rungkut</ion-select-option>
+		            <ion-select-option value="Sambikerep">Sambikerep</ion-select-option>
+		            <ion-select-option value="Sawahan">Sawahan</ion-select-option>
+		            <ion-select-option value="Semampir">Semampir</ion-select-option>
+		            <ion-select-option value="Simokerto">Simokerto</ion-select-option>
+		            <ion-select-option value="Sukolilo">Sukolilo</ion-select-option>
+		            <ion-select-option value="Sukomanunggal">Sukomanunggal</ion-select-option>
+		            <ion-select-option value="Tambaksari">Tambaksari</ion-select-option>
+		            <ion-select-option value="Tandes">Tandes</ion-select-option>
+		            <ion-select-option value="Tegalsari">Tegalsari</ion-select-option>
+		            <ion-select-option value="Tenggilis Mejoyo">Tenggilis Mejoyo</ion-select-option>
+		            <ion-select-option value="Wiyung">Wiyung</ion-select-option>
+		            <ion-select-option value="Wonocolo">Wonocolo</ion-select-option>
+		            <ion-select-option value="Wonokromo">Wonokromo</ion-select-option>
+		        </ion-select>
+        	</ion-item>
+			<ion-item>
+				<ion-label fixed>No Telp :</ion-label>
+				<ion-input type="Text"  (input)="inputnotelp($event)"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label id="profile_image">Profile Photo :</ion-label>
+				<ion-input type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
+				
+			</ion-item>
+			<ion-item>
+				<img src={{img}} alt="">
+			</ion-item>	
+			<br>
+
+				<h4>Anda Register Sebagai : </h4>
+				<br>				
+				<button *ngIf="parent == true" class="button" ion-button block style=" background: blue;"> PARENT<br><ion-icon name="people" style="font-size: 40px;"></ion-icon></button>
+				<button *ngIf="parent == false"  class="button" ion-button block (click)="active_parent()" > PARENT<br><ion-icon name="people" style="font-size: 40px;"></ion-icon></button>
+				<button *ngIf="school == true" class="button" ion-button block style=" background: blue;">School Admin<br><ion-icon name="school" style="font-size: 40px;"></ion-icon></button>				
+				<button *ngIf="school == false"  class="button" ion-button block (click)="active_school()"> School Admin<br><ion-icon name="school" style="font-size: 40px;"></ion-icon></button>
+				<br><br><br><br>
+				<button class="register" ion-button block (click)="register()">Register Now</button>	
+
+		</div>
+	</div>
+	
+</ion-content>

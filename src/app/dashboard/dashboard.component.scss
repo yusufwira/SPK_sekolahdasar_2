@@ -1,0 +1,91 @@
+.footer{
+	font-size:40px;
+}
+
+ion-icon{
+	font-size:25px;
+}
+
+.bg{
+	 height: 40%;
+     width: 100%;
+     padding: 10px;
+  	 border-bottom-left-radius: 30px;
+  	 border-bottom-right-radius: 30px;
+	 background:  linear-gradient(90deg, rgba(176,0,219,1) 0%, rgba(106,0,255,1) 47%, rgba(179,0,255,1) 100%);
+}
+
+.card{
+	 height: 80px;
+     width: 85%;
+     border-radius:50px;
+}
+
+.atas{
+	height: 45px;
+    width: 90%;
+    border-radius:20px;
+	background:white;
+	color:black;
+	text-align: left;
+	font-size: 30px;
+}
+
+.warna{
+	background:#454E9E;
+	color:white;
+	ion-icon{
+		font-size:50px;
+	}
+}
+
+.warna1{
+	background:#b24dd1;
+	color:white;
+	ion-icon{
+		font-size:50px;
+	}
+}
+.warna2{
+	background:#4dd1c8;
+	color:white;
+	ion-icon{
+		font-size:50px;
+	}
+}
+
+.warna3{
+	background:#ffbd2e;
+	color:white;
+	ion-icon{
+		font-size:50px;
+	}
+}
+
+.warna4{
+	background:#2eafff;
+	color:white;
+	ion-icon{
+		font-size:50px;
+	}
+}
+.warna5{
+	background:#e66109;
+	color:white;
+	ion-icon{
+		font-size:50px;
+	}
+}
+
+
+.jumlah{
+	color:white;
+	text-align:left;
+	right:0;
+	margin-left:7%;
+	font-size:25px;
+	p{
+		color:white;
+	}
+}
+

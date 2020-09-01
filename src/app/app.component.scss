@@ -1,0 +1,46 @@
+.ion-list{
+	background:#383a3e;
+}
+
+.bar.bar-profile {	
+	
+    height: 170px;
+}
+
+.bar .profile {
+    top: 0;
+    z-index: 0;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    padding-top: 15px;
+    text-align:center;
+
+}
+
+.profile .name {
+    color: black;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    text-align:center;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    margin-top:10%;
+    margin-left:35%;
+    left:30%;
+}
+
+.menu .has-header
+{
+    top: 169px;
+}
+
+img{
+    width: 30%;
+}
+
+

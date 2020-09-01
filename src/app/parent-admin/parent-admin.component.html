@@ -1,0 +1,67 @@
+
+<ion-content text-center>
+
+	<div class="bg">
+    <ion-buttons slot="start">
+        <ion-menu-button color="light"></ion-menu-button> 
+    </ion-buttons>
+    <div class="header">
+      <h1 >1</h1>
+      <h1 >Orang Tua</h1>
+    </div >
+
+ 
+         <ion-card class="atas">       
+          <ion-card-content >                 
+              <ion-item>
+                <ion-icon name="search"></ion-icon> &nbsp;
+                <ion-input type="text" placeholder="Search"> </ion-input>  
+              </ion-item>
+          </ion-card-content>
+        </ion-card>
+     
+
+    <ion-card color="light" class="card" *ngFor="let data of datas">
+          <ion-row class="card-content">
+            <ion-col size="4">
+              <div>
+                <img src="http://localhost/ta_backend/Auth/profile/{{data.username}}/{{data.photo}}" alt=""> &nbsp;
+              </div>
+              </ion-col>
+            <ion-col>
+              <ion-row>
+                <div class="nama">
+                  {{data.nama_user}}
+                </div> 
+                
+              </ion-row>
+              <div>
+                {{data.kecamatan}}
+              </div>
+              
+              <br>
+              <ion-row class="card-action">  
+                            
+                <ion-button color="success"  routerLink="/parent-view/{{data.id_user}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
+                <ion-button color="warning"><ion-icon name="create"></ion-icon></ion-button> &nbsp;
+                <ion-button color="danger" (click)="peringatan(data.id_user)"><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
+              </ion-row>     
+            </ion-col>
+          </ion-row>                          
+    </ion-card>
+
+  </div> 
+  
+ 
+</ion-content>
+
+
+  <ion-fab horizontal="end" vertical="end" slot="fixed" class="fab" routerLink="/sekolah-create">
+    <ion-fab-button color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+
+

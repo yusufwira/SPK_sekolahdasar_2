@@ -1,0 +1,192 @@
+<ion-header >
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button> &nbsp;&nbsp;&nbsp;&nbsp;
+    </ion-buttons>
+    <ion-title >
+      Ubah Sekolah  
+    </ion-title>   
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div padding >
+    <h2><b>Informasi Sekolah</b></h2>
+    <h5>Nama Sekolah :</h5>
+    <ion-input type="text" placeholder="Ex: SD Gading 1" (input)="inputNama($event)" value="{{nama_sekolah}}"></ion-input>
+    <h5>Alamat Sekolah :</h5>
+    <ion-input type="text" placeholder="Ex: Jl. Babatan 3 no 1 " (input)="inputAlamat($event)" value="{{alamat_sekolah}}"></ion-input>
+    <h5>Telp :</h5>
+    <ion-input type="text" placeholder="Ex: (031) 832xxx " (input)="inputTelp($event)" value="{{no_telp}}"></ion-input>
+    <h5>Kecamatan :</h5>
+    <ion-select placeholder="Select One" [(ngModel)]="kecamatan" (ionChange)="optionsKecamatan()" >
+      <ion-select-option value="Asemrowo">Asemrowo</ion-select-option>
+      <ion-select-option value="Benowo">Benowo</ion-select-option>
+      <ion-select-option value="Bubutan">Bubutan</ion-select-option>
+      <ion-select-option value="Bulak">Bulak</ion-select-option>
+      <ion-select-option value="Dukuh Pakis">Dukuh Pakis</ion-select-option>
+      <ion-select-option value="Gayungan">Gayungan</ion-select-option>
+      <ion-select-option value="Genteng">Genteng</ion-select-option>
+      <ion-select-option value="Gubeng">Gubeng</ion-select-option>
+      <ion-select-option value="Gunung Anyar">Gunung Anyar</ion-select-option>
+      <ion-select-option value="Jambangan">Jambangan</ion-select-option>
+      <ion-select-option value="Karang Pilang">Karang Pilang</ion-select-option>
+      <ion-select-option value="Kenjeran">Kenjeran</ion-select-option>
+      <ion-select-option value="Krembangan">Krembangan</ion-select-option>
+      <ion-select-option value="Lakarsantri">Lakarsantri</ion-select-option>
+      <ion-select-option value="Mulyorejo">Mulyorejo</ion-select-option>
+      <ion-select-option value="Pabean Cantikan">Pabean Cantikan</ion-select-option>
+      <ion-select-option value="Pakal">Pakal</ion-select-option>
+      <ion-select-option value="Rungkut">Rungkut</ion-select-option>
+      <ion-select-option value="Sambikerep">Sambikerep</ion-select-option>
+      <ion-select-option value="Sawahan">Sawahan</ion-select-option>
+      <ion-select-option value="Semampir">Semampir</ion-select-option>
+      <ion-select-option value="Simokerto">Simokerto</ion-select-option>
+      <ion-select-option value="Sukolilo">Sukolilo</ion-select-option>
+      <ion-select-option value="Sukomanunggal">Sukomanunggal</ion-select-option>
+      <ion-select-option value="Tambaksari">Tambaksari</ion-select-option>
+      <ion-select-option value="Tandes">Tandes</ion-select-option>
+      <ion-select-option value="Tegalsari">Tegalsari</ion-select-option>
+      <ion-select-option value="Tenggilis Mejoyo">Tenggilis Mejoyo</ion-select-option>
+      <ion-select-option value="Wiyung">Wiyung</ion-select-option>
+      <ion-select-option value="Wonocolo">Wonocolo</ion-select-option>
+      <ion-select-option value="Wonokromo">Wonokromo</ion-select-option>
+    </ion-select>
+    <h5>Agama yang diajarkan :</h5>
+    <ion-select placeholder="Select One" [(ngModel)]="agama" (ionChange)="optionsAgama()" >
+      <ion-select-option value="All">Semua</ion-select-option>
+      <ion-select-option value="Budha">Budha</ion-select-option>
+      <ion-select-option value="Hindu">Hindu</ion-select-option>
+      <ion-select-option value="Protestan">Protestan</ion-select-option>
+      <ion-select-option value="Katolik">Katolik</ion-select-option>
+      <ion-select-option value="Konghucu">Konghucu</ion-select-option>
+      <ion-select-option value="Islam">Islam</ion-select-option>
+    </ion-select>
+    <h5>Akreditasi :</h5>
+    <ion-select placeholder="Select One" [(ngModel)]="akreditasi" (ionChange)="optionsAkreditasi()" >
+      <ion-select-option value="94">94</ion-select-option>
+      <ion-select-option value="A">A</ion-select-option>
+      <ion-select-option value="B">B</ion-select-option>
+      <ion-select-option value="Belum Akreditasi">Belum Akreditasi</ion-select-option>
+      <ion-select-option value="Belum Terakreditasi">Belum Terakreditasi</ion-select-option>
+      <ion-select-option value="C">C</ion-select-option>
+      <ion-select-option value="TT">TT</ion-select-option>
+    </ion-select>
+    <h5>Tahun Akreditasi:</h5>
+    <ion-select placeholder="Select One" [(ngModel)]="tahun_akreditasi" (ionChange)="optionsTahunAkre()" >
+      <ion-select-option value="2013">2013</ion-select-option>
+      <ion-select-option value="2014">2014</ion-select-option>
+      <ion-select-option value="2015">2015</ion-select-option>
+      <ion-select-option value="2016">2016</ion-select-option>
+      <ion-select-option value="2017">2017</ion-select-option>
+      <ion-select-option value="2018">2018</ion-select-option>
+      <ion-select-option value="2019">2019</ion-select-option>
+      <ion-select-option value="2020">2020</ion-select-option>
+    </ion-select>
+    <h5>Nama Kepala Sekolah :</h5>
+    <ion-input type="text"  (input)="inputKepalaSekolah($event)" value="{{nama_kepala_sekolah}}"></ion-input>
+    <h5>Jumlah Guru :</h5>
+    <ion-input type="text"  (input)="inputGuru($event)" value="{{guru}}"></ion-input>
+    <h5>Jumlah Siswa Laki</h5>
+    <ion-input type="text"  (input)="inputLaki($event)" value="{{siswa_laki}}"></ion-input>
+    <h5>Jumlah Siswa Perempuan</h5>
+    <ion-input type="text"  (input)="inputPerempuan($event)" value="{{siswa_perempuan}}"></ion-input>
+    <h5>Kurikulum</h5>
+    <ion-input type="text" placeholder="KTSP" (input)="inputKurikulum($event)" value="{{kurikuklum}}"></ion-input>
+    <h5>Jam Sekolah</h5>
+    <ion-input type="text" placeholder="07.00-16.00 " (input)="inputJamSekolah($event)" value={{jam_sekolah}}></ion-input>
+    <h2><b>Fasilitas Sekolah</b></h2>
+    <ion-radio-group value="internet" [(ngModel)]="internet" (ionChange)="optionsInternet()">
+      <ion-list-header>
+        <h5>Internet</h5>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Ada</ion-label>
+          <ion-radio slot="start" color="success" value="ya"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Tidak</ion-label>
+          <ion-radio slot="start" color="danger"  value="tidak"></ion-radio>
+        </ion-item>
+    </ion-radio-group>
+
+    <ion-radio-group value="ruangAc" [(ngModel)]="ruangAc" (ionChange)="optionsAc()">
+      <ion-list-header>
+        <h5>Ruangan ber AC</h5>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Ya</ion-label>
+          <ion-radio slot="start" color="success" value="ya"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Tidak</ion-label>
+          <ion-radio slot="start" color="danger"  value="tidak"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+      <ion-radio-group value="Listrik" [(ngModel)]="listrik" (ionChange)="optionsListrik()" >
+        <ion-list-header>
+          <h5>Listrik</h5>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>Ada</ion-label>
+            <ion-radio slot="start" color="success" value="ya"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Tidak</ion-label>
+            <ion-radio slot="start" color="danger"  value="tidak"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        <ion-item *ngIf="daya == true">
+          <ion-label>Daya listrik : </ion-label>
+          <ion-input placeholder="ex : 900 - 2000" (input)="inputDayaListrik($event)" value="{{daya_listrik}}"></ion-input> WATT
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Luas Tanah : </ion-label>
+          <ion-input placeholder="ex : 25,000" (input)="inputLuasTanah($event)" value="{{luas_tanah}}"></ion-input> M <sup>2</sup>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Jumlah Kelas : </ion-label>
+          <ion-input placeholder="ex : 100"(input)="inputJumlahKelas($event)" value="{{kelas}}"></ion-input> Kelas
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Jumlah Laboratorium : </ion-label>
+          <ion-input placeholder="2" (input)="inputJumlahLab($event)" value="{{lab}}"></ion-input> Laboratorium
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Jumlah Perpustakaan : </ion-label>
+          <ion-input placeholder="2" (input)="inputPerpus($event)" value ="{{perpus}}"></ion-input> Perpustakaan
+        </ion-item>
+
+        <ion-item>
+          <ion-label><b>Letak Sekolah</b> </ion-label>    
+        </ion-item> 
+
+        <ion-item>
+          <ion-label>Koordinat X : </ion-label> 
+          <ion-input placeholder="7.908983" (input)="inputX($event)" value="{{X}}"></ion-input> <br>
+          <ion-label>Koordinat Y : </ion-label> 
+          <ion-input placeholder="-6.908983" (input)="inputY($event)"  value="{{Y}}"></ion-input> 
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Keterangan Tambahan : </ion-label>
+          <ion-textarea (input)="inputKeterangan($event)" value="{{keterangan}}"></ion-textarea>
+        </ion-item>
+
+        <ion-button color="tertiary" (click)="Simpan()">
+          Simpan
+        </ion-button>
+     
+  </div>
+</ion-content>

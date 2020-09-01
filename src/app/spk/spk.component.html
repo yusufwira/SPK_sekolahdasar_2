@@ -1,0 +1,221 @@
+
+<ion-content class="content" >
+  <div class="bg" >
+	  <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button> 
+    </ion-buttons>
+    <h1 class="title">Pemilihan Sekolah <br> Dasar</h1>  
+    <!-- <p>Proses pemilihan sekolah dasar pada fitur ini menggunakan metode AHP yang dimana pengguna dapat memilih kriteria yang di inginkan dan sekolah yang dinginkan lalu dibandingkan berdasarkan masing-masing kirteria </p> -->
+    <ion-card class="progres-bar">
+      <h3>Proses Pemilihan</h3>
+      <ion-progress-bar color="tertiary" value={{prog_bar}} ></ion-progress-bar>
+    </ion-card>  
+  </div>
+  <div class="content">
+    <ion-slides  #slides  pager="false">
+
+      <!-- section kriteria -->
+      <ion-slide>
+        <div>
+          <ion-card padding color="tertiary" class="header">
+            <ion-row>
+              <ion-col size="3">
+                <img src="assets/icon-boy.png" alt="">
+              </ion-col>
+              <ion-col>
+                <h3>Masukan Kriteria yang anda inginkan </h3>
+              </ion-col>
+            </ion-row>           
+          </ion-card>
+       
+          <ion-list padding>           
+            <ion-item *ngFor ="let data of datas_kriteria">
+              <ion-checkbox color="tertiary"  slot="start" (click) = "getValue_kriteria(data.nama_kriteria)"></ion-checkbox>
+              <ion-label>{{data.nama_kriteria}}</ion-label>
+            </ion-item>                       
+          </ion-list>
+       
+          <ion-card class="btn-next" color="tertiary" (click)="progres(0.5); slides.slideNext() ">
+            <h3>Lanjutkan</h3>
+          </ion-card>
+        </div>
+       
+      </ion-slide>
+
+      <!-- section alternatif -->
+      <ion-slide padding>
+        <div>
+        <ion-card padding  class="header h2">
+          <ion-row>
+            <ion-col size="3">
+              <img src="assets/icon-girl.png" alt="">
+            </ion-col>
+            <ion-col>
+              <h3>Pilih Sekolah sebagai pertimbangan </h3>
+              
+            </ion-col>
+          </ion-row>  
+          <ion-row class="pilihan">
+            <li>
+              <ul *ngFor ="let data of arr_sekolah; let i=index">
+                <h6>{{i+1}}. {{data}}</h6>
+              </ul>
+            </li>
+          </ion-row>         
+        </ion-card>
+        
+        <ion-card  class="cari">
+          <ion-row>
+            <ion-col>
+              <ion-input placeholder="Cari Nama Sekolah"></ion-input>
+            </ion-col>
+            <ion-col size="3">
+              <ion-icon name="search"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+
+
+          <div *ngFor ="let data of datas_sekolah">        
+            <ion-card  class="list_sekolah" >
+              <ion-row>
+                <ion-col size="4.9">
+                  <img src="http://localhost/ta_backend/sekolah/image/{{data.username}}/{{data.nama_foto}}.{{data.extention}}" alt="">
+                </ion-col>
+                <ion-col>
+                  <ion-row>
+                    <h6><b>{{data.nama_sekolah}}</b></h6>
+                    <a>{{data.alamat_sekolah}}</a>
+                    {{data.notelp_sekolah}}
+                    {{data.koor_X}}
+                  </ion-row>
+                  <ion-row class="left">
+                    <ion-col>
+                      <ion-icon name="star" class="star"></ion-icon> {{data.jumlah_like}}
+                    </ion-col>
+                    <ion-col>
+                      <ion-icon name="thumbs-up" class="thumbs-up"></ion-icon> {{data.jumlah_komeh}} Review
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <ion-card class="button-card"  routerLink="/sekolah-view/{{data.idinfo_sekolah}}">
+                        <p>Lihat</p>
+                      </ion-card>
+                    </ion-col>  
+                    <ion-col>
+                      <ion-card color="tertiary" class="button-card" (click) = "getValue_sekolah(data.nama_sekolah)">
+                        <p>Pilih</p>
+                      </ion-card>
+                      
+                    </ion-col>          
+                  </ion-row>
+                  
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </div>
+          <ion-card class="btn-next" color="tertiary" (click)="Proses(); slides.slideNext() ">
+            <h3>Proses</h3>
+          </ion-card>
+      
+      </div>
+      </ion-slide>
+      <ion-slide>
+        <div padding class="hasil">
+        <h2>Hasil Rekomendasi</h2>
+        <ion-card>
+          <ion-card-header  color="tertiary">
+            Rekomendasi Sekolah
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row *ngFor ="let data of hasil_jadi ;let i=index">
+              <ion-col size =1>
+                {{i+1}}
+              </ion-col>
+              <div *ngFor ="let item of data | keyvalue">
+                <ion-col *ngIf ="item.key=='nama'">
+                  {{item.value}}
+                </ion-col>
+              </div>
+              <ion-col *ngIf ="i == 0"  class="right">
+                <ion-icon name="thumbs-up" color="success"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+        <ion-card class="btn-next" color="tertiary" (click)="slides.slideNext() ">
+          <h3>Lihat Perhitungan</h3>
+        </ion-card>
+      </div>
+        
+      </ion-slide>
+      <ion-slide>
+        <div padding class="hasil">
+        <h2>Kriteria</h2>
+        <ion-card >
+          <ion-card-header color="tertiary">
+            Vector Eigen 
+          </ion-card-header>
+          <ion-card-content >
+              <ion-row *ngFor ="let data of ve_kriteria ;let i=index">
+                <ion-col>
+                  {{arr_kriteria[i]}}
+                </ion-col>
+                <ion-col class="right">
+                  {{data}}
+                </ion-col>
+              </ion-row>
+          </ion-card-content>
+          <ion-card-content  class="cr">
+            <ion-row>
+              <ion-col >
+                Cosistancy Ratio
+              </ion-col>  
+              <ion-col class="persen">
+                {{cr_kriteria}}%
+              </ion-col>     
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+
+        <h2>Alternatif</h2>
+        <ion-card *ngFor="let item of alternatif | keyvalue">
+          <ion-card-header color="tertiary">
+            {{item.key}}
+          </ion-card-header>
+          <div *ngFor ="let data of item.value | keyvalue">
+              <ion-card-content *ngIf ="data.key=='0'">
+                  <ion-row *ngFor ="let result of data.value;let i=index">
+                    <ion-col>
+                      {{arr_sekolah[i]}}
+                    </ion-col>
+                    <ion-col class="right">
+                      {{result}}
+                    </ion-col>
+                  </ion-row>
+              </ion-card-content>
+              <ion-card-content *ngIf ="data.key=='1'"  class="cr">           
+                  <ion-row>
+                    <ion-col >
+                      Cosistancy Ratio
+                    </ion-col>  
+                    <ion-col class="persen">
+                      {{data.value}}%
+                    </ion-col>     
+                  </ion-row>              
+              </ion-card-content>
+          </div>
+        
+        </ion-card>
+       
+      </div>                                              
+      </ion-slide>
+      
+    </ion-slides>
+
+  </div>
+
+    
+
+</ion-content>

@@ -1,0 +1,167 @@
+<ion-header >
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title >
+      Detail Sekolah  
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<h2 style="text-align: center;"><b>{{nama_sekolah}}</b></h2>
+<ion-slides spaceBetween="10">
+  <ion-slide *ngFor="let foto of arr_foto">
+    <img src="http://localhost/ta_backend/sekolah/image/{{username}}/{{foto.nama_foto}}.{{foto.extention}}" alt="">
+  </ion-slide>
+</ion-slides>
+<br>
+<div padding class="information">
+  <ion-grid>
+    <!-- 1 -->
+    <ion-row>
+      <ion-col size="1">
+        <ion-icon color="danger" name="location-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="11">
+        {{alamat}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="1">
+        <ion-icon color="success" name="call-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="11" >
+        {{no_telp}}
+      </ion-col>
+    </ion-row>
+    <!-- 1 -->
+
+    <!-- 2 -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-card  style="border-top: 3px solid blueviolet">
+          <ion-card-header>
+            Agama yang Diajarkan : {{agama}}
+          </ion-card-header>
+        </ion-card>
+        <ion-card style="border-top: 3px solid blueviolet">
+          <ion-card-header>
+            Nama Kepala Sekolah : {{kepala_sekolah}}
+          </ion-card-header>
+        </ion-card>
+        <ion-card  style="border-top: 3px solid blueviolet">
+          <ion-card-header>
+            Jam Sekolah : {{jam}}
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- 2 -->
+
+    <ion-row *ngFor="let kriteria of arr_detail | keyvalue">
+      <ion-col size='12'>
+        <ion-card *ngIf ="kriteria.key != 'Lokasi'">
+          <ion-card-header color="tertiary">
+           {{kriteria.key}}
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item slot="start" *ngFor="let detail of kriteria.value | keyvalue">
+              {{detail.key}} : {{detail.value}}
+            </ion-item> 
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf ="kriteria.key == 'Lokasi'">
+          <ion-card-header color="tertiary">
+           {{kriteria.key}}
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item slot="start" >
+              Jarak dari Lokasi : {{jarak}} km
+            </ion-item> 
+          </ion-card-content>
+        </ion-card>
+      </ion-col>      
+    </ion-row>
+
+    <ion-row>
+      <ion-col size='12'>
+        <ion-card >
+          <ion-card-header color="tertiary">
+            Ekstrakurikuler
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item slot="start" *ngFor="let data of arr_eks">
+              {{data.nama}}
+            </ion-item>          
+          </ion-card-content>
+        </ion-card>
+      </ion-col>      
+    </ion-row>
+   
+
+    <!-- maps -->
+    <ion-row>
+      <ion-col size='12'>
+        <div id="mapId" style="height:300px; boder:1px solid black"></div>
+      </ion-col>      
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size='12'>
+        <ion-card >
+          <ion-card-header color="tertiary">
+            Rating
+          </ion-card-header>
+          <ion-card-content>          
+            <ion-item class="star">
+              <!-- <ion-icon name="star" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp; -->
+              <ion-icon *ngIf="rating1 == false" name="star-outline" style="font-size: 40px;" (click)="rating(1)"></ion-icon> 
+              <ion-icon *ngIf="rating1 == true" name="star"  (click)="rating(1)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+              <ion-icon *ngIf="rating2 == false" name="star-outline" style="font-size: 40px;" (click)="rating(2)"></ion-icon> 
+              <ion-icon *ngIf="rating2 == true" name="star"  (click)="rating(2)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+              <ion-icon *ngIf="rating3 == false" name="star-outline" style="font-size: 40px;" (click)="rating(3)"></ion-icon> 
+              <ion-icon *ngIf="rating3 == true" name="star"  (click)="rating(3)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+              <ion-icon *ngIf="rating4 == false" name="star-outline" style="font-size: 40px;" (click)="rating(4)"></ion-icon> 
+              <ion-icon *ngIf="rating4 == true" name="star"  (click)="rating(4)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+              <ion-icon *ngIf="rating5 == false" name="star-outline" style="font-size: 40px;" (click)="rating(5)"></ion-icon> 
+              <ion-icon *ngIf="rating5 == true" name="star"  (click)="rating(5)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+            </ion-item>                 
+          </ion-card-content>
+        </ion-card>
+      </ion-col>      
+    </ion-row>
+
+    <ion-row>
+      <ion-col size='12'>
+        <ion-card>
+          <ion-card-header color="tertiary">
+            Komentar
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-input type="text" placeholder="Tulis disini" slot="start" (input)="inputKomen($event)"></ion-input>
+              <ion-button  color="light" slot="end" (click)="kirimKomentar()">Kirim</ion-button>
+            </ion-item>
+            <br>
+            <div class="komen" *ngFor="let komen of arr_komen">
+             <b>{{komen.nama}}</b> <br>
+             <p slot="start">{{komen.review}}</p><i slot="end">{{komen.tanggal}}</i>
+             <br>
+            </div>
+            
+          </ion-card-content>
+        </ion-card>
+      </ion-col>      
+    </ion-row>
+
+  </ion-grid>
+
+</div>
+
+
+</ion-content>
+
+

@@ -1,0 +1,229 @@
+<ion-header >
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button> &nbsp;&nbsp;&nbsp;&nbsp;
+    </ion-buttons>
+    <ion-title >
+      Tambah Sekolah
+    </ion-title>   
+  </ion-toolbar>
+</ion-header>
+
+
+<!-- class="swiper-no-swiping" -->
+<ion-content padding>
+  <ion-slides  #slides  pager="false" >
+
+    <ion-slide>
+      <h2>Info Sekolah</h2>
+      <ion-item>
+        <ion-label position="floating">Nomor Pokok Sekolah Nasional (NPSN)</ion-label>
+        <ion-input type="text" (input)="inputnpsn($event)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nama Sekolah</ion-label>
+        <ion-input type="text" (input)="inputnama($event)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Alamat Sekolah</ion-label>
+        <ion-input type="text" (input)="inputalamat($event)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">No Telp Sekolah</ion-label>
+        <ion-input type="text" (input)="inputtelp($event)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Kecamatan</ion-label>
+        <ion-select [(ngModel)]="kecamatan" (ionChange)="optionsKecamatan()" >
+          <ion-select-option value="Asemrowo">Asemrowo</ion-select-option>
+          <ion-select-option value="Benowo">Benowo</ion-select-option>
+          <ion-select-option value="Bubutan">Bubutan</ion-select-option>
+          <ion-select-option value="Bulak">Bulak</ion-select-option>
+          <ion-select-option value="Dukuh Pakis">Dukuh Pakis</ion-select-option>
+          <ion-select-option value="Gayungan">Gayungan</ion-select-option>
+          <ion-select-option value="Genteng">Genteng</ion-select-option>
+          <ion-select-option value="Gubeng">Gubeng</ion-select-option>
+          <ion-select-option value="Gunung Anyar">Gunung Anyar</ion-select-option>
+          <ion-select-option value="Jambangan">Jambangan</ion-select-option>
+          <ion-select-option value="Karang Pilang">Karang Pilang</ion-select-option>
+          <ion-select-option value="Kenjeran">Kenjeran</ion-select-option>
+          <ion-select-option value="Krembangan">Krembangan</ion-select-option>
+          <ion-select-option value="Lakarsantri">Lakarsantri</ion-select-option>
+          <ion-select-option value="Mulyorejo">Mulyorejo</ion-select-option>
+          <ion-select-option value="Pabean Cantikan">Pabean Cantikan</ion-select-option>
+          <ion-select-option value="Pakal">Pakal</ion-select-option>
+          <ion-select-option value="Rungkut">Rungkut</ion-select-option>
+          <ion-select-option value="Sambikerep">Sambikerep</ion-select-option>
+          <ion-select-option value="Sawahan">Sawahan</ion-select-option>
+          <ion-select-option value="Semampir">Semampir</ion-select-option>
+          <ion-select-option value="Simokerto">Simokerto</ion-select-option>
+          <ion-select-option value="Sukolilo">Sukolilo</ion-select-option>
+          <ion-select-option value="Sukomanunggal">Sukomanunggal</ion-select-option>
+          <ion-select-option value="Tambaksari">Tambaksari</ion-select-option>
+          <ion-select-option value="Tandes">Tandes</ion-select-option>
+          <ion-select-option value="Tegalsari">Tegalsari</ion-select-option>
+          <ion-select-option value="Tenggilis Mejoyo">Tenggilis Mejoyo</ion-select-option>
+          <ion-select-option value="Wiyung">Wiyung</ion-select-option>
+          <ion-select-option value="Wonocolo">Wonocolo</ion-select-option>
+          <ion-select-option value="Wonokromo">Wonokromo</ion-select-option>
+      </ion-select>        
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Agama</ion-label>
+        <ion-select  [(ngModel)]="agama" (ionChange)="optionsAgama()" >
+          <ion-select-option value="All">Semua</ion-select-option>
+          <ion-select-option value="Budha">Budha</ion-select-option>
+          <ion-select-option value="Hindu">Hindu</ion-select-option>
+          <ion-select-option value="Protestan">Protestan</ion-select-option>
+          <ion-select-option value="Katolik">Katolik</ion-select-option>
+          <ion-select-option value="Konghucu">Konghucu</ion-select-option>
+          <ion-select-option value="Islam">Islam</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Nama Kepala Sekolah</ion-label>
+        <ion-input type="text" (input)="inputkepala($event)"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Jam Sekolah</ion-label>
+        <ion-input type="text" placeholder="07.00-12.00" (input)="inputjam($event)"></ion-input>
+      </ion-item>
+      
+      <ion-label position="floating">Foto Sekolah</ion-label>
+      <ion-item>        
+        <div *ngIf="img1 =='' " class="foto" >
+          <ion-icon class="coba" name="add" color="primary" ></ion-icon>
+          <ion-input class="filegambar" type="file" accept="image/*" (change)="changeListener($event,1)"></ion-input>
+        </div>
+        <div *ngIf="img1" class="foto" >
+          <img src="{{img1}}" class="imgs">
+        </div>
+      
+        <div  *ngIf="img2 =='' " class="foto">
+          <ion-icon class="coba" name="add" color="primary" ></ion-icon>
+          <ion-input class="filegambar" type="file" accept="image/*" (change)="changeListener($event,2)"></ion-input>
+        </div>
+        <div *ngIf="img2" class="foto" >
+          <img src="{{img2}}" class="imgs">
+        </div>
+      
+        <div  *ngIf="img3 =='' " class="foto">
+          <ion-icon class="coba" name="add" color="primary" ></ion-icon>
+          <ion-input class="filegambar" type="file" accept="image/*" (change)="changeListener($event,3)"></ion-input>
+        </div>
+        <div *ngIf="img3" class="foto" >
+          <img src="{{img3}}" class="imgs">
+        </div>
+      
+        <div  *ngIf="img4 =='' " class="foto">
+          <ion-icon class="coba" name="add" color="primary" ></ion-icon>
+          <ion-input class="filegambar" type="file" accept="image/*" (change)="changeListener($event,4)"></ion-input>
+        </div>
+        <div *ngIf="img4" class="foto" >
+          <img src="{{img4}}" class="imgs">
+        </div>
+      
+      </ion-item>
+      
+      
+
+      <ion-card class="btn-next" color="tertiary" (click)="Save_info_sekolah(); slides.slideNext()" >
+        <h3>Save</h3>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide *ngFor="let kriteria of data_kriteria">
+      <h2>{{kriteria.nama_kriteria}}</h2>
+
+      <div *ngFor="let detail of detail_kriteria">
+        <div *ngIf="kriteria.nama_kriteria == detail.nama_kriteria">
+          <ion-item *ngIf="detail.detail != 'Internet' && detail.detail != 'Akreditasi' && detail.detail != 'Tahun Kurikulum'">
+            <ion-label position="floating">{{detail.detail}}</ion-label>
+            <ion-input (input)="inputAll($event, detail.id_detail)"></ion-input>
+          </ion-item>
+
+          <ion-radio-group *ngIf="detail.detail == 'Internet'" [(ngModel)]="internet" (ionChange)="optionsInternet(detail.id_detail)">
+              <ion-list-header>
+                <ion-label >{{detail.detail}}</ion-label>
+              </ion-list-header>
+              <ion-item>
+                <ion-label>Ada</ion-label>
+                <ion-radio slot="start" color="success" value="1"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Tidak Ada</ion-label>
+                <ion-radio slot="start" color="danger"  value="0"></ion-radio>
+              </ion-item>
+          </ion-radio-group>
+          <ion-item *ngIf="detail.detail == 'Akreditasi'">
+            <ion-label position="floating">{{detail.detail}}</ion-label>
+            <ion-select  [(ngModel)]="akreditasi" (ionChange)="optionsAkreditasi(detail.id_detail)" >
+              <ion-select-option value="94">94</ion-select-option>
+              <ion-select-option value="A">A</ion-select-option>
+              <ion-select-option value="B">B</ion-select-option>
+              <ion-select-option value="Belum Akreditasi">Belum Akreditasi</ion-select-option>
+              <ion-select-option value="Belum Terakreditasi">Belum Terakreditasi</ion-select-option>
+              <ion-select-option value="C">C</ion-select-option>
+              <ion-select-option value="TT">TT</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="detail.detail == 'Tahun Kurikulum'">
+            <ion-label position="floating">{{detail.detail}}</ion-label>
+            <ion-select  [(ngModel)]="tahunAkre" (ionChange)="optionsTahunAkre(detail.id_detail)" >
+              <ion-select-option value="2013">2013</ion-select-option>
+              <ion-select-option value="2014">2014</ion-select-option>
+              <ion-select-option value="2015">2015</ion-select-option>
+              <ion-select-option value="2016">2016</ion-select-option>
+              <ion-select-option value="2017">2017</ion-select-option>
+              <ion-select-option value="2018">2018</ion-select-option>
+              <ion-select-option value="2019">2019</ion-select-option>
+              <ion-select-option value="2020">2020</ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+        </div>
+      </div>
+
+      <ion-card *ngIf="kriteria.nama_kriteria != 'Ekstrakurikuler'" class="btn-next" color="tertiary" (click)="Save_info_kriteria(); slides.slideNext()">
+        <h3>Save</h3>
+      </ion-card>
+
+
+      <!-- Ekstrakurikuler -->
+      <div *ngIf="kriteria.nama_kriteria == 'Ekstrakurikuler'">
+        <ion-card>
+          <ion-card-header>
+            Pilih Ekstrakurikuler
+          </ion-card-header>
+          <ion-card-content>
+            <div class="tambah" routerLink="/ekstrakurikuler-create/sekolah-create/{{idSekolah}}">
+              <ion-icon name="add"></ion-icon>
+              <a>Tambah Ekstrakurikuler</a>
+            </div>
+            <ion-item *ngFor="let data of dataEkstra">
+              <ion-checkbox color="primary" slot="start" (click) = "getValue(data.id)"></ion-checkbox>
+              <ion-label>
+               {{data.nama_eks}}
+              </ion-label>
+            </ion-item>   
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      
+
+      <ion-card *ngIf="kriteria.nama_kriteria == 'Ekstrakurikuler'" class="btn-next" color="tertiary" (click)="save_ekstra(); slides.slideNext()">
+        <h3>Save</h3>
+      </ion-card>
+      
+
+      
+    </ion-slide>
+
+    
+
+  </ion-slides>
+</ion-content>

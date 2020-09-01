@@ -1,0 +1,98 @@
+<ion-header >
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button> &nbsp;&nbsp;&nbsp;&nbsp;
+    </ion-buttons>
+    <ion-title >
+      Halaman Utama  
+    </ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="bg-style">
+  <h2>Feature</h2>
+  <ion-slides spaceBetween="-18" >
+    <ion-slide>
+      <ion-card class="welcome-card" color="tertiary">
+        <ion-card-header >      
+          <ion-card-title class="header" style="font-size: 26px">School Finder</ion-card-title>
+        </ion-card-header>
+        <br>
+
+        <ion-card-content>
+            
+            Aplikasi pencarian sekolah dasar yang dapat membandingkan antar sekolah dengan metode sistem penunjan keputusan dengan metode <i>Analitycal Hirarcy Proccess</i>
+          
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+     <ion-slide>
+      <ion-card class="welcome-card" color="danger">
+        <ion-card-header>      
+          <ion-card-title> 
+            <ion-item href="https://ionicframework.com/docs/" color="danger" >
+              <ion-icon slot="start" name="Search" class="icon-first"></ion-icon>
+              <ion-label><b>Filter Pencarian<br> Sekolah</b></ion-label>  
+            </ion-item>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>
+           Pencarian Sekolah merupakan menu untuk mencari sekolah dasar swasta yang berada pada surabaya, pada menu ini terdapat filter-filter yang membantu pengguna
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+     <ion-slide>
+      <ion-card class="welcome-card" color="success">
+        <ion-card-header>      
+          <ion-card-title>
+            <ion-item href="https://ionicframework.com/docs/" color="success" >
+              <ion-icon slot="start" name="cog" class="icon-first"></ion-icon>
+              <ion-label><b>Pemilihan Sekolah Dasar</b></ion-label>  
+            </ion-item>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>        
+          <p>
+            Aplikasi pencarian sekolah dasar yang dapat membandingkan antar sekolah dengan metode sistem penunjan keputusan dengan metode <i>Analitycal Hirarcy Proccess</i>
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides> 
+
+  <ion-list lines="none">
+    <ion-list-header>
+      <h4><b>Menu</b></h4>
+    </ion-list-header>
+    <ion-item routerLink = "/daftarsekolah" >
+        <ion-icon slot="start" color="medium" name="list-outline" color="warning"></ion-icon>
+        <ion-label>Daftar Sekolah Dasar</ion-label>  
+    </ion-item>
+    <ion-item routerLink = "/spk">
+      <ion-icon slot="start" color="medium" name="cog" color="success"></ion-icon>
+      <ion-label>Sistem Penunjang <br>Keputusan</ion-label>
+    </ion-item>
+    <ion-item href="https://ionicframework.com/docs/layout/structure">
+      <ion-icon slot="start" color="medium" name="book" color="primary"></ion-icon>
+      <ion-label>Panduan Penggunaan</ion-label>
+    </ion-item>    
+  </ion-list>
+
+ 
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+     <ion-buttons slot="start">
+        &nbsp;&nbsp;<ion-icon name="home" class="footer"></ion-icon>
+    </ion-buttons>
+    <ion-buttons slot="end">
+        <ion-icon name="search" class="footer"></ion-icon>&nbsp;&nbsp;
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

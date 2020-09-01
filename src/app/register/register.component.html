@@ -1,0 +1,27 @@
+<ion-content>
+	<div class="bg" text-center>
+		<div class="head">
+			<h2>Registration Menu</h2>
+		</div>
+		<div class="inputs">
+			<ion-item class="username">
+				<ion-label fixed>Username :</ion-label>
+				<ion-input type="text" (input)="inputusername($event)"></ion-input>				
+			</ion-item>
+			<ion-item class="password">
+				<ion-label fixed >Password :</ion-label>
+				<ion-input type="password" (input)="inputpassword($event)"> </ion-input>
+			</ion-item>
+			<ion-item class="email">
+				<ion-label fixed>E-mail :</ion-label>
+				<ion-input type="email" (input)="inputemail($event)"></ion-input>
+			</ion-item>
+			<br>
+			
+			<button *ngIf="check == false" class="button" ion-button block disabled> NEXT >></button>
+			<button *ngIf="check == true" class="button" ion-button block routerLink="/register_info/{{username}}/{{password}}/{{email}}"> NEXT >></button>
+	
+			
+		</div>
+	</div>
+</ion-content>

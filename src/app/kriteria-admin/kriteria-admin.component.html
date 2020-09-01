@@ -1,0 +1,65 @@
+<ion-header >
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button> &nbsp;&nbsp;&nbsp;&nbsp;
+    </ion-buttons>
+    <ion-title >
+      Kriteria
+    </ion-title>
+   
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <h1>Daftar Kriteria</h1>
+    </ion-col>
+    <!-- <ion-col size="4">
+      <ion-card color="primary" class="set_bobot" routerLink="../kriteria-bobot">
+        <h3>set bobot</h3>
+      </ion-card>
+    </ion-col> -->
+  </ion-row>
+  <ion-list padding *ngFor="let data of datas">
+    <ion-item class="item">            
+      <ion-label>{{data.nama_kriteria}}</ion-label>
+      <ion-icon name="trash" slot="end" color="danger" (click)="peringatan(data.id)"></ion-icon>  
+    </ion-item>    
+  </ion-list>
+
+
+
+  <ion-fab horizontal="start" vertical="end" slot="fixed" class="fab" >
+    <ion-fab-button color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list >
+      <ion-card color="danger" class="fab-list" routerLink="/kriteria-create">
+        <ion-row>
+          <ion-col size="4">
+            <ion-icon name="add"></ion-icon>
+          </ion-col>  
+          <ion-col>
+            <p> Tambah Kriteria</p>
+          </ion-col>    
+        </ion-row>
+      </ion-card>     
+      <ion-card color="primary" class="fab-list-2"  routerLink="../kriteria-bobot">
+        <ion-row>
+          <ion-col size="4">
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-col>  
+          <ion-col>
+            <p> Set Bobot</p>
+          </ion-col>    
+        </ion-row>
+      </ion-card>        
+    </ion-fab-list>
+  </ion-fab>
+
+
+  
+</ion-content>
+
+
+

@@ -1,0 +1,107 @@
+
+<ion-content text-center>
+
+	<div class="bg">
+    <ion-buttons slot="start">
+        <ion-menu-button color="light"></ion-menu-button> 
+    </ion-buttons>
+    <div class="header">
+      <h1 >{{jumlah_sekolah}}</h1>
+      <h1 >Sekolah Dasar</h1>
+    </div >
+
+ 
+         <ion-card class="atas">       
+          <ion-card-content *ngIf="hak == 'Super_Admin'">                 
+              <ion-item>
+                <ion-icon name="search"></ion-icon> &nbsp;
+                <ion-input type="text" placeholder="Search" (input)="inputsearch($event)"> </ion-input>  
+              </ion-item>
+          </ion-card-content>
+        </ion-card>
+     
+
+    <ion-card color="light" class="card" *ngFor="let data of dataSekolah">
+          <ion-row class="card-content">
+            <ion-col size="4">
+              <div routerLink="/sekolah-view/{{data.npsn}}">
+                <img src="http://localhost/ta_backend/sekolah/image/{{data.username}}/{{data.nama_foto}}.{{data.extention}}" alt=""> &nbsp;
+              </div>
+              </ion-col>
+            <ion-col>
+              <ion-row>
+                <div class="nama">
+                  {{data.nama_sekolah}}
+                </div>
+              </ion-row>
+              <!-- <ion-row>
+                <ion-col>
+                  <ion-icon name="star" style="color: orange;"></ion-icon>
+                  {{data.jumlah_like}}
+                </ion-col>
+                <ion-col>
+                  <ion-icon name="thumbs-up"  style="color: blue;"></ion-icon>
+                  {{data.jumlah_komeh}} Review
+                </ion-col>
+              </ion-row> -->
+
+              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "Super_Admin"' class="card-action" >                                    
+                <ion-button color="success"  routerLink="/sekolah-view/{{data.idinfo_sekolah}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
+                <ion-button color="primary" (click)="validasi(data.idinfo_sekolah, 'Tervalidasi')">Terima</ion-button> 
+                <ion-button color="danger" (click)="validasi(data.idinfo_sekolah, 'Tertolak')">Tolak</ion-button> &nbsp;                
+              </ion-row> 
+
+              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "admin_sekolah"' class="card-action" >                                            
+                <p>Menunggu Konfirmasi dari Admin</p>
+              </ion-row> 
+           
+              <ion-row *ngIf='data.status_sekolah == "Tervalidasi"' class="card-action" >                            
+                <ion-button color="success"  routerLink="/sekolah-view/{{data.idinfo_sekolah}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
+                <ion-button color="warning" routerLink="/sekolah-update-choice/{{data.idinfo_sekolah}}"><ion-icon name="create"></ion-icon></ion-button> &nbsp;
+                <ion-button color="danger" (click)="peringatan(data.idinfo_sekolah)"><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
+              </ion-row>     
+            </ion-col>
+          </ion-row>                          
+    </ion-card>
+
+  </div> 
+
+  <ion-fab *ngIf="cek == false" horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-card color="danger" class="fab-list" routerLink="/sekolah-create">
+        <ion-row>
+          <ion-col size="4">
+            <ion-icon name="add"></ion-icon>
+          </ion-col>  
+          <ion-col>
+            <p> Tambah Sekolah</p>
+          </ion-col>    
+        </ion-row>
+      </ion-card>     
+      <!-- <ion-card *ngIf="hak == 'Super_Admin'"  color="primary" class="fab-list-2"  routerLink="/sekolah-bobot">
+        <ion-row>
+          <ion-col size="4">
+            <ion-icon name="arrow-forward"></ion-icon>
+          </ion-col>  
+          <ion-col>
+            <p> Set Bobot</p>
+          </ion-col>    
+        </ion-row>
+      </ion-card>   -->
+    </ion-fab-list>
+  </ion-fab>
+
+  
+  
+ 
+</ion-content>
+
+
+
+
+
+
+

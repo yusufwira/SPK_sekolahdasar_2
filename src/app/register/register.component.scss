@@ -1,0 +1,36 @@
+.bg{
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(160deg, #B627F2 30%, #10DFC8 70%);
+}
+.head{
+	position: absolute;
+    display: block;
+    color: #fff;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+ .inputs {
+        position: absolute;
+        display: block;        
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 95%;
+        top: 30%;
+        color: #fff;
+        opacity: 0.9;
+    }
+
+ .button{
+ 	width:50%;
+ 	height:50px;
+ 	color:white;
+ 	 background: #B013FE;
+ 	 border: 1px solid white;
+ 	 border-radius:10px;
+ }
+
+ 

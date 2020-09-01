@@ -1,0 +1,66 @@
+<ion-header >
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button> &nbsp;&nbsp;&nbsp;&nbsp;
+    </ion-buttons>
+    <ion-title >
+      Kriteria
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-card class="search">
+    <ion-row>
+      <ion-col>
+        <ion-input type="text" placeholder="cari" (input)="inputKey($event)"></ion-input>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon name="search"></ion-icon>
+      </ion-col>
+    </ion-row>
+    
+  </ion-card>
+  <ion-card  color="tertiary">
+    <ion-row >
+      <ion-col>
+        <p><b>Kriteria 1 - Kriteria 2</b></p>
+      </ion-col>
+      <ion-col size="3">
+        <p><b>Bobot</b></p>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-card padding class="card_bobot" *ngFor="let data of datas; let i = index">
+    <ion-row>
+      <ion-col>
+        <p>{{data.kriteria_1}} - {{data.kriteria_2}}</p>
+      </ion-col>
+      <ion-col size="3">
+        <ion-select value="{{data.bobot}}" (ionChange)="optionsFn($event,data.idkriteria_1,data.idkriteria_2)">
+          <ion-select-option value="0.1111111111111111">1/9</ion-select-option>
+          <ion-select-option value="0.125">1/8</ion-select-option>
+          <ion-select-option value="0.1428571428571429">1/7</ion-select-option>
+          <ion-select-option value="0.1666666666666667">1/6</ion-select-option>
+          <ion-select-option value="0.2">1/5</ion-select-option>
+          <ion-select-option value="0.25">1/4</ion-select-option>
+          <ion-select-option value="0.3333333333333333">1/3</ion-select-option>
+          <ion-select-option value="0.5">1/2</ion-select-option>
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+          <ion-select-option value="4">4</ion-select-option>
+          <ion-select-option value="5">5</ion-select-option>
+          <ion-select-option value="6">6</ion-select-option>
+          <ion-select-option value="7">7</ion-select-option>
+          <ion-select-option value="8">8</ion-select-option>
+          <ion-select-option value="9">9</ion-select-option>
+        </ion-select>
+      </ion-col>
+      
+    </ion-row>       
+  </ion-card>
+
+  <ion-button (click)="save()">
+    Simpan
+  </ion-button>
+</ion-content>
