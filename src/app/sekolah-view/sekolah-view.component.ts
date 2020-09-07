@@ -76,9 +76,7 @@ export class SekolahViewComponent implements OnInit {
       this.jam = data['jam'];
       this.username = data['username'];
       this.arr_foto = data['foto'];
-      this.loadmap(data['detail']['Lokasi']['koor_X'],data['detail']['Lokasi']['koor_Y'],this.nama_sekolah);
-      
-
+      this.loadmap(data['detail']['Lokasi']['koor_X'],data['detail']['Lokasi']['koor_Y'],this.nama_sekolah)
     });
 
     this.sekolah.DetailEkstra().subscribe((data) => {        

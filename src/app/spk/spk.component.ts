@@ -24,6 +24,9 @@ export class SpkComponent implements OnInit {
   arr_kriteria=[];
   arr_sekolah=[];
 
+  x="";
+  y="";
+  public jarak="";
   ngOnInit() {
     this.kriteria.dataKriteria().subscribe((data) => {      
       this.datas_kriteria = data;    
@@ -32,10 +35,12 @@ export class SpkComponent implements OnInit {
 
     this.sekolah.ListSekolah_ortu().subscribe((data) => {    
       this.datas_sekolah = data;   
-      console.log(data);          
+      console.log(data);      
+      console.log(this.datas_sekolah);    
      });
    
   }
+  
 
   progres(bar:String){
     this.prog_bar = bar;
@@ -60,7 +65,7 @@ export class SpkComponent implements OnInit {
   }
 
 
-  getValue_sekolah(value){
+  getValue_sekolah(value, x, y){
     this.pilih = value;
     var sama = false;
     for (let index = 0; index < this.arr_sekolah.length; index++) {
@@ -74,8 +79,33 @@ export class SpkComponent implements OnInit {
     else{
       this.arr_sekolah.push(this.pilih);
     }
-    
+
+    // this.locatePosition(x,y);
+    // console.log(this.jarak);
   }
+
+
+  locatePosition(x,y){
+    this.map.locate({setView:true}).on("locationfound", (e: any)=> {
+       this.newMarker = marker([x,y], {autoPan: 
+        true}).addTo(this.map);       
+         var markerFrom = marker([e.latitude,e.longitude]);
+         console.log(markerFrom)
+         var markerTo =  marker([x,y]);
+         var from = markerFrom.getLatLng();
+         var to = markerTo.getLatLng();
+         var jarak = this.getDistance(from, to);
+         console.log(jarak)
+         this.jarak = jarak.toString();
+    });
+  }
+
+  getDistance(from, to)
+  {
+    var jarak = (from.distanceTo(to)).toFixed(0)/1000;
+    return jarak;
+  }
+
 
   ve_kriteria = [];
   cr_kriteria = "";

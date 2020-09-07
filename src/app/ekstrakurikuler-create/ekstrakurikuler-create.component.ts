@@ -40,10 +40,10 @@ export class EkstrakurikulerCreateComponent implements OnInit {
      this.eks.inputEkstra().subscribe((data) => {      
       //console.log(data)
       if(data == "sudah"){
-        this.peringatan('Save Failed', 'Data has arrived at the database'); 
+        this.peringatan('Gagal', 'Data Gagal Disimpan'); 
       }
       else{
-        this.peringatan('Save Success', 'Data has been in save'); 
+        this.peringatan('Berhasil', 'Data Berhasil Disimpan'); 
       }
                     
     });    

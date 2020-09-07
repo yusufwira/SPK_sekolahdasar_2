@@ -18,7 +18,7 @@ export class SpkService {
     testData.append('nama',JSON.stringify(arr_kriteria)); 
     testData.append('sekolah', JSON.stringify(arr_sekolah)); 
     return this.http.post<any>
-    ("http://localhost/spk_backend/proses_hasil_2.php", testData);
+    ("http://localhost/spk_backend/proses_hasil_3.php", testData);
   }
 
   Coba(coba):Observable<any> {

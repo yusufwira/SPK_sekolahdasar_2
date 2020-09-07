@@ -87,8 +87,8 @@
                     <h6><b>{{data.nama_sekolah}}</b></h6>
                     <a>{{data.alamat_sekolah}}</a>
                     {{data.notelp_sekolah}}
-                    {{data.koor_X}}
                   </ion-row>
+                  
                   <ion-row class="left">
                     <ion-col>
                       <ion-icon name="star" class="star"></ion-icon> {{data.jumlah_like}}
@@ -104,7 +104,7 @@
                       </ion-card>
                     </ion-col>  
                     <ion-col>
-                      <ion-card color="tertiary" class="button-card" (click) = "getValue_sekolah(data.nama_sekolah)">
+                      <ion-card color="tertiary" class="button-card" (click) = "getValue_sekolah(data.nama_sekolah, data.koor_X, data.koor_Y)">
                         <p>Pilih</p>
                       </ion-card>
                       

@@ -102,7 +102,6 @@ file: File;
       this.user.kecamatan = this.kecamatan;
       this.user.hak = this.hak_akses;
       this.user.photo = this.namaPhoto;
-     
       this.user.Registrasi().subscribe((data) => {      
         console.log(data);
         this.peringatan(data);                

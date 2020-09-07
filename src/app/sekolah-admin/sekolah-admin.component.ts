@@ -7,6 +7,7 @@ import { ModalController } from '@ionic/angular';
 
 
 
+
 @Component({
   selector: 'app-sekolah-admin',
   templateUrl: './sekolah-admin.component.html',
@@ -69,6 +70,9 @@ export class SekolahAdminComponent implements OnInit {
 
    validasi(id,status){
      console.log(id+status)
+     if(status == "Tertolak"){
+        this.peringatan_tolak();
+     }
      this.sekolah.Validasi(id,status).subscribe((data) => {               
       console.log(data);   
       this.ngOnInit();
@@ -113,5 +117,29 @@ export class SekolahAdminComponent implements OnInit {
     ]
    }).then(alert=> alert.present());;
   }
+
+  public alasan ="";
+  inputAlasan(event:any) {    
+    this.alasan = event.target.value; 
+    console.log(this.alasan)     
+   }
+
+  peringatan_tolak(){
+    const alert =  this.alertController.create({
+     header: 'Alasan Tertolak',
+     message: '<ion-input type="text" [(ngModel)]="alasan"> </ion-input>  ',
+     buttons: [
+      {
+        text: 'Okay',
+        handler: () => {
+           console.log(this.alasan)
+        }
+      }
+    ]
+   }).then(alert=> alert.present());;
+  }
+
+
+  
 
 }

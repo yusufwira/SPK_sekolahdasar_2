@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
         	this.peringatan();
         }
         else{
-          
         	localStorage['username'] = this.username;
           console.log(data[0].nama_user)
           localStorage['iduser'] = data[0].id_users;
@@ -64,8 +63,7 @@ export class LoginComponent implements OnInit {
     },(error)=>{
       this.peringatan();
       console.log()
-    }
-    );
+    });
   
    }
 
