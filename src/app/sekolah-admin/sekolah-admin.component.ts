@@ -19,6 +19,7 @@ export class SekolahAdminComponent implements OnInit {
   constructor(public alertController: AlertController, public sekolah:SekolahService,private modalCtrl: ModalController) { }
 
   public dataSekolah= [];
+  public temp_dataSekolah= [];
   public jumlah_sekolah="";
   public cek = false;
   public hak = "";
@@ -38,6 +39,7 @@ export class SekolahAdminComponent implements OnInit {
        });
     }    
     else{
+      
       this.sekolah.ListSekolah().subscribe((data) => {    
         console.log(data)  
         if(data == 'belum ada'){
@@ -45,7 +47,9 @@ export class SekolahAdminComponent implements OnInit {
           this.cek = true;
         }
         else{
+          //this.cek = true;
           this.dataSekolah = data;
+          this.temp_dataSekolah = data;
           this.jumlah_sekolah= data[0].jumlah
           this.cek = true;
           console.log(this.dataSekolah); 
@@ -57,13 +61,38 @@ export class SekolahAdminComponent implements OnInit {
     
   }
 
+  filter ="";
+  optionsFilter():void{
+    let item = this.filter;
+    this.filter = item;
+    console.log(this.filter)
+    let temp_arr = [];
+    if(this.filter == "Semua"){
+      temp_arr =  this.temp_dataSekolah;
+    }
+    for (let i = 0; i < this.temp_dataSekolah.length; i++) {
+      if(this.temp_dataSekolah[i]['status_sekolah'] == this.filter){
+        temp_arr.push(this.temp_dataSekolah[i])
+        console.log(temp_arr)
+      }
+    }
+    this.dataSekolah = temp_arr
+ 
+    
+
+     
+    
+  }
+
   search ="";
   inputsearch(event:any) {    
     this.search = event.target.value; 
     console.log(this.search)  
-    this.sekolah.Search(this.search).subscribe((data) => {    
-      this.dataSekolah = data;     
-      console.log(this.dataSekolah);     
+    this.sekolah.Search("nama_sekolah",this.search).subscribe((data) => {    
+      console.log(data); 
+      if(data != "belum ada"){
+        this.dataSekolah = data
+      }     
      }); 
    }
 

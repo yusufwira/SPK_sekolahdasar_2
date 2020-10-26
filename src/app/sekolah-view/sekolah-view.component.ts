@@ -64,8 +64,6 @@ export class SekolahViewComponent implements OnInit {
     this.sekolah.id = this.route.snapshot.params['id'];
     this.id_sekolah =  this.route.snapshot.params['id'];
     this.sekolah.DetailSekolah().subscribe((data) => {    
-      console.log(data);
-      console.log(data['detail']['Fasilitas']); 
       this.arr_detail =  data['detail'];
       this.id_sekolah = data['npsn'];
       this.nama_sekolah = data['nama_sekolah'];
@@ -100,8 +98,7 @@ export class SekolahViewComponent implements OnInit {
       if(data != "tidak ada"){
         this.arr_komen = data;
         console.log(this.arr_komen); 
-      }   
-                           
+      }                              
     });
   }
 
@@ -249,10 +246,14 @@ export class SekolahViewComponent implements OnInit {
    kirimKomentar():void{
     var id_user = localStorage['iduser'];
     this.sekolah.Review(this.id_sekolah,id_user,this.komentar, this.kriteria_review).subscribe((data) => {    
-      console.log(data);  
-      this.getReview();          
-    });
-    
+      console.log(data);
+      if(data == 'Sukses') {
+        this.getReview();
+      } else {
+        this.peringatan('Gagal', 'Maaf anda harus memilih kriteria yang ingin direview');
+      }
+                
+    });    
    }
 
 

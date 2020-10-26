@@ -1,13 +1,15 @@
 
 <ion-content class="content" >
-  <div class="bg" >
+  <div class="bg" pading>
 	  <ion-buttons slot="start">
       <ion-menu-button color="light"></ion-menu-button> 
     </ion-buttons>
     <h1 class="title">Pemilihan Sekolah <br> Dasar</h1>  
+    <a style="color: white; ">pencarian sekolah dasar yang dapat membandingkan antar sekolah dengan metode sistem penunjan keputusan</a>
     <!-- <p>Proses pemilihan sekolah dasar pada fitur ini menggunakan metode AHP yang dimana pengguna dapat memilih kriteria yang di inginkan dan sekolah yang dinginkan lalu dibandingkan berdasarkan masing-masing kirteria </p> -->
     <ion-card class="progres-bar">
       <h3>Proses Pemilihan</h3>
+      
       <ion-progress-bar color="tertiary" value={{prog_bar}} ></ion-progress-bar>
     </ion-card>  
   </div>
@@ -26,6 +28,10 @@
                 <h3>Masukan Kriteria yang anda inginkan </h3>
               </ion-col>
             </ion-row>           
+          </ion-card>
+
+          <ion-card class="btn-set" routerLink="/kriteria-bobot">
+            <p>Set Prioritas</p>
           </ion-card>
        
           <ion-list padding>           
@@ -67,7 +73,7 @@
         <ion-card  class="cari">
           <ion-row>
             <ion-col>
-              <ion-input placeholder="Cari Nama Sekolah"></ion-input>
+              <ion-input placeholder="Cari Nama Sekolah" (input)="inputSearch($event)"></ion-input>
             </ion-col>
             <ion-col size="3">
               <ion-icon name="search"></ion-icon>
@@ -180,36 +186,78 @@
         </ion-card>
 
         <h2>Alternatif</h2>
-        <ion-card *ngFor="let item of alternatif | keyvalue">
+        <ion-card *ngFor="let items of arr_kriteria ">
           <ion-card-header color="tertiary">
-            {{item.key}}
+            <b>{{items}}</b>
           </ion-card-header>
-          <div *ngFor ="let data of item.value | keyvalue">
-              <ion-card-content *ngIf ="data.key=='0'">
-                  <ion-row *ngFor ="let result of data.value;let i=index">
-                    <ion-col>
-                      {{arr_sekolah[i]}}
-                    </ion-col>
-                    <ion-col class="right">
-                      {{result}}
-                    </ion-col>
-                  </ion-row>
-              </ion-card-content>
-              <ion-card-content *ngIf ="data.key=='1'"  class="cr">           
-                  <ion-row>
-                    <ion-col >
-                      Cosistancy Ratio
-                    </ion-col>  
-                    <ion-col class="persen">
-                      {{data.value}}%
-                    </ion-col>     
-                  </ion-row>              
-              </ion-card-content>
-          </div>
-        
+          <ion-card-content>
+            <div  *ngFor="let values of alternatif | keyvalue">
+              <div *ngIf ="values.key == items">
+                <div *ngIf ="values.value?.length != null">
+                  <div *ngFor="let hasil of values.value | keyvalue">
+                    <div *ngIf= "hasil.key == 0">
+                      <div *ngFor="let result of hasil.value;let i=index">
+                        <ion-col>
+                          {{arr_sekolah[i]}}
+                        </ion-col>
+                        <ion-col class="right">
+                          {{result}}
+                        </ion-col>
+                      </div>
+                    </div>
+                    <div *ngIf= "hasil.key == 1">
+                      <b>Cosistancy Ration : {{hasil.value}}%</b>
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+                <div *ngIf ="values.value?.length == null">                 
+                  <div *ngFor="let data of values.value| keyvalue">
+                    <div *ngIf= "data.key != 0">
+                      <b>{{data.key}}</b>
+                      <div *ngFor="let hasil of data.value | keyvalue">
+                        <div  *ngIf= "hasil.key == 0">
+                          <div *ngFor="let result of hasil.value;let i=index">
+                            <ion-col>
+                              {{arr_sekolah[i]}}
+                            </ion-col>
+                            <ion-col class="right">
+                              {{result}}
+                            </ion-col>
+                          </div>
+                        </div>
+                        <div *ngIf= "hasil.key == 1">
+                          <b>Cosistancy Ration : {{hasil.value}}%</b>
+                        </div>
+                        
+                       
+                      </div>
+                      <div>
+                        <p>______________________________________  </p>
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+           
+          </ion-card-content>        
         </ion-card>
+
+        <ion-row *ngFor ="let data of datas_sekolah; let i = index">
+          <ion-col size='12'>
+            <div id="{{data.npsn}}"></div>
+          </ion-col>      
+        </ion-row>   
        
       </div>                                              
+      </ion-slide>
+      <ion-slide>
+         
       </ion-slide>
       
     </ion-slides>

@@ -11,21 +11,19 @@
 
 <ion-content>
   <ion-card padding class="filter" color="tertiary">
-    <h2>Filter Sekolah</h2>
-    
-        <ion-select value="nama_sekolah">
+    <h2>Filter Sekolah</h2>    
+        <ion-select [(ngModel)]='kategori' (ionChange)="optionsKategori()">
           <ion-select-option value="nama_sekolah">Nama Sekolah</ion-select-option>
           <ion-select-option value="alamat_sekolah">Alamat Sekolah</ion-select-option>
           <ion-select-option value="kecamatan">Kecamatan</ion-select-option>
           <ion-select-option value="agama">Agama</ion-select-option>
-          <ion-select-option value="akreditasi">Akreditasi</ion-select-option>
         </ion-select>
         <ion-row>
           <ion-col>
-            <ion-input type="text" placeholder="Masukan kata kunci"></ion-input>
+            <ion-input type="text" (input)="inputKey($event)" placeholder="Masukan kata kunci"></ion-input>
           </ion-col>
           <ion-col size="2">
-            <ion-card class="button">
+            <ion-card class="button" (click)="Search()">
               <ion-icon name="search"></ion-icon>
             </ion-card>
           </ion-col>

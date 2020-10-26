@@ -30,9 +30,6 @@ import { SekolahAdminComponent } from './sekolah-admin/sekolah-admin.component';
 import { SekolahViewComponent } from './sekolah-view/sekolah-view.component';
 import { SekolahCreateComponent } from './sekolah-create/sekolah-create.component';
 import { SekolahUpdateComponent } from './sekolah-update/sekolah-update.component';
-import { SekolahUpdateChoiceComponent } from './sekolah-update-choice/sekolah-update-choice.component';
-import { SekolahUpdateGambarComponent } from './sekolah-update-gambar/sekolah-update-gambar.component';
-import { SekolahUpdateEkstraComponent } from './sekolah-update-ekstra/sekolah-update-ekstra.component';
 import { SekolahBobotComponent } from './sekolah-bobot/sekolah-bobot.component';
 import { EktrakurikulerAdminComponent } from './ektrakurikuler-admin/ektrakurikuler-admin.component';
 import { EkstrakurikulerCreateComponent } from './ekstrakurikuler-create/ekstrakurikuler-create.component';
@@ -45,6 +42,9 @@ import { AdminsekolahViewComponent } from './Adminsekolah-view/Adminsekolah-view
 import { DaftarsekolahComponent } from './Daftarsekolah/Daftarsekolah.component';
 import { SpkComponent } from './Spk/Spk.component';
 import { KriteriaBobotComponent } from './kriteria-bobot/kriteria-bobot.component';
+import { KriteriaSubkriteriaComponent } from './kriteria-subkriteria/kriteria-subkriteria.component';
+import { PanduanComponent } from './panduan/panduan.component';
+
 
 
 
@@ -59,9 +59,6 @@ const appRoutes: Routes = [
   {path:'sekolah-view/:id',component:SekolahViewComponent},
   {path:'sekolah-create',component:SekolahCreateComponent},
   {path:'sekolah-update/:id',component:SekolahUpdateComponent},
-  {path:'sekolah-update-choice/:id',component:SekolahUpdateChoiceComponent},
-  {path:'sekolah-update-gambar/:id',component:SekolahUpdateGambarComponent},
-  {path:'sekolah-update-ekstra/:id',component:SekolahUpdateEkstraComponent},
   {path:'ekstrakurikuler-admin',component:EktrakurikulerAdminComponent},
   {path:'ekstrakurikuler-create/:prev_page/:id',component:EkstrakurikulerCreateComponent},
   {path:'kriteria-admin',component:KriteriaAdminComponent},
@@ -73,7 +70,9 @@ const appRoutes: Routes = [
   {path:'daftarsekolah',component:DaftarsekolahComponent},
   {path:'spk',component:SpkComponent},
   {path:'kriteria-bobot',component:KriteriaBobotComponent},
+  {path:'kriteria-subkriteria/:id',component:KriteriaSubkriteriaComponent},
   {path:'sekolah-bobot',component:SekolahBobotComponent},
+  {path:'panduan',component:PanduanComponent},
   
   
 
@@ -91,6 +90,7 @@ const appRoutes: Routes = [
   SekolahAdminComponent,
   SekolahViewComponent,
   SekolahCreateComponent,
+  SekolahUpdateComponent,
   EktrakurikulerAdminComponent,
   EkstrakurikulerCreateComponent,
   KriteriaAdminComponent,
@@ -100,13 +100,11 @@ const appRoutes: Routes = [
   AdminsekolahAdminComponent,
   AdminsekolahViewComponent,
   DaftarsekolahComponent,
-  SekolahUpdateComponent,
-  SekolahUpdateChoiceComponent,
   SpkComponent,
   KriteriaBobotComponent,
   SekolahBobotComponent,
-  SekolahUpdateGambarComponent,
-  SekolahUpdateEkstraComponent
+  PanduanComponent,
+  KriteriaSubkriteriaComponent,
   
   
 
@@ -126,8 +124,6 @@ const appRoutes: Routes = [
     HeaderColor,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     FileTransfer,
-    //FileUploadOptions,
-    //FileTransferObject,
     File,
     Camera,
     Events,

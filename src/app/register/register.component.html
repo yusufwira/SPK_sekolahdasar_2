@@ -19,7 +19,7 @@
 			<br>
 			
 			<button *ngIf="check == false" class="button" ion-button block disabled> NEXT >></button>
-			<button *ngIf="check == true" class="button" ion-button block routerLink="/register_info/{{username}}/{{password}}/{{email}}"> NEXT >></button>
+			<button *ngIf="check == true" class="button" (click)="CheckUser()" ion-button block > NEXT >></button>
 	
 			
 		</div>

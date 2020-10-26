@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+import { AlertController } from '@ionic/angular';
+import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(public user:UserService, public alertController: AlertController,private route: ActivatedRoute,private router: Router) { }
 
   
   password="";
@@ -45,7 +48,32 @@ export class RegisterComponent implements OnInit {
    }
 
    next(){
+     
    	console.log(this.username);
    }
+
+   CheckUser(){
+    this.user.CekUsername(this.username).subscribe((data) => {        
+      console.log(data);
+      if(data == true){
+        this.peringatan();
+      }
+      else{
+        this.router.navigate(['/register_info', this.username, this.password, this.email ])
+      }
+    });
+   }
+
+   peringatan(){
+    const alert =  this.alertController.create({
+     header: 'Gagal',
+     message: 'Username Telah digunakan',
+     buttons: [
+       {
+         text: 'Okay',
+       }
+     ]
+   }).then(alert=> alert.present());;
+  }
 
 }

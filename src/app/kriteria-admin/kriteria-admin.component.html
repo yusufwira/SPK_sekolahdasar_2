@@ -23,6 +23,8 @@
   <ion-list padding *ngFor="let data of datas">
     <ion-item class="item">            
       <ion-label>{{data.nama_kriteria}}</ion-label>
+      <ion-button *ngIf='data.nama_kriteria != "Lokasi" && data.nama_kriteria != "Ekstrakurikuler"'
+                  routerLink='/kriteria-subkriteria/{{data.id}}'>set Subkriteria</ion-button>
       <ion-icon name="trash" slot="end" color="danger" (click)="peringatan(data.id)"></ion-icon>  
     </ion-item>    
   </ion-list>

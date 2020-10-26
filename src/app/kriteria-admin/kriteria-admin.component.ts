@@ -17,10 +17,8 @@ export class KriteriaAdminComponent implements OnInit {
   public datas:Object;
 
   ngOnInit() {
-    
     this.kr.dataKriteria().subscribe((data) => {      
       this.datas = data;
-     
     });
   }
 

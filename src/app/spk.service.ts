@@ -12,13 +12,14 @@ export class SpkService {
   private header = new HttpHeaders({ 'content-type': 'application/json' });
   constructor(private http: HttpClient) { }
  
-  proses_ahp(arr_kriteria,arr_sekolah ):Observable<any>{
+  proses_ahp(arr_kriteria,arr_sekolah,arr_jarak ):Observable<any>{
     let body = new HttpParams();
     let testData:FormData = new FormData();
     testData.append('nama',JSON.stringify(arr_kriteria)); 
     testData.append('sekolah', JSON.stringify(arr_sekolah)); 
+    testData.append('jarak', JSON.stringify(arr_jarak)); 
     return this.http.post<any>
-    ("http://localhost/spk_backend/proses_hasil_3.php", testData);
+    ("http://localhost/spk_backend/proses_hasil_5.php", testData);
   }
 
   Coba(coba):Observable<any> {

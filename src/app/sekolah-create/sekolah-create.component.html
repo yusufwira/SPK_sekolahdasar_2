@@ -140,7 +140,7 @@
 
       <div *ngFor="let detail of detail_kriteria">
         <div *ngIf="kriteria.nama_kriteria == detail.nama_kriteria">
-          <ion-item *ngIf="detail.detail != 'Internet' && detail.detail != 'Akreditasi' && detail.detail != 'Tahun Kurikulum'">
+          <ion-item *ngIf="detail.detail != 'Internet' && detail.detail != 'Akreditasi' && detail.detail != 'Tahun Kurikulum' ">
             <ion-label position="floating">{{detail.detail}}</ion-label>
             <ion-input (input)="inputAll($event, detail.id_detail)"></ion-input>
           </ion-item>
@@ -160,8 +160,7 @@
           </ion-radio-group>
           <ion-item *ngIf="detail.detail == 'Akreditasi'">
             <ion-label position="floating">{{detail.detail}}</ion-label>
-            <ion-select  [(ngModel)]="akreditasi" (ionChange)="optionsAkreditasi(detail.id_detail)" >
-              <ion-select-option value="94">94</ion-select-option>
+            <ion-select  [(ngModel)]="akreditasi" (ionChange)="optionsAkreditasi(detail.id_detail)" >            
               <ion-select-option value="A">A</ion-select-option>
               <ion-select-option value="B">B</ion-select-option>
               <ion-select-option value="Belum Akreditasi">Belum Akreditasi</ion-select-option>
@@ -172,7 +171,7 @@
           </ion-item>
           <ion-item *ngIf="detail.detail == 'Tahun Kurikulum'">
             <ion-label position="floating">{{detail.detail}}</ion-label>
-            <ion-select  [(ngModel)]="tahunAkre" (ionChange)="optionsTahunAkre(detail.id_detail)" >
+            <ion-select  [(ngModel)]="TahunAkre" (ionChange)="optionsTahunAkre(detail.id_detail)" >
               <ion-select-option value="2013">2013</ion-select-option>
               <ion-select-option value="2014">2014</ion-select-option>
               <ion-select-option value="2015">2015</ion-select-option>

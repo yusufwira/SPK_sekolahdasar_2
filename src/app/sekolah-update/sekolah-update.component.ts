@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SekolahService } from '../sekolah.service'
+import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot, NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Router,ActivatedRoute } from '@angular/router';
+import { KriteriaService } from '../kriteria.service';
+import { Key } from 'protractor';
+import { SekolahService } from '../sekolah.service';
+import { EkstrakurikulerService } from '../ekstrakurikuler.service';
 
 @Component({
   selector: 'app-sekolah-update',
@@ -10,256 +13,266 @@ import { Router,ActivatedRoute } from '@angular/router';
 })
 export class SekolahUpdateComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, public sekolah:SekolahService, public alertController: AlertController,private router: Router) { }
+  constructor(
+    private route: ActivatedRoute, 
+    public alertController: AlertController,
+    private router: Router,
+    public kr:KriteriaService,
+    public sekolah:SekolahService,
+    public ekstra: EkstrakurikulerService,
+  ) { }
 
-  public datas: Object;
-  public nama_sekolah ="";
-  public alamat_sekolah= "";
-  public no_telp ="";
-  public kecamatan = "";
-  public agama = "";
-  public akreditasi = "";
-  public tahun_akreditasi ="";
-  public nama_kepala_sekolah ="";
-  public guru = "";
-  public siswa_laki ="";
-  public siswa_perempuan ="";
-  public kurikuklum = "";
-  public jam_sekolah= "";
-  public internet = "";
-  public ruangAc = "";
-  public listrik = "";
-  public daya_listrik = "";
-  public luas_tanah = "";
-  public kelas = "";
-  public lab = "";
-  public perpus = "";
-  public X = "";
-  public Y = "";
-  public keterangan = "";
-
+  data_kriteria:Object;
+  detail_kriteria:Object;
+  dataEkstra:Object;
+  username="";
+  iduser="";
+  id_sekolah="";
+  arr_detail:any;
   ngOnInit() {
-    this.sekolah.id =this.route.snapshot.params['id'];
-    this.sekolah.GetInformasiSekolah(this.sekolah.id).subscribe((data) => {      
-      this.datas = data;  
-      this.nama_sekolah = data.nama_sekolah;
-      this.alamat_sekolah = data.alamat_sekolah;
-      this.no_telp = data.notelp_sekolah;
-      this.kecamatan = data.kecamatan;
-      this.agama = data.agama;
-      this.akreditasi = data.akreditasi;
-      this.tahun_akreditasi = data.tahun_akreditasi;
-      this.nama_kepala_sekolah = data.nama_kepala_sekolah;
-      this.guru = data.jumlah_guru;
-      this.siswa_laki = data.jumlah_siswa_laki;
-      this.siswa_perempuan = data.jumlah_siswa_perempuan;
-      this.kurikuklum = data.kurikulum;
-      this.jam_sekolah = data.jam_sekolah;
-      this.internet = data.internet;
-      this.ruangAc = data.ruang_ac;
-      this.listrik = data.listrik;
-      this.daya_listrik = data.daya_listrik;
-      this.luas_tanah = data.luas_tanah;
-      this.kelas = data.jumlah_kelas;
-      this.lab = data.jumlah_laboratorium;
-      this.perpus = data.jumlah_perpustakaan;
-      this.X = data.koordinat_X;
-      this.Y = data.koordinat_Y;
-      this.keterangan = data.keterangan;
-      console.log(data);   
+    this.username= localStorage['username'];
+    this.iduser= localStorage['iduser'];
+    this.sekolah.id = this.route.snapshot.params['id'];
+    this.id_sekolah =  this.route.snapshot.params['id'];
+   
+    this.sekolah.DetailSekolah().subscribe((data) => { 
+      console.log(data);  
+      this.arr_detail =  data['detail']; 
+      this.id_sekolah = data['npsn'];
+      this.nama = data['nama_sekolah'];
+      this.alamat = data['alamat_sekolah'];
+      this.telp = data['notelp_sekolah'];
+      this.kecamatan = data['kecamatan'];
+      this.agama = data['agama'];
+      this.kepala = data['nama_kepala_sekolah'];
+      this.jam = data['jam'];
+      this.username = data['username'];
+      this.datafoto = data['foto'];
+      console.log(this.arr_detail)
+      this.loadFoto(this.datafoto, this.username)
+    });
+
+    this.kr.dataKriteria().subscribe((data) => {   
+      this.data_kriteria = data;
+    });
+
+    this.kr.detail_kriteria().subscribe((data) => {   
+      this.detail_kriteria = data;
+      console.log(this.detail_kriteria)
+    });
+
+    this.ekstra.dataEkstra().subscribe((data) => {   
+      this.dataEkstra = data;
+      console.log(this.dataEkstra)
+    });
+    
+  }
+
+  loadFoto(fotos:any[], username){
+    for (let i = 0; i < fotos.length; i++) {
+      if(i == 0){
+        this.img1 = "http://localhost/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
+      }
+      else if(i == 1){
+        this.img2 = "http://localhost/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
+      }
+      else if(i == 2){
+        this.img3 = "http://localhost/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
+      }
+      else if(i == 3){
+        this.img4 = "http://localhost/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
+      }
+      
+    }
+  }
+
+  DeleteFoto(id){
+    this.sekolah.Delete_foto(id).subscribe((data) => {   
+      this.ngOnInit()
     });
   }
 
+  // glonal varible
+  npsn ="";
+  nama= "";
+  alamat = "";
+  telp="";
+  kecamatan ="";
+  agama = "All";
+  kepala = "";
+  jam = "";
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  public arr_perubahan = {};
-  inputNama(event:any) {    
-    this.nama_sekolah = event.target.value;  
-    this.arr_perubahan['nama_sekolah'] =this.nama_sekolah;
-    
-   }
-
-  inputAlamat(event:any) {    
-    this.alamat_sekolah = event.target.value;    
-    this.arr_perubahan['alamat_sekolah'] =this.alamat_sekolah;
-   }
-
-
-  inputTelp(event:any) {    
-    this.no_telp = event.target.value;  
-    this.arr_perubahan['notelp_sekolah'] =this.no_telp;  
-   }
- 
- 
+  // file input
+  inputnpsn(event:any) {    
+    this.npsn = event.target.value;  
+    console.log(this.npsn)  
+  }
+  inputnama(event:any) {    
+    this.nama = event.target.value;   
+    console.log(this.nama) 
+  }
+  inputalamat(event:any) {    
+    this.alamat = event.target.value; 
+    console.log(this.alamat)       
+  }
+  inputtelp(event:any) {    
+    this.telp = event.target.value;    
+    console.log(this.telp)
+  }
   optionsKecamatan():void{
     let item = this.kecamatan;
     this.kecamatan = item;
-    this.arr_perubahan['kecamatan'] =this.kecamatan;  
+    console.log(this.kecamatan)
   }
-
-   optionsAgama():void{
+  optionsAgama():void{
     let item = this.agama;
     this.agama = item;
-    this.arr_perubahan['agama'] =this.agama;  
+    console.log(this.agama)
+  }
+  inputkepala(event:any) {    
+    this.kepala = event.target.value;   
+    console.log(this.kepala) 
   }
 
-  optionsAkreditasi():void{
-   let item = this.akreditasi;
-   this.akreditasi = item;
-   this.arr_perubahan['akreditasi'] =this.akreditasi;  
-  }
-
-
-  optionsTahunAkre():void{
-   let item = this.tahun_akreditasi;
-   this.tahun_akreditasi = item;
-   this.arr_perubahan['tahun_akreditasi'] =this.tahun_akreditasi;  
+  inputjam(event:any) {    
+    this.jam = event.target.value;    
+    console.log(this.jam)
   }
 
 
-   inputKepalaSekolah(event:any) {    
-    this.nama_kepala_sekolah = event.target.value;   
-    this.arr_perubahan['nama_kepala_sekolah'] =this.nama_kepala_sekolah;   
-   }
+
+  file: File;
+  img1="";
+  img2="";
+  img3="";
+  img4="";
+  public datafoto = [];
+  changeListener($event, jenis) : void{
+    this.file = $event.target.files[0];
+    this.sekolah.file = this.file;
+    this.sekolah.username = this.username;
+    this.sekolah.upload().subscribe((data) => {              
+      if(jenis == "1"){
+        this.img1 = data['link'];
+        var foto ={nama:data['name'],ext:data['ext']}
+        this.datafoto.push(foto);
+      }
+      else if(jenis == "2"){
+        this.img2 = data['link'];
+        var foto ={nama:data['name'],ext:data['ext']}
+        this.datafoto.push(foto);
+      }
+      else if(jenis == "3"){
+        this.img3 = data['link'];
+        var foto ={nama:data['name'],ext:data['ext']}
+        this.datafoto.push(foto);
+      }
+      else{
+        this.img4 = data['link'];
+        var foto ={nama:data['name'],ext:data['ext']}
+        this.datafoto.push(foto);
+      }
+    });
+    console.log(this.datafoto)
+  }
 
 
-   inputGuru(event:any) {    
-    this.guru = event.target.value;    
-    this.arr_perubahan['jumlah_guru'] =this.guru; 
-   }
-
-
-   inputLaki(event:any) {    
-    this.siswa_laki = event.target.value;  
-    this.arr_perubahan['jumlah_siswa_laki'] =this.siswa_laki;   
-   }
-
-
-   inputPerempuan(event:any) {    
-    this.siswa_perempuan = event.target.value;
-    this.arr_perubahan['jumlah_siswa_perempuan'] =this.siswa_perempuan;     
-   }
-
-
-   inputKurikulum(event:any) {    
-    this.kurikuklum = event.target.value;
-    this.arr_perubahan['kurikulum'] =this.kurikuklum;     
-   }
-
-   inputJamSekolah(event:any) {    
-    this.jam_sekolah = event.target.value;   
-    this.arr_perubahan['jam_sekolah'] =this.jam_sekolah;      
-   }
-
-  optionsInternet():void{
+  Save_info_sekolah(){
+    console.log(this.id_sekolah, this.nama, this.alamat, this.telp, this.kecamatan, this.agama, this.kepala, this.jam, this.iduser)
+    this.sekolah.Update_infosekolah(this.id_sekolah, this.nama, this.alamat, this.telp, this.kecamatan, this.agama, this.kepala, this.jam, this.iduser).subscribe((data) => {      
+      console.log(data)
+      this.sekolah.datafoto = this.datafoto
+      this.sekolah.idSekolah = data;
+      this.sekolah.uploudFoto().subscribe((data) => {    
+        console.log(data)               
+      },(error)=>{
+        this.peringatan();
+      }); 
+    },(error)=>{
+      this.peringatan();
+    }); 
+  }
+  indexs = 0;
+  arr_data = new Array()
+  internet="1";
+  optionsInternet(id):void{
     let item = this.internet;
     this.internet = item
-    this.arr_perubahan['internet'] =this.internet; 
-
+    console.log(this.internet);
+    this.arr_data[this.indexs] = {id:id,value:this.internet}
+    this.indexs += 1;
   }
 
-  optionsAc():void{
-    let item = this.ruangAc;
-    this.ruangAc = item
-    this.arr_perubahan['ruang_ac'] =this.ruangAc; 
-
+  akreditasi = "A";
+  optionsAkreditasi(id):void{
+    let item = this.akreditasi;
+    this.akreditasi = item;
+    console.log(this.akreditasi);
+    this.arr_data[this.indexs] = {id:id,value:this.akreditasi}
+    this.indexs += 1;
   }
 
-  daya = false;
-  optionsListrik():void{
-    let item = this.listrik;
-    this.listrik = item;
-    this.arr_perubahan['listrik'] =this.listrik; 
-    if(this.listrik == "ya"){
-      this.daya = true;
-    }
-    else{
-      this.daya = false;
-    }
+  TahunAkre = "2013";
+  optionsTahunAkre(id):void{
+    let item = this.TahunAkre;
+    this.TahunAkre = item;
+    this.arr_data[this.indexs] = {id:id,value:this.TahunAkre}
+    this.indexs += 1;
   }
 
-  inputDayaListrik(event:any) {    
-    this.daya_listrik = event.target.value;   
-    this.arr_perubahan['daya_listrik'] =this.daya_listrik;  
-  }
-
-
-  inputLuasTanah(event:any) {    
-    this.luas_tanah = event.target.value;    
-    this.arr_perubahan['luas_tanah'] =this.luas_tanah;  
-  }
-
-
-  inputJumlahKelas(event:any) {    
-    this.kelas = event.target.value;   
-    this.arr_perubahan['jumlah_kelas'] =this.kelas;   
-  }
-
-  inputJumlahLab(event:any) {    
-    this.lab = event.target.value;  
-    this.arr_perubahan['jumlah_laboratorium'] =this.lab;    
-  }
-
-
-  inputPerpus(event:any) {    
-    this.perpus = event.target.value; 
-    this.arr_perubahan['jumlah_perpustakaan'] =this.perpus;     
-  }
-
-  inputX(event:any) {    
-    this.X = event.target.value;   
-    this.arr_perubahan['koordinat_X'] =this.X;     
-  }
-
-
-  inputY(event:any) {    
-    this.Y = event.target.value;   
-    this.arr_perubahan['koordinat_Y'] =this.Y;      
-  }
-
-  inputKeterangan(event:any) {    
-    this.keterangan = event.target.value;  
-    this.arr_perubahan['keterangan'] =this.keterangan;  
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  Simpan(){
-    //console.log(this.arr_perubahan)
-    var jumlah_data = []
-    var hasil = "";
-    for (var [key, value] of Object.entries(this.arr_perubahan)){
-      this.sekolah.update_InformasiSekolah(this.route.snapshot.params['id'],key,value).subscribe((data) => {    
-          console.log(data)
-          hasil = data;
-          
-       });  
-       jumlah_data.push(hasil)     
-    }
-
-    if(Object.entries(this.arr_perubahan).length == jumlah_data.length){
-      this.peringatan('Berhasil', 'Data berhasil terubah'); 
-    }
-    else{
-      this.peringatan('Gagal', 'Data tidak berhasil terubah'); 
-    }
-   
-    
+  inputAll(event:any, id) { 
+    this.arr_data[this.indexs] = {id:id,value:event.target.value}
+    console.log(this.arr_data[this.indexs] )
+    this.indexs += 1;
   }
 
+  
+  Save_info_kriteria(){
+    console.log(this.arr_data)
+    this.sekolah.Update_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
+      this.arr_data = new Array();
+      console.log(data)
+    });
+  }
 
-  peringatan(headers, data){
-    const alert =  this.alertController.create({
-     header: headers,
-     message: data,
-     buttons: [{
-      text: 'Okay',
-      handler: () => {
-        this.router.navigate(['/sekolah-view/'+this.route.snapshot.params['id']])
+  pilih="";
+  arrEks=[];
+  getValue(value) {    
+    this.pilih = value;
+    var sama = false;
+    for (let index = 0; index < this.arrEks.length; index++) {
+      if(this.arrEks[index] == this.pilih){
+        sama = true;
       }
-     },{text: 'Cencel'}]
+    }
+    if(sama == true){
+      this.arrEks=this.arrEks.filter(item => item !== this.pilih)
+    }
+    else{
+      this.arrEks.push(this.pilih);
+    }
+    console.log(this.arrEks);  
+  }
+
+  save_ekstra(){
+    this.sekolah.ekstra = this.arrEks;
+    this.sekolah.sekolah = this.id_sekolah;
+    this.sekolah.AddEkstra().subscribe((data) => {      
+      // console.log(data);   
+      console.log("sukses"); 
+    },(error)=>{
+      this.peringatan();
+    });        
+  }
+
+  peringatan(){
+    const alert =  this.alertController.create({
+     header: 'Gagal Simpan Data',
+     message: 'Format Pengisian Data Sekolah Tidak Benar',
+     buttons: ['OK']
    }).then(alert=> alert.present());;
   }
-
+ 
 
 }

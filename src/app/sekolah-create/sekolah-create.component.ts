@@ -6,6 +6,7 @@ import { Key } from 'protractor';
 import { SekolahService } from '../sekolah.service';
 import { EkstrakurikulerService } from '../ekstrakurikuler.service';
 
+
 @Component({
   selector: 'app-sekolah-create',
   templateUrl: './sekolah-create.component.html',
@@ -18,7 +19,8 @@ export class SekolahCreateComponent implements OnInit {
     private router: Router,
     public kr:KriteriaService,
     public sekolah:SekolahService,
-    public ekstra: EkstrakurikulerService
+    public ekstra: EkstrakurikulerService,
+  
     ) { }
 
   data_kriteria:Object;
@@ -53,7 +55,7 @@ export class SekolahCreateComponent implements OnInit {
   alamat = "";
   telp="";
   kecamatan ="";
-  agama = "";
+  agama = "All";
   kepala = "";
   jam = "";
 
@@ -139,13 +141,16 @@ export class SekolahCreateComponent implements OnInit {
       this.sekolah.idSekolah = data;  
       this.sekolah.uploudFoto().subscribe((data) => {    
         console.log(data)               
+      },(error)=>{
+        this.peringatan();
       }); 
-    });
+    },(error)=>{
+      this.peringatan();
+    }); 
   }
 
   arr_data = new Array()
-
-  internet="";
+  internet="1";
   optionsInternet(id):void{
     let item = this.internet;
     this.internet = item
@@ -153,23 +158,49 @@ export class SekolahCreateComponent implements OnInit {
     this.arr_data[id] = {id:id,value:this.internet}
   }
 
-  akreditasi = "";
+  akreditasi = "A";
   optionsAkreditasi(id):void{
     let item = this.akreditasi;
     this.akreditasi = item;
     this.arr_data[id] = {id:id,value:this.akreditasi}
+    console.log(this.akreditasi)
   }
 
-  TahunAkre = "";
+  TahunAkre = "2013";
   optionsTahunAkre(id):void{
     let item = this.TahunAkre;
     this.TahunAkre = item;
     this.arr_data[id] = {id:id,value:this.TahunAkre}
   }
 
-  inputAll(event:any, id, kr) { 
-    let value = event.target.value;
+  inputAll(event:any, id) { 
     this.arr_data[id] = {id:id,value:event.target.value}
+    console.log(this.box_price_formatted)
+  }
+
+  box_price_formatted =0;
+  inputBiaya(event:any, id) { 
+    this.arr_data[id] = {id:id,value:event.target.value}
+    this.formatRupiah(this.arr_data[id], "Rp. ")
+  }
+
+  
+  formatRupiah(angka, prefix){
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+    split   		= number_string.split(','),
+    sisa     		= split[0].length % 3,
+    rupiah     		= split[0].substr(0, sisa),
+    ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+   
+    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+    if(ribuan){
+      var separator = sisa ? '.' : '';
+      rupiah += separator + ribuan.join('.');
+    }
+   
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    this.box_price_formatted = undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
   }
 
   Save_info_kriteria(){
@@ -206,11 +237,20 @@ export class SekolahCreateComponent implements OnInit {
     this.sekolah.ekstra = this.arrEks;
     this.sekolah.sekolah = this.id_sekolah;
     this.sekolah.AddEkstra().subscribe((data) => {      
-      console.log(data);   
+      // console.log(data);   
       console.log("sukses"); 
-    });;
+    },(error)=>{
+      this.peringatan();
+    });        
   }
 
+  peringatan(){
+    const alert =  this.alertController.create({
+     header: 'Gagal Simpan Data',
+     message: 'Format Pengisian Data Sekolah Tidak Benar',
+     buttons: ['OK']
+   }).then(alert=> alert.present());;
+  }
  
 
 }

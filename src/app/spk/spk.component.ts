@@ -20,13 +20,14 @@ export class SpkComponent implements OnInit {
   prog_bar:String="0.2";
   public datas_kriteria:Object;
   public datas_sekolah:Object;
+  public detail_kriteria:Object;
   pilih="";
   arr_kriteria=[];
   arr_sekolah=[];
 
   x="";
   y="";
-  public jarak="";
+ 
   ngOnInit() {
     this.kriteria.dataKriteria().subscribe((data) => {      
       this.datas_kriteria = data;    
@@ -34,16 +35,45 @@ export class SpkComponent implements OnInit {
     });
 
     this.sekolah.ListSekolah_ortu().subscribe((data) => {    
-      this.datas_sekolah = data;   
-      console.log(data);      
-      console.log(this.datas_sekolah);    
+      console.log(data);            
+      this.datas_sekolah = data;  
      });
+
+    //  this.kriteria.detail_kriteria().subscribe((data) => {    
+    //   console.log(data);            
+    //   this.datas_sekolah = data;  
+    //  });
+
+    
+     
+     
+     
    
   }
+
+ 
+
+ 
   
 
   progres(bar:String){
     this.prog_bar = bar;
+    console.log(this.prog_bar)
+    if(this.prog_bar == "0.5"){
+      let lebar = Object.keys(this.datas_sekolah)
+      //this.loadmap("-6.2008406","106.7987143",this.datas_sekolah[0].npsn)
+      for (let i = 0; i < lebar.length; i++) {       
+        let kx = this.datas_sekolah[i]['koor_X']
+        let ky = this.datas_sekolah[i]['koor_Y']
+        this.loadmap(kx,ky,this.datas_sekolah[i].npsn)
+        
+        //this.map.off();        
+      }
+
+      console.log(this.jarak)
+    }
+    
+    
   }
   
   
@@ -78,25 +108,29 @@ export class SpkComponent implements OnInit {
     }
     else{
       this.arr_sekolah.push(this.pilih);
-    }
-
-    // this.locatePosition(x,y);
-    // console.log(this.jarak);
+    }    
   }
 
+  loadmap(x,y,npsn){
+    this.map = new Map(npsn).setView([x,y], 13);   
+    this.locatePosition(x,y);
+    
+ }
 
+ public jarak= [];
   locatePosition(x,y){
     this.map.locate({setView:true}).on("locationfound", (e: any)=> {
        this.newMarker = marker([x,y], {autoPan: 
         true}).addTo(this.map);       
          var markerFrom = marker([e.latitude,e.longitude]);
-         console.log(markerFrom)
          var markerTo =  marker([x,y]);
          var from = markerFrom.getLatLng();
          var to = markerTo.getLatLng();
-         var jarak = this.getDistance(from, to);
-         console.log(jarak)
-         this.jarak = jarak.toString();
+         var jarak = this.getDistance(from, to);         
+         this.jarak.push(jarak.toString());
+         
+         //this.map = new Map("mapId").setView([x,y], 13);
+         
     });
   }
 
@@ -109,12 +143,15 @@ export class SpkComponent implements OnInit {
 
   ve_kriteria = [];
   cr_kriteria = "";
-  alternatif:object;
+  public alternatif:object;
   hasil_jadi = [];
   Proses(){
     console.log(this.arr_kriteria);
     console.log(this.arr_sekolah);
-    this.spk.proses_ahp(this.arr_kriteria,this.arr_sekolah).subscribe((data) => {    
+
+
+    
+    this.spk.proses_ahp(this.arr_kriteria,this.arr_sekolah, this.jarak).subscribe((data) => {    
       console.log(data);
       this.ve_kriteria = data.VE_CRIT;
       this.cr_kriteria = data.CR_CRIT;
@@ -122,7 +159,22 @@ export class SpkComponent implements OnInit {
       this.hasil_jadi = data.Hasil_jadi;
       console.log(this.hasil_jadi);
       this.progres("1.0");
+      console.log(this.alternatif);
      });
+
+
+     
     
+  }
+
+  key = "";
+  inputSearch(event:any) {    
+    this.key = event.target.value;    
+    this.sekolah.Search("nama_sekolah", this.key).subscribe((data) => {   
+      console.log(data); 
+      if(data != "belum ada"){
+        this.datas_sekolah = data
+      }            
+     });
   }
 }

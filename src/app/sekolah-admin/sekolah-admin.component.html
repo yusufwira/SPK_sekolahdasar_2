@@ -17,7 +17,16 @@
                 <ion-icon name="search"></ion-icon> &nbsp;
                 <ion-input type="text" placeholder="Search" (input)="inputsearch($event)" > </ion-input>  
               </ion-item>
-          </ion-card-content>
+              <ion-item class="filter">
+                <ion-label>Urutkan</ion-label>
+                <ion-select value="Semua" interface="popover"  [(ngModel)]="filter" (ionChange)="optionsFilter()"  >
+                  <ion-select-option value="Semua">Semua</ion-select-option>
+                  <ion-select-option value="Belum Tervalidasi">Baru</ion-select-option>
+                  <ion-select-option value="Tervalidasi">Tervalidasi</ion-select-option>                  
+                  <ion-select-option value="Tertolak">Tertolak</ion-select-option>                  
+                </ion-select>
+              </ion-item>
+          </ion-card-content>                                  
         </ion-card>
      
 
@@ -34,30 +43,20 @@
                   {{data.nama_sekolah}}
                 </div>
               </ion-row>
-              <!-- <ion-row>
-                <ion-col>
-                  <ion-icon name="star" style="color: orange;"></ion-icon>
-                  {{data.jumlah_like}}
-                </ion-col>
-                <ion-col>
-                  <ion-icon name="thumbs-up"  style="color: blue;"></ion-icon>
-                  {{data.jumlah_komeh}} Review
-                </ion-col>
-              </ion-row> -->
-
-              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "Super_Admin"' class="card-action" >                                    
+              <a style="color: red;" *ngIf='data.status_sekolah == "Tertolak"'>Ditolak Oleh Admin</a> 
+              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "Super_Admin" || data.status_sekolah == "Tertolak" && hak == "Super_Admin"' class="card-action" >                       
                 <ion-button color="primary" (click)="validasi(data.npsn, 'Tervalidasi')">Terima</ion-button> 
                 <ion-button color="danger" (click)="validasi(data.npsn, 'Tertolak')">Tolak</ion-button> &nbsp;                
               </ion-row> 
 
               <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "admin_sekolah"' class="card-action" >                                            
-                <p>Menunggu Konfirmasi dari Admin</p>
+                <p style="color: red"><b>Menunggu Konfirmasi dari Admin</b></p>
               </ion-row> 
            
               <ion-row *ngIf='data.status_sekolah == "Tervalidasi"' class="card-action" >                            
-                <ion-button color="success"  routerLink="/sekolah-view/{{data.idinfo_sekolah}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
-                <ion-button color="warning" routerLink="/sekolah-update-choice/{{data.idinfo_sekolah}}"><ion-icon name="create"></ion-icon></ion-button> &nbsp;
-                <ion-button color="danger" (click)="peringatan(data.idinfo_sekolah)"><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
+                <ion-button color="success"  routerLink="/sekolah-view/{{data.npsn}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
+                <ion-button color="warning" routerLink="/sekolah-update/{{data.npsn}}" *ngIf='hak == "admin_sekolah"'><ion-icon name="create"></ion-icon></ion-button> &nbsp;
+                <ion-button color="danger" (click)="peringatan(data.idinfo_sekolah)" *ngIf='hak == "admin_sekolah"'><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
               </ion-row>     
             </ion-col>
           </ion-row>                          
@@ -65,7 +64,7 @@
 
   </div> 
 
-  <ion-fab *ngIf="cek == true" horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="hak == 'admin_sekolah' && dataSekolah == null">
     <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

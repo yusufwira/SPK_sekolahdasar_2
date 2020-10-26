@@ -33,6 +33,11 @@ export class UserService {
     ("http://localhost/ta_backend/Auth/upload.php", testData);
   }
 
+  CekUsername(username):Observable<any>{
+    return this.http.get
+    ("http://localhost/ta_backend/Auth/data_user.php?username="+username);
+  }
+
   Registrasi():Observable<any>{
     return this.http.get
     ("http://localhost/ta_backend/Auth/Register.php?username="+this.username+"&password="+this.password+"&email="+this.email+"&nama="+this.nama+"&alamat="+this.alamat+"&kecamatan="+this.kecamatan+"&notelp="+this.notelp+"&hak="+this.hak+"&photo="+this.photo);

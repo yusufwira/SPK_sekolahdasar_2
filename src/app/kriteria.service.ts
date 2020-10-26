@@ -53,5 +53,30 @@ export class KriteriaService {
   detail_kriteria(){
     return this.http.get("http://localhost/revisi_ta/kriteria/kriteria_detail.php");
   }
+
+  subkriteria(namaKriteria){    
+    let Data:FormData = new FormData();
+    Data.append('nama_kriteria', namaKriteria);    
+    return this.http.post<any>
+    ("http://localhost/revisi_ta/kriteria/subkriteria.php", Data);
+  }
+
+  subKriteriaBobot(id)
+  {
+    let Data:FormData = new FormData();
+    Data.append('id_kriteria', id);    
+    return this.http.post<any>
+    ("http://localhost/revisi_ta/kriteria/subkriteria_bobot.php", Data);
+  }
+
+  update_subkriteria_bobot(bobot:string, crit1:string, crit2:string):Observable<any>{
+    let body = new HttpParams();
+    let Data:FormData = new FormData();
+    Data.append('bobot', bobot); 
+    Data.append('crit1',crit1 ); 
+    Data.append('crit2',crit2 ); 
+    return this.http.post<any>
+    ("http://localhost/revisi_ta/kriteria/update_subkriteria_bobot.php", Data);
+  }
   
 }

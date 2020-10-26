@@ -28,7 +28,7 @@ export class SekolahService {
   }
 
   Review(idsekolah, iduser, review, idkriteria){
-    console.log(idsekolah)
+    console.log(idsekolah+ iduser+ review+ idkriteria)
     return this.http.get("http://localhost/revisi_ta/sekolah/review.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&review="+review+"&id_kriteria="+idkriteria);
   }
 
@@ -56,8 +56,8 @@ export class SekolahService {
     return this.http.get("http://localhost/revisi_ta/sekolah/list_admin_sekolah.php?iduser="+id);
   }
 
-  Search(key:string):Observable<any>{
-    return this.http.get("http://localhost/ta_backend/sekolah/search.php?key="+key);
+  Search(kategori:string,key:string):Observable<any>{
+    return this.http.get("http://localhost/revisi_ta/sekolah/search.php?kategori="+kategori+"&key="+key);
   }
 
   jumlahSekolah(){
@@ -201,6 +201,10 @@ export class SekolahService {
     return hasil;
   }
 
+  Delete_foto(id){
+    return this.http.get("http://localhost/revisi_ta/sekolah/delete_foto.php?id="+id);
+  }
+
 
 
  
@@ -231,5 +235,35 @@ export class SekolahService {
     data.append('last_id', last_id);
     return this.http.post<any>
     ("http://localhost/revisi_ta/sekolah/create_info.php", data);
+  }
+
+ Update_infosekolah(npsp:string,nama:string,alamat:string,telp:string,kecamatan:string,agama:string,kepala:string,jam:string, username:string):Observable<any>{
+    let body = new HttpParams();
+    let data:FormData = new FormData();
+    // var json_arr = JSON.stringify(this.items);
+    data.append('npsp', npsp); 
+    data.append('nama', nama);
+    data.append('alamat', alamat);
+    data.append('telp', telp);
+    data.append('kecamatan', kecamatan);
+    data.append('agama', agama);
+    data.append('kepala', kepala);
+    data.append('jam', jam); 
+    data.append('username', username); 
+    var lastid = this.http.post<any>
+    ("http://localhost/revisi_ta/sekolah/sekolah_update.php", data);
+    return lastid;
+  }
+
+
+  Update_infoKR(datas:any,last_id):Observable<any>{
+    let body = new HttpParams();
+    let data:FormData = new FormData();
+    var doto = JSON.stringify(datas);
+    console.log(doto);
+    data.append('data', doto);
+    data.append('last_id', last_id);
+    return this.http.post<any>
+    ("http://localhost/revisi_ta/sekolah/sekolah_update_info.php", data);
   }
 }
