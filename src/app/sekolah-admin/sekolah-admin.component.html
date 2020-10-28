@@ -56,7 +56,7 @@
               <ion-row *ngIf='data.status_sekolah == "Tervalidasi"' class="card-action" >                            
                 <ion-button color="success"  routerLink="/sekolah-view/{{data.npsn}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
                 <ion-button color="warning" routerLink="/sekolah-update/{{data.npsn}}" *ngIf='hak == "admin_sekolah"'><ion-icon name="create"></ion-icon></ion-button> &nbsp;
-                <ion-button color="danger" (click)="peringatan(data.idinfo_sekolah)" *ngIf='hak == "admin_sekolah"'><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
+                <ion-button color="danger" (click)="peringatan(data.npsn)" *ngIf='hak == "admin_sekolah"'><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
               </ion-row>     
             </ion-col>
           </ion-row>                          
@@ -64,7 +64,7 @@
 
   </div> 
 
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="hak == 'admin_sekolah' && dataSekolah == null">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="hak == 'admin_sekolah' && dataSekolah == belum ada">
     <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

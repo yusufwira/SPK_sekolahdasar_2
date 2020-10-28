@@ -28,6 +28,7 @@ export class SekolahAdminComponent implements OnInit {
     if(localStorage['hak_akses'] == 'admin_sekolah'){
       this.sekolah.ListSekolahAdmin(localStorage['iduser']).subscribe((data) => {  
         if(data == 'belum ada'){
+          this.dataSekolah = null;
           this.cek = true;
         }
         else{
@@ -110,6 +111,7 @@ export class SekolahAdminComponent implements OnInit {
 
    
   peringatan(id){
+    console.log(id);
     const alert =  this.alertController.create({
      header: 'Peringatan Penghapusan Sekolah',
      message: 'Semua data menengenai sekolah dan hal berhubungan dengan sekolah akan terhapus',
@@ -120,7 +122,7 @@ export class SekolahAdminComponent implements OnInit {
         text: 'Okay',
         handler: () => {
            this.sekolah.Delete(id).subscribe((data) => {               
-            console.log(data);   
+            console.log(id);   
             if(data == "sukses"){
               this.peringatan_selesai();
             }

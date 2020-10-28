@@ -12,7 +12,7 @@
 
 <!-- class="swiper-no-swiping" -->
 <ion-content padding>
-  <ion-slides  #slides  pager="false" >
+  <ion-slides  #slides  pager="false" class="swiper-no-swiping">
 
     <ion-slide>
       <h2>Info Sekolah</h2>
@@ -141,9 +141,13 @@
       <div *ngFor="let detail of detail_kriteria">
         <div *ngIf="kriteria.nama_kriteria == detail.nama_kriteria">
           <ion-item *ngIf="detail.detail != 'Internet' && detail.detail != 'Akreditasi' && detail.detail != 'Tahun Kurikulum' ">
-            <ion-label position="floating">{{detail.detail}}</ion-label>
-            <ion-input (input)="inputAll($event, detail.id_detail)"></ion-input>
+            <ion-label position="floating">{{detail.detail}}</ion-label>            
+            <ion-input (input)="inputAll($event, detail.id_detail)"></ion-input>            
           </ion-item>
+          <p *ngIf="detail.id_detail == 18" class="ion-text-end">{{ uangGedung | currency:'Rp.':true:'3.0' }}</p>
+          <p *ngIf="detail.id_detail == 19" class="ion-text-end">{{ uangDaftarUlang | currency:'Rp.':true:'3.0' }}</p>
+          <p *ngIf="detail.id_detail == 20" class="ion-text-end">{{ uangSpp | currency:'Rp.':true:'3.0' }}</p>
+          <p *ngIf="detail.id_detail == 21" class="ion-text-end">{{ uangSeragam | currency:'Rp.':true:'3.0' }}</p>
 
           <ion-radio-group *ngIf="detail.detail == 'Internet'" [(ngModel)]="internet" (ionChange)="optionsInternet(detail.id_detail)">
               <ion-list-header>

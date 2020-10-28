@@ -62,38 +62,38 @@ export class SekolahCreateComponent implements OnInit {
   // file input
   inputnpsn(event:any) {    
     this.npsn = event.target.value;  
-    console.log(this.npsn)  
+    // console.log(this.npsn)  
   }
   inputnama(event:any) {    
     this.nama = event.target.value;   
-    console.log(this.nama) 
+    // console.log(this.nama) 
   }
   inputalamat(event:any) {    
     this.alamat = event.target.value; 
-    console.log(this.alamat)       
+    // console.log(this.alamat)       
   }
   inputtelp(event:any) {    
     this.telp = event.target.value;    
-    console.log(this.telp)
+    // console.log(this.telp)
   }
   optionsKecamatan():void{
     let item = this.kecamatan;
     this.kecamatan = item;
-    console.log(this.kecamatan)
+    // console.log(this.kecamatan)
   }
   optionsAgama():void{
     let item = this.agama;
     this.agama = item;
-    console.log(this.agama)
+    // console.log(this.agama)
   }
   inputkepala(event:any) {    
     this.kepala = event.target.value;   
-    console.log(this.kepala) 
+    // console.log(this.kepala) 
   }
 
   inputjam(event:any) {    
     this.jam = event.target.value;    
-    console.log(this.jam)
+    // console.log(this.jam)
   }
 
 
@@ -173,35 +173,23 @@ export class SekolahCreateComponent implements OnInit {
     this.arr_data[id] = {id:id,value:this.TahunAkre}
   }
 
+  public uangGedung = null;
+  public uangDaftarUlang = null;
+  public uangSpp = null;
+  public uangSeragam = null;
+
   inputAll(event:any, id) { 
-    this.arr_data[id] = {id:id,value:event.target.value}
-    console.log(this.box_price_formatted)
-  }
-
-  box_price_formatted =0;
-  inputBiaya(event:any, id) { 
-    this.arr_data[id] = {id:id,value:event.target.value}
-    this.formatRupiah(this.arr_data[id], "Rp. ")
-  }
-
-  
-  formatRupiah(angka, prefix){
-    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-    split   		= number_string.split(','),
-    sisa     		= split[0].length % 3,
-    rupiah     		= split[0].substr(0, sisa),
-    ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
-   
-    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-    if(ribuan){
-      var separator = sisa ? '.' : '';
-      rupiah += separator + ribuan.join('.');
+    this.arr_data[id] = {id:id,value:event.target.value} 
+    if (id == 18) {
+      this.uangGedung = event.target.value;
+    } else if (id == 19) {
+      this.uangDaftarUlang = event.target.value;
+    } else if (id == 20) {
+      this.uangSpp = event.target.value;
+    } else if (id == 21) {
+      this.uangSeragam = event.target.value;
     }
-   
-    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-    this.box_price_formatted = undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-  }
+  }    
 
   Save_info_kriteria(){
     this.arr_data = this.arr_data.filter(function (el) {
@@ -211,6 +199,8 @@ export class SekolahCreateComponent implements OnInit {
     this.sekolah.Create_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
       this.arr_data = new Array();
       console.log(data)
+    },(error)=>{
+      this.peringatan();
     });
   }
 

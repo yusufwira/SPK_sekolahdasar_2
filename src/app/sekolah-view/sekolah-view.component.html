@@ -62,13 +62,23 @@
 
     <ion-row *ngFor="let kriteria of arr_detail | keyvalue">
       <ion-col size='12'>
-        <ion-card *ngIf ="kriteria.key != 'Lokasi'">
+        <ion-card *ngIf ="kriteria.key != 'Lokasi' && kriteria.key != 'Biaya'">
           <ion-card-header color="tertiary">
            {{kriteria.key}}
           </ion-card-header>
           <ion-card-content>
             <ion-item slot="start" *ngFor="let detail of kriteria.value | keyvalue">
               {{detail.key}} : {{detail.value}}
+            </ion-item> 
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf ="kriteria.key == 'Biaya'">
+          <ion-card-header color="tertiary">
+           {{kriteria.key}}
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item slot="start" *ngFor="let detail of kriteria.value | keyvalue">
+              {{detail.key}} : {{detail.value | currency:'Rp.':true:'3.0' }}
             </ion-item> 
           </ion-card-content>
         </ion-card>
