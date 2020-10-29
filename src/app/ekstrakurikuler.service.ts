@@ -18,8 +18,19 @@ export class EkstrakurikulerService {
     return this.http.get("http://localhost/ta_backend/ekstrakurikuler/insert.php?nama="+this.nama+"&desc="+this.desc);
   }
 
-  dataEkstra(){
-    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampil.php");
+  // dataEkstra(key):Observable<any>{
+  //   let body = new HttpParams();
+  //   let Data:FormData = new FormData();
+  //   Data.append('key', null);     
+  //   return this.http.post<any>
+  //   ("http://localhost/ta_backend/kriteria/update_bobot.php", Data);
+  // }
+  dataEkstra(key){
+    if (key != null) {
+      return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampil.php?key="+key); 
+    } else {
+      return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampil.php");
+    }
   }
 
   getEkstra(id){

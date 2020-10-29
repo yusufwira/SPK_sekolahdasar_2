@@ -9,8 +9,16 @@
    
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <h1>List Extracurricular</h1>
+<ion-content padding>
+  <h1>Daftar Ekstrakurkuler</h1>  
+  <ion-row style="border: 1px solid black;">
+    <ion-col size="1" style="font-size: 35px">
+      <ion-icon name='search'></ion-icon>
+    </ion-col>
+    <ion-col >
+      <ion-input type="text" (input)="inputKey($event)" placeholder="Cari Ekstrakurikuler"></ion-input>
+    </ion-col>
+  </ion-row>  
   <ion-list padding *ngFor="let data of datas">
     <ion-item class="item">            
       <ion-label>{{data.nama_eks}}</ion-label>

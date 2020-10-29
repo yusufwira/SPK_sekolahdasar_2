@@ -35,6 +35,20 @@ ion-slides {
     text-align: left;
   }
 
+  ion-card{
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ion-list{
+    overflow: hidden;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
 
 
   p b {

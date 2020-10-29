@@ -40,23 +40,23 @@
             <ion-col>
               <ion-row>
                 <div class="nama">
-                  {{data.nama_sekolah}}
+                  {{data.nama_sekolah}} <a style="color: red; font-size: 15px;" *ngIf='data.status_sekolah == "Tertolak"'>DITOLAK</a>
                 </div>
-              </ion-row>
-              <a style="color: red;" *ngIf='data.status_sekolah == "Tertolak"'>Ditolak Oleh Admin</a> 
-              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "Super_Admin" || data.status_sekolah == "Tertolak" && hak == "Super_Admin"' class="card-action" >                       
+              </ion-row>              
+              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "Super_Admin" || data.status_sekolah == "Tertolak" && hak == "Super_Admin"' class="card-action" >  
+                <ion-button color="success"  routerLink="/sekolah-view/{{data.npsn}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp;                     
                 <ion-button color="primary" (click)="validasi(data.npsn, 'Tervalidasi')">Terima</ion-button> 
                 <ion-button color="danger" (click)="validasi(data.npsn, 'Tertolak')">Tolak</ion-button> &nbsp;                
               </ion-row> 
 
-              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "admin_sekolah"' class="card-action" >                                            
-                <p style="color: red"><b>Menunggu Konfirmasi dari Admin</b></p>
+              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" || data.status_sekolah == "Tertolak" && hak == "admin_sekolah"' class="card-action" >                          
+                <a style="color: red">Keterangan :{{ data.keterangan}}</a>
               </ion-row> 
            
-              <ion-row *ngIf='data.status_sekolah == "Tervalidasi"' class="card-action" >                            
+              <ion-row  class="card-action" >                            
                 <ion-button color="success"  routerLink="/sekolah-view/{{data.npsn}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
                 <ion-button color="warning" routerLink="/sekolah-update/{{data.npsn}}" *ngIf='hak == "admin_sekolah"'><ion-icon name="create"></ion-icon></ion-button> &nbsp;
-                <ion-button color="danger" (click)="peringatan(data.npsn)" *ngIf='hak == "admin_sekolah"'><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
+                <ion-button color="danger" (click)="peringatan(data.npsn)"><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
               </ion-row>     
             </ion-col>
           </ion-row>                          

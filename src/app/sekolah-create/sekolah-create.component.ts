@@ -42,12 +42,21 @@ export class SekolahCreateComponent implements OnInit {
       console.log(this.detail_kriteria)
     });
 
-    this.ekstra.dataEkstra().subscribe((data) => {   
+    this.ekstra.dataEkstra(null).subscribe((data) => {   
       this.dataEkstra = data;
       console.log(this.dataEkstra)
     });
     
   }
+
+  inputKey(event:any) {          
+    this.ekstra.dataEkstra(event.target.value).subscribe((data) => {      
+      this.dataEkstra = data;
+    },(error)=>{
+     
+    });
+  }
+
 
   // glonal varible
   npsn ="";

@@ -266,4 +266,13 @@ export class SekolahService {
     return this.http.post<any>
     ("http://localhost/revisi_ta/sekolah/sekolah_update_info.php", data);
   }
+
+  updateKeterangan(id,keterangan):Observable<any>{
+    let body = new HttpParams();
+    let data:FormData = new FormData();
+    data.append('id', id);
+    data.append('keterangan', keterangan);
+    return this.http.post<any>
+    ("http://localhost/revisi_ta/sekolah/updateKeterangan.php", data);
+  }
 }

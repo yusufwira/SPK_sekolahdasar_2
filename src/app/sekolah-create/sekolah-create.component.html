@@ -12,7 +12,7 @@
 
 <!-- class="swiper-no-swiping" -->
 <ion-content padding>
-  <ion-slides  #slides  pager="false" class="swiper-no-swiping">
+  <ion-slides  #slides  pager="false">
 
     <ion-slide>
       <h2>Info Sekolah</h2>
@@ -200,18 +200,14 @@
           <ion-card-header>
             Pilih Ekstrakurikuler
           </ion-card-header>
-          <ion-card-content>
-            <div class="tambah" routerLink="/ekstrakurikuler-create/sekolah-create/{{idSekolah}}">
-              <ion-icon name="add"></ion-icon>
-              <a>Tambah Ekstrakurikuler</a>
-            </div>
-            <ion-item *ngFor="let data of dataEkstra">
-              <ion-checkbox color="primary" slot="start" (click) = "getValue(data.id)"></ion-checkbox>
-              <ion-label>
-               {{data.nama_eks}}
-              </ion-label>
-            </ion-item>   
-          </ion-card-content>
+            <ion-icon name="search" slot="end"></ion-icon>
+            <ion-input (input)="inputKey($event)" placeholder = 'Cari Ekstrakurikuler'></ion-input>
+            <ion-list>
+              <ion-item *ngFor="let data of dataEkstra">
+                <ion-checkbox color="primary" slot="start" (click) = "getValue(data.id)"></ion-checkbox>
+                {{data.nama_eks}}
+              </ion-item>   
+            </ion-list>
         </ion-card>
       </div>
 

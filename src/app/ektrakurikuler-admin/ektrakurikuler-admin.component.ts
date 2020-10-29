@@ -19,17 +19,25 @@ export class EktrakurikulerAdminComponent implements OnInit {
 
     
     
-    this.eks.dataEkstra().subscribe((data) => {      
+    this.eks.dataEkstra(null).subscribe((data) => {      
       this.datas = data;
       console.log(data)      
     });
 
     this.events.subscribe('data', (data) => {
       //console.log(data)
-      this.eks.dataEkstra().subscribe((data) => {      
+      this.eks.dataEkstra(null).subscribe((data) => {      
         this.datas = data;
         console.log(data)      
       });
+    });
+  }
+
+  inputKey(event:any) {          
+    this.eks.dataEkstra(event.target.value).subscribe((data) => {      
+      this.datas = data;
+    },(error)=>{
+     
     });
   }
 

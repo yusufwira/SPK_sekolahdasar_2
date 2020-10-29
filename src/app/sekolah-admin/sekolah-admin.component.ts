@@ -23,7 +23,9 @@ export class SekolahAdminComponent implements OnInit {
   public jumlah_sekolah="";
   public cek = false;
   public hak = "";
-  ngOnInit() {    
+  ngOnInit() {}
+
+  ionViewWillEnter() {    
     this.hak = localStorage['hak_akses'];
     if(localStorage['hak_akses'] == 'admin_sekolah'){
       this.sekolah.ListSekolahAdmin(localStorage['iduser']).subscribe((data) => {  
@@ -101,7 +103,7 @@ export class SekolahAdminComponent implements OnInit {
    validasi(id,status){
      console.log(id+status)
      if(status == "Tertolak"){
-        this.peringatan_tolak();
+        this.KeteraganTolak(id);
      }
      this.sekolah.Validasi(id,status).subscribe((data) => {               
       console.log(data);   
@@ -134,6 +136,35 @@ export class SekolahAdminComponent implements OnInit {
   }
 
 
+
+  KeteraganTolak(id){
+    const alert =  this.alertController.create({
+     header: 'Penolakan',
+     message: 'Alasan Menolak',
+     inputs: [
+      {
+        name:'keterangan',
+        type:'text',
+        placeholder: 'Masukan Keterangan',
+      }
+     ],
+     buttons: [
+      {
+        text: 'Cancel',        
+      }, {
+        text: 'Kirim',
+        handler:data=> {
+          console.log("adasd");
+          this.sekolah.updateKeterangan(id,data.keterangan).subscribe((data) => {               
+            console.log(data);               
+           }); 
+        }
+      }
+    ]
+   }).then(alert=> alert.present());;
+  }
+
+
   peringatan_selesai(){
     const alert =  this.alertController.create({
      header: 'SUKSES',
@@ -153,23 +184,7 @@ export class SekolahAdminComponent implements OnInit {
   inputAlasan(event:any) {    
     this.alasan = event.target.value; 
     console.log(this.alasan)     
-   }
-
-  peringatan_tolak(){
-    const alert =  this.alertController.create({
-     header: 'Alasan Tertolak',
-     message: '<ion-input type="text" [(ngModel)]="alasan"> </ion-input>  ',
-     buttons: [
-      {
-        text: 'Okay',
-        handler: () => {
-           console.log(this.alasan)
-        }
-      }
-    ]
-   }).then(alert=> alert.present());;
-  }
-
+   }  
 
   
 
