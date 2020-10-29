@@ -22,12 +22,20 @@ export class EkstrakurikulerService {
     return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampil.php");
   }
 
+  getEkstra(id){
+    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/get.php?id="+id);
+  }
+
   deleteEks(id){
     return this.http.get("http://localhost/ta_backend/ekstrakurikuler/delete.php?id="+id);
   }
 
   jumlahEks(){
     return this.http.get("http://localhost/ta_backend/ekstrakurikuler/jumlah.php?");
+  }
+
+  deleteEksSekolah(idEks, idSekolah) {
+    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/delete_eks_sekolah.php?id_eks="+idEks+"&id_sekolah="+idSekolah);
   }
 
 }

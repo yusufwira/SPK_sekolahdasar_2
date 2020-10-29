@@ -129,7 +129,7 @@
       </ion-item>
       <ion-row>
         <ion-card *ngFor="let foto of datafoto" class="edit-foto" color="danger" (click)="DeleteFoto(foto.idfoto)" >
-          <ion-icon name="trash-outline"></ion-icon>
+          <ion-icon name="trash"></ion-icon>
         </ion-card>              
       </ion-row>
       
@@ -149,7 +149,7 @@
             <ion-input [(ngModel)]="detail.value" (change)="inputAll($event, detail.key)"></ion-input>
           </ion-item>
 
-          <ion-radio-group *ngIf="detail.key == 'Internet'" [(ngModel)]="detail.value" (ionChange)="optionsInternet(detail.key)">
+          <ion-radio-group *ngIf="detail.key == 'Internet'" [(ngModel)]="internet" (ionChange)="optionsInternet(detail.key)">
               <ion-list-header>
                 <ion-label >{{detail.key}}</ion-label>
               </ion-list-header>
@@ -164,13 +164,12 @@
           </ion-radio-group>
           <ion-item *ngIf="detail.key == 'Akreditasi'">
             <ion-label position="floating">{{detail.key}}</ion-label>
-            <ion-select  [(ngModel)]="detail.value" (ionChange)="optionsAkreditasi(detail.key)" >            
-              <ion-select-option value="A">A</ion-select-option>
-              <ion-select-option value="B">B</ion-select-option>
-              <ion-select-option value="Belum Akreditasi">Belum Akreditasi</ion-select-option>
-              <ion-select-option value="Belum Terakreditasi">Belum Terakreditasi</ion-select-option>
-              <ion-select-option value="C">C</ion-select-option>
-              <ion-select-option value="TT">TT</ion-select-option>
+            <ion-select  [(ngModel)]="akreditasi" (ionChange)="optionsAkreditasi(detail.key)" >            
+              <ion-select-option value="5">A</ion-select-option>
+              <ion-select-option value="4">B</ion-select-option>
+              <ion-select-option value="3">Belum Akreditasi</ion-select-option>
+              <ion-select-option value="2">Belum Terakreditasi</ion-select-option>
+              <ion-select-option value="1">C</ion-select-option>              
             </ion-select>
           </ion-item>
           <ion-item *ngIf="detail.key == 'Tahun Kurikulum'">
@@ -195,37 +194,34 @@
       </ion-card>
 
 
-      <!-- Ekstrakurikuler -->
-      <div *ngIf="kriteria.nama_kriteria == 'Ekstrakurikuler'">
-        <ion-card>
-          <ion-card-header>
-            Pilih Ekstrakurikuler
-          </ion-card-header>
-          <ion-card-content>
-            <div class="tambah" routerLink="/ekstrakurikuler-create/sekolah-create/{{idSekolah}}">
-              <ion-icon name="add"></ion-icon>
-              <a>Tambah Ekstrakurikuler</a>
-            </div>
-            <ion-item *ngFor="let data of dataEkstra">
-              <ion-checkbox color="primary" slot="start" (click) = "getValue(data.id)"></ion-checkbox>
-              <ion-label>
-               {{data.nama_eks}}
-              </ion-label>
-            </ion-item>   
-          </ion-card-content>
-        </ion-card>
-      </div>
-
-      
-
-      <ion-card *ngIf="kriteria.nama_kriteria == 'Ekstrakurikuler'" class="btn-next" color="tertiary" (click)="save_ekstra(); slides.slideNext()">
-        <h3>Save</h3>
-      </ion-card>
-      
-
-      
+      <!-- Ekstrakurikuler -->                  
     </ion-slide>
-
+      <ion-slide>
+        <h2>Daftar Ekstrakurikuler</h2>
+        <div >
+          <ion-card>           
+            <ion-card-content>              
+              <ion-item color="tertiary">
+                <ion-label> + Tambah Ekstrakurikuler</ion-label>
+                <ion-select [(ngModel)]="addEkstra" (ionChange)="optionsEkstrakurikuler()" interface="action-sheet">
+                  <!-- <ion-select-option value="" ></ion-select-option> -->
+                  <ion-select-option *ngFor="let data of listEkstra; let i = index" value = {{i}} >{{ data.nama_eks }}</ion-select-option>                  
+                </ion-select>
+              </ion-item>
+              <ion-item *ngFor="let data of dataEkstra ; let x = index">                
+                <ion-label>
+                  {{data.nama_eks}}
+                </ion-label>
+                <ion-icon name="trash" color="danger" (click) = "deleteEkstra(data.id, x)"></ion-icon>
+              </ion-item>   
+            </ion-card-content>
+          </ion-card>
+        </div>
+        
+        <ion-card  class="btn-next" color="tertiary" (click)="save_ekstra(); slides.slideNext()">
+          <h3>Save</h3>
+        </ion-card>
+      </ion-slide>
     
 
   </ion-slides>

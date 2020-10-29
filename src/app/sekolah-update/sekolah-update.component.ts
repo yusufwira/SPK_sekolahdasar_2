@@ -24,11 +24,13 @@ export class SekolahUpdateComponent implements OnInit {
 
   data_kriteria:Object;
   detail_kriteria:Object;
-  dataEkstra:Object;
+  dataEkstra = [];
+  listEkstra:Object;
   username="";
   iduser="";
   id_sekolah="";
-  arr_detail:any;
+  arr_detail:any;  
+
   ngOnInit() {
     this.username= localStorage['username'];
     this.iduser= localStorage['iduser'];
@@ -48,6 +50,9 @@ export class SekolahUpdateComponent implements OnInit {
       this.jam = data['jam'];
       this.username = data['username'];
       this.datafoto = data['foto'];
+      this.akreditasi = this.arr_detail.Akademis.Akreditasi;
+      this.TahunAkre = this.arr_detail.Akademis['Tahun Kurikulum'];
+      this.internet = this.arr_detail['Fasilitas'].Internet;
       console.log(this.arr_detail)
       this.loadFoto(this.datafoto, this.username)
     });
@@ -61,9 +66,13 @@ export class SekolahUpdateComponent implements OnInit {
       console.log(this.detail_kriteria)
     });
 
-    this.ekstra.dataEkstra().subscribe((data) => {   
+    this.ekstra.getEkstra(this.sekolah.id).subscribe((data) => {   
       this.dataEkstra = data;
       console.log(this.dataEkstra)
+    });
+
+    this.ekstra.dataEkstra().subscribe((data) => {   
+      this.listEkstra = data;      
     });
     
   }
@@ -101,6 +110,9 @@ export class SekolahUpdateComponent implements OnInit {
   agama = "All";
   kepala = "";
   jam = "";
+  akreditasi = "A";
+  TahunAkre = "2013";
+  internet="1";
 
   // file input
   inputnpsn(event:any) {    
@@ -194,7 +206,7 @@ export class SekolahUpdateComponent implements OnInit {
   }
   indexs = 0;
   arr_data = new Array()
-  internet="1";
+  
   optionsInternet(id):void{
     let item = this.internet;
     this.internet = item
@@ -203,19 +215,20 @@ export class SekolahUpdateComponent implements OnInit {
     this.indexs += 1;
   }
 
-  akreditasi = "A";
+  
   optionsAkreditasi(id):void{
     let item = this.akreditasi;
     this.akreditasi = item;
-    console.log(this.akreditasi);
+    console.log(item);
     this.arr_data[this.indexs] = {id:id,value:this.akreditasi}
     this.indexs += 1;
   }
 
-  TahunAkre = "2013";
+  
   optionsTahunAkre(id):void{
     let item = this.TahunAkre;
     this.TahunAkre = item;
+    console.log(this.TahunAkre);
     this.arr_data[this.indexs] = {id:id,value:this.TahunAkre}
     this.indexs += 1;
   }
@@ -233,6 +246,7 @@ export class SekolahUpdateComponent implements OnInit {
     this.sekolah.Update_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
       this.arr_data = new Array();
       console.log(data)
+      this.peringatanSukses();
     });
   }
 
@@ -256,14 +270,27 @@ export class SekolahUpdateComponent implements OnInit {
   }
 
   save_ekstra(){
-    this.sekolah.ekstra = this.arrEks;
+    this.sekolah.ekstra = this.newEkstra;
     this.sekolah.sekolah = this.id_sekolah;
     this.sekolah.AddEkstra().subscribe((data) => {      
       // console.log(data);   
       console.log("sukses"); 
+      this.peringatanSukses();
     },(error)=>{
       this.peringatan();
     });        
+  }
+
+  deleteEkstra(id, index){
+    console.log(index);
+    
+    this.ekstra.deleteEksSekolah(id,this.id_sekolah).subscribe((data) => {      
+      if (data == 'sukses') {
+        this.dataEkstra.splice(index, 1);    
+      }       
+    },(error)=>{
+      this.peringatan();
+    });
   }
 
   peringatan(){
@@ -273,6 +300,23 @@ export class SekolahUpdateComponent implements OnInit {
      buttons: ['OK']
    }).then(alert=> alert.present());;
   }
+
+  peringatanSukses(){
+    const alert =  this.alertController.create({
+     header: 'Sukses',
+     message: 'Data berhasil disimpan pada database',
+     buttons: ['OK']
+   }).then(alert=> alert.present());;
+  }
  
+  addEkstra = '';  
+  newEkstra = [];
+  optionsEkstrakurikuler():void{
+    let item = this.addEkstra;
+    this.addEkstra = item;
+    this.dataEkstra.push(this.listEkstra[this.addEkstra])
+    this.newEkstra.push(this.listEkstra[this.addEkstra].id)
+    this.addEkstra = '';
+  }
 
 }

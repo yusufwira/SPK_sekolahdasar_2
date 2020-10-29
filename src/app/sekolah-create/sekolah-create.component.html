@@ -165,12 +165,11 @@
           <ion-item *ngIf="detail.detail == 'Akreditasi'">
             <ion-label position="floating">{{detail.detail}}</ion-label>
             <ion-select  [(ngModel)]="akreditasi" (ionChange)="optionsAkreditasi(detail.id_detail)" >            
-              <ion-select-option value="A">A</ion-select-option>
-              <ion-select-option value="B">B</ion-select-option>
-              <ion-select-option value="Belum Akreditasi">Belum Akreditasi</ion-select-option>
-              <ion-select-option value="Belum Terakreditasi">Belum Terakreditasi</ion-select-option>
-              <ion-select-option value="C">C</ion-select-option>
-              <ion-select-option value="TT">TT</ion-select-option>
+              <ion-select-option value="5">A</ion-select-option>
+              <ion-select-option value="4">B</ion-select-option>
+              <ion-select-option value="3">Belum Akreditasi</ion-select-option>
+              <ion-select-option value="2">Belum Terakreditasi</ion-select-option>
+              <ion-select-option value="1">C</ion-select-option>           
             </ion-select>
           </ion-item>
           <ion-item *ngIf="detail.detail == 'Tahun Kurikulum'">

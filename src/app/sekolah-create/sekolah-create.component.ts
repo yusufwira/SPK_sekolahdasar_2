@@ -134,11 +134,13 @@ export class SekolahCreateComponent implements OnInit {
   }
 
   id_sekolah = "";
+  successCount =0;
   Save_info_sekolah(){
     this.sekolah.Create_infosekolah(this.npsn, this.nama, this.alamat, this.telp, this.kecamatan, this.agama, this.kepala, this.jam, this.iduser).subscribe((data) => { 
       this.sekolah.datafoto = this.datafoto;
       this.id_sekolah = data;
-      this.sekolah.idSekolah = data;  
+      this.sekolah.idSekolah = data; 
+      this.successCount++; 
       this.sekolah.uploudFoto().subscribe((data) => {    
         console.log(data)               
       },(error)=>{
@@ -147,6 +149,36 @@ export class SekolahCreateComponent implements OnInit {
     },(error)=>{
       this.peringatan();
     }); 
+  }
+
+  Save_info_kriteria(){
+    this.arr_data = this.arr_data.filter(function (el) {
+      return el != null;
+    });
+    console.log(this.arr_data)
+    this.sekolah.Create_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
+      this.arr_data = new Array();
+      console.log(data)
+      this.successCount++; 
+      console.log(this.successCount);
+      if (this.successCount == 6) {
+        this.router.navigate(['/sekolah-admin'])
+      }
+    },(error)=>{
+      this.peringatan();
+    });
+  }
+
+  save_ekstra(){
+    this.sekolah.ekstra = this.arrEks;
+    this.sekolah.sekolah = this.id_sekolah;
+    this.sekolah.AddEkstra().subscribe((data) => {      
+      // console.log(data);   
+      console.log("sukses"); 
+      this.successCount++; 
+    },(error)=>{
+      this.peringatan();
+    });        
   }
 
   arr_data = new Array()
@@ -158,7 +190,7 @@ export class SekolahCreateComponent implements OnInit {
     this.arr_data[id] = {id:id,value:this.internet}
   }
 
-  akreditasi = "A";
+  akreditasi = "5";
   optionsAkreditasi(id):void{
     let item = this.akreditasi;
     this.akreditasi = item;
@@ -189,20 +221,7 @@ export class SekolahCreateComponent implements OnInit {
     } else if (id == 21) {
       this.uangSeragam = event.target.value;
     }
-  }    
-
-  Save_info_kriteria(){
-    this.arr_data = this.arr_data.filter(function (el) {
-      return el != null;
-    });
-    console.log(this.arr_data)
-    this.sekolah.Create_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
-      this.arr_data = new Array();
-      console.log(data)
-    },(error)=>{
-      this.peringatan();
-    });
-  }
+  }      
 
   pilih="";
   arrEks=[];
@@ -221,18 +240,7 @@ export class SekolahCreateComponent implements OnInit {
       this.arrEks.push(this.pilih);
     }
     console.log(this.arrEks);  
-  }
-
-  save_ekstra(){
-    this.sekolah.ekstra = this.arrEks;
-    this.sekolah.sekolah = this.id_sekolah;
-    this.sekolah.AddEkstra().subscribe((data) => {      
-      // console.log(data);   
-      console.log("sukses"); 
-    },(error)=>{
-      this.peringatan();
-    });        
-  }
+  }  
 
   peringatan(){
     const alert =  this.alertController.create({
