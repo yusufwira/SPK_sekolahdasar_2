@@ -55,7 +55,7 @@
            
               <ion-row  class="card-action" >                            
                 <ion-button color="success"  routerLink="/sekolah-view/{{data.npsn}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
-                <ion-button color="warning" routerLink="/sekolah-update/{{data.npsn}}" *ngIf='hak == "admin_sekolah"'><ion-icon name="create"></ion-icon></ion-button> &nbsp;
+                <ion-button color="warning" routerLink="/sekolah-update/{{data.npsn}}"><ion-icon name="create"></ion-icon></ion-button> &nbsp;
                 <ion-button color="danger" (click)="peringatan(data.npsn)"><ion-icon name="trash"></ion-icon></ion-button> &nbsp;
               </ion-row>     
             </ion-col>

@@ -164,7 +164,8 @@ export class SekolahCreateComponent implements OnInit {
     this.arr_data = this.arr_data.filter(function (el) {
       return el != null;
     });
-    console.log(this.arr_data)
+    console.log(this.arr_data); 
+    
     this.sekolah.Create_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
       this.arr_data = new Array();
       console.log(data)

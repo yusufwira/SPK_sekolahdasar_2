@@ -127,6 +127,7 @@ export class SekolahAdminComponent implements OnInit {
             console.log(id);   
             if(data == "sukses"){
               this.peringatan_selesai();
+              this.ionViewWillEnter();
             }
            }); 
         }

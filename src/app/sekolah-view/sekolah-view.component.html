@@ -68,8 +68,21 @@
           </ion-card-header>
           <ion-card-content>
             <ion-item slot="start" *ngFor="let detail of kriteria.value | keyvalue">
-              {{detail.key}} : {{detail.value}}
-            </ion-item> 
+              <div *ngIf="detail.key != 'Akreditasi' && detail.key != 'Internet'">
+                {{detail.key}} : {{detail.value}}
+              </div>
+              <div *ngIf="detail.key == 'Akreditasi'">
+                <a style="color: black;" *ngIf="detail.value == 5">{{detail.key}} : A</a>    
+                <a style="color: black;" *ngIf="detail.value == 4">{{detail.key}} : B</a>
+                <a style="color: black;" *ngIf="detail.value == 3">{{detail.key}} : Belum Akreditasi</a>
+                <a style="color: black;" *ngIf="detail.value == 2">{{detail.key}} : Belum Terakreditasi</a>
+                <a style="color: black;" *ngIf="detail.value == 1">{{detail.key}} : C</a>            
+              </div>
+              <div *ngIf="detail.key == 'Internet'">
+                <a style="color: black;" *ngIf="detail.value == 1">{{detail.key}} : <ion-icon name="checkmark-circle" color="success" slot="end"></ion-icon></a>
+                <a style="color: black;" *ngIf="detail.value == 0">{{detail.key}} : <ion-icon name="close-circle" color="danger" slot="end"></ion-icon>    </a>            
+              </div>
+            </ion-item>
           </ion-card-content>
         </ion-card>
         <ion-card *ngIf ="kriteria.key == 'Biaya'">

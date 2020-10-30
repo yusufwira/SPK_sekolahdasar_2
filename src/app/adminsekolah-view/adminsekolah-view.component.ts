@@ -45,7 +45,8 @@ export class AdminsekolahViewComponent implements OnInit {
       this.foto = data[0].nama_foto+"."+data[0].extention;
       console.log(data);
       console.log(this.foto);       
-     });
+     },(error)=>{
+    });
   }
 
 }

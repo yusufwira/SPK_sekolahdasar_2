@@ -31,7 +31,8 @@ export class SekolahUpdateComponent implements OnInit {
   id_sekolah="";
   arr_detail:any;  
 
-  ngOnInit() {
+  ngOnInit() {}
+  ionViewWillEnter() {
     this.username= localStorage['username'];
     this.iduser= localStorage['iduser'];
     this.sekolah.id = this.route.snapshot.params['id'];
@@ -67,11 +68,14 @@ export class SekolahUpdateComponent implements OnInit {
     });
 
     this.ekstra.getEkstra(this.sekolah.id).subscribe((data) => {   
+      console.log(data);
       this.dataEkstra = data;
       console.log(this.dataEkstra)
+    }
+    ,(error)=>{
     });
 
-    this.ekstra.dataEkstra().subscribe((data) => {   
+    this.ekstra.dataEkstra(null).subscribe((data) => {   
       this.listEkstra = data;      
     });
     
@@ -97,7 +101,7 @@ export class SekolahUpdateComponent implements OnInit {
 
   DeleteFoto(id){
     this.sekolah.Delete_foto(id).subscribe((data) => {   
-      this.ngOnInit()
+      this.ionViewWillEnter();
     });
   }
 
