@@ -69,7 +69,7 @@ export class SekolahUpdateComponent implements OnInit {
 
     this.ekstra.getEkstra(this.sekolah.id).subscribe((data) => {   
       console.log(data);
-      this.dataEkstra = data;
+      // this.dataEkstra = data;
       console.log(this.dataEkstra)
     }
     ,(error)=>{

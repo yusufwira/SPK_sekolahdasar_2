@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { SekolahService } from '../sekolah.service';
 import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 
@@ -16,7 +17,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class SekolahAdminComponent implements OnInit {
 
-  constructor(public alertController: AlertController, public sekolah:SekolahService,private modalCtrl: ModalController) { }
+  constructor(public alertController: AlertController, public sekolah:SekolahService,private modalCtrl: ModalController, private router: Router) { }
 
   public dataSekolah= [];
   public temp_dataSekolah= [];
@@ -30,6 +31,7 @@ export class SekolahAdminComponent implements OnInit {
     if(localStorage['hak_akses'] == 'admin_sekolah'){
       this.sekolah.ListSekolahAdmin(localStorage['iduser']).subscribe((data) => {  
         if(data == 'belum ada'){
+          this.router.navigate(['/panduan-admin'])
           this.dataSekolah = null;
           this.cek = true;
         }
