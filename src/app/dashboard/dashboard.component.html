@@ -12,22 +12,22 @@
         <ion-row class="jumlah">
           <ion-col >          
             <ion-icon name="home" ></ion-icon>
-            <ion-label><b> {{jumlahSekolah}}</b><br><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Sekolah</p></ion-label>
+            <ion-label><b> {{jumlahSekolah}}</b><br><a style="color:white; font-size:15px">Jumlah Sekolah Dasar</a></ion-label>
           </ion-col>
           <ion-col>          
             <ion-icon name="people"></ion-icon> 
-            <ion-label><b>  {{jumlahUser}}</b><br><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Pengguna</p></ion-label>
+            <ion-label><b>  {{jumlahUser}}</b><br><a style="color:white; font-size:15px">Jumlah Pengguna</a></ion-label>
           </ion-col>
         </ion-row>
         <br>
         <ion-row class="jumlah">
           <ion-col>          
             <ion-icon name="bonfire"></ion-icon>
-            <ion-label><b> {{jumlahEks}}</b><br><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Ekstrakurikuler</p></ion-label>
+            <ion-label><b> {{jumlahEks}}</b><br><a style="color:white; font-size:15px">Jumlah Ekstrakurikuler</a></ion-label>
           </ion-col>
           <ion-col>          
             <ion-icon name="body"></ion-icon> 
-            <ion-label><b> {{jumlahKriteria}}</b><br><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jumlah Kriteria</p></ion-label>
+            <ion-label><b> {{jumlahKriteria}}</b><br><a style="color:white; font-size:15px">Jumlah Kriteria</a></ion-label>
           </ion-col>
         </ion-row>
     </ion-grid>
@@ -44,7 +44,7 @@
                 </ion-item>
             
           </ion-card>
-      
+      <h2 class="ion-text-left" style="margin-left: 20px;">Pengaturan</h2>
      <ion-grid>
         <ion-row >
           <ion-col size="4">
@@ -54,7 +54,7 @@
               <ion-icon name="school"></ion-icon>     
 		        </ion-card-content>
      		</ion-card>	
-          Pengaturan Data Sekolah
+          Data Sekolah
           </ion-col>
           <ion-col size="4">
             <ion-card class="card warna1"  routerLink="/parent-admin">    	 		    	   
@@ -62,7 +62,7 @@
                 <ion-icon name="people"></ion-icon>              	
               </ion-card-content>
             </ion-card>
-            Pengaturan Data Orangtua	
+            Data Orangtua	
           </ion-col>
           <ion-col size="4">
             <ion-card class="card warna2" routerLink="/kriteria-admin">    	 
@@ -70,7 +70,7 @@
                 <ion-icon name="body"></ion-icon> 		         
               </ion-card-content>
              </ion-card>
-             Pengaturan Data Kriteria
+             Data Kriteria
           </ion-col>
          
 
@@ -84,7 +84,7 @@
               <ion-icon name="bonfire"></ion-icon>     
             </ion-card-content>
         </ion-card> 
-        Pengaturan Data Ekstrakurikuler
+        Data Ekstrakurikuler
           </ion-col>
           <ion-col size="4">
            <ion-card class="card warna4"  routerLink="/admin-admin">      
@@ -93,7 +93,7 @@
               <ion-icon name="person"></ion-icon>       
             </ion-card-content>
         </ion-card>
-        Pengaturan Data Admin 
+        Data Admin 
           </ion-col>
           <ion-col size="4">
           <!--  <ion-card class="card warna5">      
