@@ -69,7 +69,7 @@ export class SekolahUpdateComponent implements OnInit {
 
     this.ekstra.getEkstra(this.sekolah.id).subscribe((data) => {   
       console.log(data);
-      // this.dataEkstra = data;
+      this.dataEkstra = data;
       console.log(this.dataEkstra)
     }
     ,(error)=>{
@@ -251,6 +251,7 @@ export class SekolahUpdateComponent implements OnInit {
       this.arr_data = new Array();
       console.log(data)
       this.peringatanSukses();
+      this.router.navigate(['/sekolah-admin'])
     });
   }
 

@@ -49,11 +49,11 @@
                 <ion-button color="danger" (click)="validasi(data.npsn, 'Tertolak')">Tolak</ion-button> &nbsp;                
               </ion-row> 
 
-              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" || data.status_sekolah == "Tertolak" && hak == "admin_sekolah"' class="card-action" >                          
+              <ion-row *ngIf='data.status_sekolah == "Belum Tervalidasi" && hak == "admin_sekolah" || data.status_sekolah == "Tertolak" && hak == "admin_sekolah"' class="card-action" >                          
                 <a style="color: red">Keterangan :{{ data.keterangan}}</a>
               </ion-row> 
            
-              <ion-row  class="card-action" >                            
+              <ion-row  class="card-action">                            
                 <ion-button color="success"  routerLink="/sekolah-view/{{data.npsn}}"><ion-icon name="eye"></ion-icon></ion-button>&nbsp; 
                 <ion-button color="warning" routerLink="/sekolah-update/{{data.npsn}}"><ion-icon name="create"></ion-icon></ion-button> &nbsp;
                 <ion-button color="danger" (click)="peringatan(data.npsn)"><ion-icon name="trash"></ion-icon></ion-button> &nbsp;

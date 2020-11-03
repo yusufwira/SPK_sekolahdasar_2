@@ -31,7 +31,7 @@ export class SekolahAdminComponent implements OnInit {
     if(localStorage['hak_akses'] == 'admin_sekolah'){
       this.sekolah.ListSekolahAdmin(localStorage['iduser']).subscribe((data) => {  
         if(data == 'belum ada'){
-          this.router.navigate(['/panduan-admin'])
+          // this.router.navigate(['/panduan-admin'])
           this.dataSekolah = null;
           this.cek = true;
         }
