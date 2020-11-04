@@ -130,7 +130,7 @@
       
       
 
-      <ion-card class="btn-next" color="tertiary" (click)="Save_info_sekolah(); slides.slideNext()" >
+      <ion-card class="btn-next" color="tertiary" (click)="Save_info_sekolah();" >
         <h3>Save</h3>
       </ion-card>
     </ion-slide>
@@ -148,6 +148,7 @@
           <p *ngIf="detail.id_detail == 19" class="ion-text-end">{{ uangDaftarUlang | currency:'Rp.':true:'3.0' }}</p>
           <p *ngIf="detail.id_detail == 20" class="ion-text-end">{{ uangSpp | currency:'Rp.':true:'3.0' }}</p>
           <p *ngIf="detail.id_detail == 21" class="ion-text-end">{{ uangSeragam | currency:'Rp.':true:'3.0' }}</p>
+          <p *ngIf="detail.id_detail == 24" class="ion-text-end">{{ uangLain | currency:'Rp.':true:'3.0' }}</p>
 
           <ion-radio-group *ngIf="detail.detail == 'Internet'" [(ngModel)]="internet" (ionChange)="optionsInternet(detail.id_detail)">
               <ion-list-header>
@@ -189,7 +190,7 @@
         </div>
       </div>
 
-      <ion-card *ngIf="kriteria.nama_kriteria != 'Ekstrakurikuler'" class="btn-next" color="tertiary" (click)="Save_info_kriteria(); slides.slideNext()">
+      <ion-card *ngIf="kriteria.nama_kriteria != 'Ekstrakurikuler'" class="btn-next" color="tertiary" (click)="Save_info_kriteria();">
         <h3>Save</h3>
       </ion-card>
 
@@ -213,7 +214,7 @@
 
       
 
-      <ion-card *ngIf="kriteria.nama_kriteria == 'Ekstrakurikuler'" class="btn-next" color="tertiary" (click)="save_ekstra(); slides.slideNext()">
+      <ion-card *ngIf="kriteria.nama_kriteria == 'Ekstrakurikuler'" class="btn-next" color="tertiary" (click)="save_ekstra();">
         <h3>Save</h3>
       </ion-card>
       

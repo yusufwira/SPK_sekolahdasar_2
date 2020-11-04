@@ -33,6 +33,19 @@ export class EkstrakurikulerService {
     }
   }
 
+  dataEkstraValid(key){
+    if (key != null) {
+      return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampilValid.php?key="+key); 
+    } else {
+      return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampilValid.php");
+    }
+  }
+
+  Validasi(id, ket){
+    console.log(id + ket);
+    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/updateKeterangan.php?id="+id+"&keterangan="+ket);
+  }
+
   getEkstra(id){
     return this.http.get("http://localhost/ta_backend/ekstrakurikuler/get.php?id="+id);
   }

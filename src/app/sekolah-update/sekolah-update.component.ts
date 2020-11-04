@@ -24,7 +24,7 @@ export class SekolahUpdateComponent implements OnInit {
 
   data_kriteria:Object;
   detail_kriteria:Object;
-  dataEkstra = [];
+  dataEkstra:any = [];
   listEkstra:Object;
   username="";
   iduser="";
@@ -33,6 +33,11 @@ export class SekolahUpdateComponent implements OnInit {
 
   ngOnInit() {}
   ionViewWillEnter() {
+    this.img1 = "";
+    this.img2 = "";
+    this.img3 = "";
+    this.img4 = "";
+
     this.username= localStorage['username'];
     this.iduser= localStorage['iduser'];
     this.sekolah.id = this.route.snapshot.params['id'];
@@ -75,7 +80,7 @@ export class SekolahUpdateComponent implements OnInit {
     ,(error)=>{
     });
 
-    this.ekstra.dataEkstra(null).subscribe((data) => {   
+    this.ekstra.dataEkstraValid(null).subscribe((data) => {   
       this.listEkstra = data;      
     });
     
@@ -162,6 +167,7 @@ export class SekolahUpdateComponent implements OnInit {
   img2="";
   img3="";
   img4="";
+  check = false;
   public datafoto = [];
   changeListener($event, jenis) : void{
     this.file = $event.target.files[0];
@@ -188,6 +194,7 @@ export class SekolahUpdateComponent implements OnInit {
         var foto ={nama:data['name'],ext:data['ext']}
         this.datafoto.push(foto);
       }
+      this.check = true;
     });
     console.log(this.datafoto)
   }
@@ -199,11 +206,20 @@ export class SekolahUpdateComponent implements OnInit {
       console.log(data)
       this.sekolah.datafoto = this.datafoto
       this.sekolah.idSekolah = data;
-      this.sekolah.uploudFoto().subscribe((data) => {    
-        console.log(data)               
-      },(error)=>{
-        this.peringatan();
-      }); 
+      if (this.check == true) {
+        this.sekolah.uploudFoto2().subscribe((data) => {    
+          console.log(data) 
+          this.peringatanSukses();
+          // this.router.navigate(['/sekolah-admin'])
+        },(error)=>{
+          this.peringatan();
+        }); 
+      }
+      else {
+        this.peringatanSukses();
+        // this.router.navigate(['/sekolah-admin'])
+      }
+     
     },(error)=>{
       this.peringatan();
     }); 
@@ -251,7 +267,7 @@ export class SekolahUpdateComponent implements OnInit {
       this.arr_data = new Array();
       console.log(data)
       this.peringatanSukses();
-      this.router.navigate(['/sekolah-admin'])
+      // this.router.navigate(['/sekolah-admin'])
     });
   }
 

@@ -4,13 +4,13 @@
       <ion-menu-button></ion-menu-button> &nbsp;&nbsp;&nbsp;&nbsp;
     </ion-buttons>
     <ion-title >
-      Extracurricular  
+      Ektrakurikuler  
     </ion-title>
    
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <h1>Daftar Ekstrakurkuler</h1>  
+  <h1>Daftar Ekstrakurikuler</h1>  
   <ion-row style="border: 1px solid black; margin-left: 5%;">
     <ion-col size="1" style="font-size: 35px">
       <ion-icon name='search'></ion-icon>
@@ -20,9 +20,14 @@
     </ion-col>
   </ion-row>  
   <ion-list padding *ngFor="let data of datas">
-    <ion-item class="item">            
+    <ion-item class="item">
+     
       <ion-label>{{data.nama_eks}}</ion-label>
-      <ion-icon name="trash" slot="end" color="danger" (click)="peringatan(data.id)"></ion-icon>  
+      <div *ngIf='data.keterangan == "Belum Tervalidasi"'>
+        <ion-button color='success' (click)="validasi(data.id, 'Tervalidasi')">Terima</ion-button>
+        <ion-button color='danger'(click)="validasi(data.id, 'Tertolak')">Tolak</ion-button>
+      </div>
+      <ion-icon name="trash" slot="end" color="danger" (click)="peringatan(data.id)"></ion-icon>            
     </ion-item>    
   </ion-list>
 

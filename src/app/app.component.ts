@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       {
         title: 'Daftar Sekolah Dasar',
         url: '/daftarsekolah',
-        icon: 'list-outline'
+        icon: 'list'
       },
       {
         title: 'Pemilihan Sekolah Dasar',
@@ -77,12 +77,18 @@ export class AppComponent implements OnInit {
         this.appPages.splice(1, 1);
       }
       else if(hak == "admin_sekolah"){
-        this.ngOnInit();
+        this.ngOnInit();        
         this.appPages.splice(1, 1,{
           title: 'Dashboard',
           url: '/sekolah-admin',
           icon: 'logo-buffer'
         });
+        this.appPages.splice(2, 0,{
+          title: 'Pengajuan Ektrakurikuler',
+          url: '/ekstrakurikuler-admin',
+          icon: 'bonfire'
+        });
+        this.appPages.splice(4, 1);       
       }
       else{
         this.ngOnInit();
@@ -116,6 +122,12 @@ export class AppComponent implements OnInit {
           url: '/sekolah-admin',
           icon: 'logo-buffer'
         });
+        this.appPages.splice(2, 0,{
+          title: 'Pengajuan Ektrakurikuler',
+          url: '/ekstrakurikuler-admin',
+          icon: 'bonfire'
+        });
+        this.appPages.splice(4, 1);
       }
       else{
         this.ngOnInit();

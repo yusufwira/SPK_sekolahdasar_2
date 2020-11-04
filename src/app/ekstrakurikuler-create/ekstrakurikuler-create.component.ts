@@ -22,21 +22,14 @@ export class EkstrakurikulerCreateComponent implements OnInit {
   }
 
   nama="";
-  deskripsi="";
  
   inputnama(event:any) {  
     
     this.nama = event.target.value;    
    }
-
-
-   inputdesc(event:any) {    
-    this.deskripsi = event.target.value;    
-   }
-
+   
    Save(){
-     this.eks.nama = this.nama;
-     this.eks.desc = this.deskripsi;
+     this.eks.nama = this.nama
      this.eks.inputEkstra().subscribe((data) => {      
       //console.log(data)
       if(data == "sudah"){

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot, NavigationExtras } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonSlides } from '@ionic/angular';
 import { KriteriaService } from '../kriteria.service';
 import { Key } from 'protractor';
 import { SekolahService } from '../sekolah.service';
@@ -14,13 +14,14 @@ import { EkstrakurikulerService } from '../ekstrakurikuler.service';
 })
 export class SekolahCreateComponent implements OnInit {
 
+  @ViewChild('slides', { read: IonSlides, static:true }) slides: IonSlides;
+
   constructor(private route: ActivatedRoute, 
     public alertController: AlertController,
     private router: Router,
     public kr:KriteriaService,
     public sekolah:SekolahService,
     public ekstra: EkstrakurikulerService,
-  
     ) { }
 
   data_kriteria:Object;
@@ -31,7 +32,6 @@ export class SekolahCreateComponent implements OnInit {
   ngOnInit() {
     this.username= localStorage['username'];
     this.iduser= localStorage['iduser'];
-    console.log
 
     this.kr.dataKriteria().subscribe((data) => {   
       this.data_kriteria = data;
@@ -39,13 +39,13 @@ export class SekolahCreateComponent implements OnInit {
 
     this.kr.detail_kriteria().subscribe((data) => {   
       this.detail_kriteria = data;
-      console.log(this.detail_kriteria)
+      // console.log(this.detail_kriteria)
     });
 
-    this.ekstra.dataEkstra(null).subscribe((data) => {   
+    this.ekstra.dataEkstraValid(null).subscribe((data) => {   
       this.dataEkstra = data;
-      console.log(this.dataEkstra)
-    });
+      // console.log(this.dataEkstra)
+    });    
     
   }
 
@@ -54,7 +54,7 @@ export class SekolahCreateComponent implements OnInit {
       this.dataEkstra = data;
     },(error)=>{
      
-    });
+    });    
   }
 
 
@@ -148,35 +148,80 @@ export class SekolahCreateComponent implements OnInit {
     this.sekolah.Create_infosekolah(this.npsn, this.nama, this.alamat, this.telp, this.kecamatan, this.agama, this.kepala, this.jam, this.iduser).subscribe((data) => { 
       this.sekolah.datafoto = this.datafoto;
       this.id_sekolah = data;
-      this.sekolah.idSekolah = data; 
-      this.successCount++; 
+      this.sekolah.idSekolah = data;        
       this.sekolah.uploudFoto().subscribe((data) => {    
-        console.log(data)               
+        console.log(data)
+        this.successCount++;
+        this.slides.slideNext();           
       },(error)=>{
         this.peringatan();
+        this.sekolah.Delete(this.id_sekolah).subscribe((data) => {    
+          console.log(data)               
+        });
       }); 
     },(error)=>{
       this.peringatan();
     }); 
   }
 
+  defaultValueInfoKriteria(arr){
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].id == "11") {
+        arr.splice(i,1);
+      } else if (arr[i].id == "6"){
+        arr.splice(i,1);
+      } else if (this.arr_data[i].id == "7"){
+        arr.splice(i,1);
+      }      
+    }
+
+    if (this.successCount == 1) {
+        this.arr_data[11] = {id:'11',value:this.internet}
+    } else if (this.successCount == 2) {
+        this.arr_data[6] = {id:'6',value:this.akreditasi}
+        this.arr_data[7] = {id:'7',value:this.TahunAkre}
+    }
+  }
   Save_info_kriteria(){
-    this.arr_data = this.arr_data.filter(function (el) {
-      return el != null;
-    });
-    console.log(this.arr_data); 
-    
-    this.sekolah.Create_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
-      this.arr_data = new Array();
-      console.log(data)
-      this.successCount++; 
-      console.log(this.successCount);
-      if (this.successCount == 6) {
-        this.router.navigate(['/sekolah-admin'])
+
+    if (this.successCount == 1) {
+        this.arr_data[11] = {id:'11',value:this.internet}
+    } else if (this.successCount == 2) {
+        this.arr_data[6] = {id:'6',value:this.akreditasi}
+        this.arr_data[7] = {id:'7',value:this.TahunAkre}
+    }
+    var check = true;
+  
+    console.log(this.arr_data);
+    if (this.successCount == 1) {
+      if (this.arr_data.length != 18) {
+        this.peringatan();
+        check = false;
       }
-    },(error)=>{
-      this.peringatan();
-    });
+    } else if (this.successCount == 2) {
+      if (this.arr_data.length != 11) {
+        this.peringatan();
+        check = false;
+      }
+    }
+
+
+    if (check == true) {
+      this.arr_data = this.arr_data.filter(function (el) {
+        return el != null;
+      });
+      this.sekolah.Create_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
+        this.arr_data = new Array();
+        this.successCount++;         
+        if (this.successCount == 6) {
+          this.router.navigate(['/sekolah-admin'])
+        }
+        this.slides.slideNext();
+      },(error)=>{
+        this.peringatan();
+      });
+    }
+    
   }
 
   save_ekstra(){
@@ -186,6 +231,7 @@ export class SekolahCreateComponent implements OnInit {
       // console.log(data);   
       console.log("sukses"); 
       this.successCount++; 
+      this.slides.slideNext();
     },(error)=>{
       this.peringatan();
     });        
@@ -195,30 +241,27 @@ export class SekolahCreateComponent implements OnInit {
   internet="1";
   optionsInternet(id):void{
     let item = this.internet;
-    this.internet = item
-    console.log(this.internet);
-    this.arr_data[id] = {id:id,value:this.internet}
+    this.internet = item    
   }
 
   akreditasi = "5";
   optionsAkreditasi(id):void{
     let item = this.akreditasi;
-    this.akreditasi = item;
-    this.arr_data[id] = {id:id,value:this.akreditasi}
-    console.log(this.akreditasi)
+    this.akreditasi = item;    
   }
 
   TahunAkre = "2013";
   optionsTahunAkre(id):void{
     let item = this.TahunAkre;
     this.TahunAkre = item;
-    this.arr_data[id] = {id:id,value:this.TahunAkre}
   }
 
   public uangGedung = null;
   public uangDaftarUlang = null;
   public uangSpp = null;
   public uangSeragam = null;
+  public uangLain = null;
+
 
   inputAll(event:any, id) { 
     this.arr_data[id] = {id:id,value:event.target.value} 
@@ -230,7 +273,10 @@ export class SekolahCreateComponent implements OnInit {
       this.uangSpp = event.target.value;
     } else if (id == 21) {
       this.uangSeragam = event.target.value;
+    } else if (id == 24) {
+      this.uangLain = event.target.value;
     }
+    
   }      
 
   pilih="";

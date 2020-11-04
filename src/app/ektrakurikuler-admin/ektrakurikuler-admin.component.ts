@@ -48,6 +48,14 @@ export class EktrakurikulerAdminComponent implements OnInit {
     });
   }
 
+  validasi(id,ket){
+    this.eks.Validasi(id,ket).subscribe((data) => {            
+      this.ngOnInit();       
+    },(error)=>{
+     alert('gagal');
+    });
+  }
+
   peringatan(id){
     const alert =  this.alertController.create({
      header: 'Are you sure ?',

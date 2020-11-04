@@ -201,6 +201,22 @@ export class SekolahService {
     return hasil;
   }
 
+  uploudFoto2():Observable<any>{   
+    let body = new HttpParams();
+    let data:FormData = new FormData();
+    console.log(this.datafoto.length);
+    for (let index = 0; index < this.datafoto.length; index++) {
+      data.append("nama["+index+"]", this.datafoto[index].nama);
+      data.append("ext["+index+"]", this.datafoto[index].ext);       
+    }
+    data.append("idSekolah",this.idSekolah);
+    var hasil = this.http.post<any>
+    ("http://localhost/ta_backend/sekolah/foto2.php", data);
+    this.arrayfoto.push(hasil);
+    
+    return hasil;
+  }
+
   Delete_foto(id){
     return this.http.get("http://localhost/revisi_ta/sekolah/delete_foto.php?id="+id);
   }
