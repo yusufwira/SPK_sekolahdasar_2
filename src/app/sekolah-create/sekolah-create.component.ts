@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot, NavigationExtras } from '@angular/router';
-import { AlertController, IonSlides } from '@ionic/angular';
+import { AlertController, IonSlides, ModalController } from '@ionic/angular';
 import { KriteriaService } from '../kriteria.service';
 import { Key } from 'protractor';
 import { SekolahService } from '../sekolah.service';
 import { EkstrakurikulerService } from '../ekstrakurikuler.service';
+import { PanduanLokasiComponent } from '../panduan-lokasi/panduan-lokasi.component';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class SekolahCreateComponent implements OnInit {
     public kr:KriteriaService,
     public sekolah:SekolahService,
     public ekstra: EkstrakurikulerService,
+    public modal: ModalController,
     ) { }
 
   data_kriteria:Object;
@@ -273,7 +275,7 @@ export class SekolahCreateComponent implements OnInit {
       this.uangSpp = event.target.value;
     } else if (id == 21) {
       this.uangSeragam = event.target.value;
-    } else if (id == 24) {
+    } else if (id == 22) {
       this.uangLain = event.target.value;
     }
     
@@ -304,6 +306,25 @@ export class SekolahCreateComponent implements OnInit {
      message: 'Format Pengisian Data Sekolah Tidak Benar',
      buttons: ['OK']
    }).then(alert=> alert.present());;
+  }
+
+  currentModal = null;
+  async presentModal() {
+    // console.log('masuk')
+    const modals = await this.modal.create({
+      component: PanduanLokasiComponent,
+      cssClass: 'my-custom-class'
+    });
+
+    this.currentModal = modals;
+    return await modals.present();
+
+  }
+
+  dismissModal() {
+    if (this.currentModal) {
+      this.currentModal.dismiss().then(() => { this.currentModal = null; });
+    }
   }
  
 

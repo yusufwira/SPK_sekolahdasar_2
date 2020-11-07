@@ -13,11 +13,12 @@ export class EktrakurikulerAdminComponent implements OnInit {
   constructor(public eks:EkstrakurikulerService,public alertController: AlertController,public events: Events) { }
 
   nama="";
+  public hak = "";
   public datas:Object;
 
   ngOnInit(){
 
-    
+    this.hak = localStorage['hak_akses'];
     
     this.eks.dataEkstra(null).subscribe((data) => {      
       this.datas = data;

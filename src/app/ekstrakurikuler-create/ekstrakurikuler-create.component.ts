@@ -33,7 +33,7 @@ export class EkstrakurikulerCreateComponent implements OnInit {
      this.eks.inputEkstra().subscribe((data) => {      
       //console.log(data)
       if(data == "sudah"){
-        this.peringatan('Gagal', 'Data Gagal Disimpan'); 
+        this.peringatan('Gagal', 'Ekstrakurikuler Sudah ada'); 
       }
       else{
         this.peringatan('Berhasil', 'Data Berhasil Disimpan'); 

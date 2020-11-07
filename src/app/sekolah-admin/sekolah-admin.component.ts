@@ -109,7 +109,7 @@ export class SekolahAdminComponent implements OnInit {
      }
      this.sekolah.Validasi(id,status).subscribe((data) => {               
       console.log(data);   
-      this.ngOnInit();
+      this.ionViewWillEnter();
      }); 
    }
 

@@ -45,6 +45,7 @@ import { KriteriaBobotComponent } from './kriteria-bobot/kriteria-bobot.componen
 import { KriteriaSubkriteriaComponent } from './kriteria-subkriteria/kriteria-subkriteria.component';
 import { PanduanComponent } from './panduan/panduan.component';
 import { PanduanAdminComponent } from './panduan-admin/panduan-admin.component';
+import { PanduanLokasiComponent } from './panduan-lokasi/panduan-lokasi.component';
 
 
 
@@ -75,6 +76,8 @@ const appRoutes: Routes = [
   {path:'sekolah-bobot',component:SekolahBobotComponent},
   {path:'panduan',component:PanduanComponent},
   {path:'panduan-admin',component:PanduanAdminComponent},
+  {path:'panduan-lokasi',component:PanduanLokasiComponent},
+  
   
   
 
@@ -107,6 +110,7 @@ const appRoutes: Routes = [
   SekolahBobotComponent,
   PanduanComponent,
   PanduanAdminComponent,
+  PanduanLokasiComponent,
   KriteriaSubkriteriaComponent,
   
   
