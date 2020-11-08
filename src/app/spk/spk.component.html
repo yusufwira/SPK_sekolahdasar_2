@@ -32,14 +32,15 @@
             </ion-row>           
           </ion-card>
 
-          <ion-card class="btn-set" routerLink="/kriteria-bobot">
-            <p>Set Prioritas</p>
+          <ion-card *ngIf="arr_kriteria.length >= 2" class="btn-set" routerLink="/kriteria-bobot-user/{{arr_kriteria_id}}" color="tertiary">
+            <p>Atur Bobot Perbandingan</p>
           </ion-card>
        
           <ion-list padding>           
             <ion-item *ngFor ="let data of datas_kriteria">
-              <ion-checkbox color="tertiary"  slot="start" (click) = "getValue_kriteria(data.nama_kriteria)"></ion-checkbox>
-              <ion-label>{{data.nama_kriteria}}</ion-label>
+              <ion-checkbox color="tertiary"  slot="start" (click) = "getValue_kriteria(data.id,data.nama_kriteria)"></ion-checkbox>
+              <ion-label slot="start">{{data.nama_kriteria}}</ion-label>
+              <!-- <ion-button *ngIf="data.id != 3 && data.id != 4" slot="end" > Lihat</ion-button> -->
             </ion-item>                       
           </ion-list>
        
@@ -171,7 +172,7 @@
                   {{arr_kriteria[i]}}
                 </ion-col>
                 <ion-col class="right">
-                  {{data}}
+                  {{data.toFixed(4)}}
                 </ion-col>
               </ion-row>
           </ion-card-content>
@@ -203,12 +204,12 @@
                           {{arr_sekolah[i]}}
                         </ion-col>
                         <ion-col class="right">
-                          {{result}}
+                          {{result.toFixed(4)}}
                         </ion-col>
                       </div>
                     </div>
                     <div *ngIf= "hasil.key == 1">
-                      <b>Cosistancy Ration : {{hasil.value}}%</b>
+                      <b>Cosistancy Ration : {{hasil.value.toFixed(4)}}%</b>
                     </div>
                     
                   </div>
@@ -221,16 +222,16 @@
                       <div *ngFor="let hasil of data.value | keyvalue">
                         <div  *ngIf= "hasil.key == 0">
                           <div *ngFor="let result of hasil.value;let i=index">
-                            <ion-col>
+                            <ion-col slot='start'>
                               {{arr_sekolah[i]}}
                             </ion-col>
-                            <ion-col class="right">
-                              {{result}}
+                            <ion-col class="right" slot='end'>
+                              {{result.toFixed(4)}}
                             </ion-col>
                           </div>
                         </div>
                         <div *ngIf= "hasil.key == 1">
-                          <b>Cosistancy Ration : {{hasil.value}}%</b>
+                          <b>Cosistancy Ration : {{hasil.value.toFixed(4)}}%</b>
                         </div>
                         
                        

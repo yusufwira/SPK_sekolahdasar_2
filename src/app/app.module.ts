@@ -42,6 +42,7 @@ import { AdminsekolahViewComponent } from './Adminsekolah-view/Adminsekolah-view
 import { DaftarsekolahComponent } from './Daftarsekolah/Daftarsekolah.component';
 import { SpkComponent } from './Spk/Spk.component';
 import { KriteriaBobotComponent } from './kriteria-bobot/kriteria-bobot.component';
+import { KriteriaBobotUserComponent } from './kriteria-bobot-user/kriteria-bobot-user.component';
 import { KriteriaSubkriteriaComponent } from './kriteria-subkriteria/kriteria-subkriteria.component';
 import { PanduanComponent } from './panduan/panduan.component';
 import { PanduanAdminComponent } from './panduan-admin/panduan-admin.component';
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
   {path:'daftarsekolah',component:DaftarsekolahComponent},
   {path:'spk',component:SpkComponent},
   {path:'kriteria-bobot',component:KriteriaBobotComponent},
+  {path:'kriteria-bobot-user/:data',component:KriteriaBobotUserComponent},
   {path:'kriteria-subkriteria/:id',component:KriteriaSubkriteriaComponent},
   {path:'sekolah-bobot',component:SekolahBobotComponent},
   {path:'panduan',component:PanduanComponent},
@@ -107,6 +109,7 @@ const appRoutes: Routes = [
   DaftarsekolahComponent,
   SpkComponent,
   KriteriaBobotComponent,
+  KriteriaBobotUserComponent,
   SekolahBobotComponent,
   PanduanComponent,
   PanduanAdminComponent,

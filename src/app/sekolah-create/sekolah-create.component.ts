@@ -196,11 +196,19 @@ export class SekolahCreateComponent implements OnInit {
   
     console.log(this.arr_data);
     if (this.successCount == 1) {
+      if (this.arr_data[14].value < this.arr_data[15].value) {
+        this.peringatan();
+        check = false;
+      }
       if (this.arr_data.length != 18) {
         this.peringatan();
         check = false;
       }
     } else if (this.successCount == 2) {
+      if (this.arr_data[8].value < this.arr_data[9].value) {
+        this.peringatan();
+        check = false;
+      }
       if (this.arr_data.length != 11) {
         this.peringatan();
         check = false;
@@ -266,7 +274,7 @@ export class SekolahCreateComponent implements OnInit {
 
 
   inputAll(event:any, id) { 
-    this.arr_data[id] = {id:id,value:event.target.value} 
+    this.arr_data[id] = {id:id,value:event.target.value}
     if (id == 18) {
       this.uangGedung = event.target.value;
     } else if (id == 19) {

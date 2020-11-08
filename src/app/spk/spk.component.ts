@@ -4,6 +4,7 @@ import { SekolahService } from '../sekolah.service';
 import { SpkService } from '../spk.service';
 import {Map,tileLayer,marker} from 'leaflet';
 import {NativeGeocoder,NativeGeocoderOptions} from "@ionic-native/native-geocoder/ngx";
+import { AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-spk',
@@ -15,20 +16,22 @@ export class SpkComponent implements OnInit {
   map:Map;
   newMarker:any;
   address:string[];
-  constructor(private geocoder: NativeGeocoder,public kriteria:KriteriaService, public sekolah:SekolahService,public spk:SpkService) { }
+  constructor(private geocoder: NativeGeocoder,public kriteria:KriteriaService, public sekolah:SekolahService,public spk:SpkService, public alertController: AlertController) { }
   
   prog_bar:String="0.2";
   public datas_kriteria:Object;
   public datas_sekolah:Object;
   public detail_kriteria:Object;
   pilih="";
-  arr_kriteria=[];
+  public arr_kriteria=[];
+  public arr_kriteria_id='';
   arr_sekolah=[];
 
   x="";
   y="";
  
   ngOnInit() {
+    console.log(this.arr_kriteria)
     this.kriteria.dataKriteria().subscribe((data) => {      
       this.datas_kriteria = data;    
       console.log(this.datas_kriteria);  
@@ -43,13 +46,9 @@ export class SpkComponent implements OnInit {
     //   console.log(data);            
     //   this.datas_sekolah = data;  
     //  });
-
-    
-     
-     
-     
-   
   }
+
+  
 
  
 
@@ -75,9 +74,11 @@ export class SpkComponent implements OnInit {
     
     
   }
+
   
   
-  getValue_kriteria(value){
+  
+  getValue_kriteria(id,value){
     this.pilih = value;
     var sama = false;
     for (let index = 0; index < this.arr_kriteria.length; index++) {
@@ -87,11 +88,67 @@ export class SpkComponent implements OnInit {
     }
     if(sama == true){
       this.arr_kriteria=this.arr_kriteria.filter(item => item !== this.pilih)
+      this.arr_kriteria_id=this.arr_kriteria_id.replace(id, "");
     }
     else{
       this.arr_kriteria.push(this.pilih);
+      this.arr_kriteria_id = this.arr_kriteria_id + id;
+      if (id == 1 || id == 2 || id == 5) {
+        this.detailKriteria(id, value);
+      }
+      else if (id == 3) {      
+        let alert = this.alertController.create({
+        header: 'Detail '+value,
+        message: 'Jumlah Ekstrakurikuler sebagai pertimbangan' ,
+        buttons: [
+          {
+            text: 'Ok',        
+          }
+        ]
+        }).then(alert=> alert.present());
+      }
+      else if (id == 4) {      
+        let alert = this.alertController.create({
+        header: 'Detail '+value,
+        message: 'Jarak Lokasi Anda saat ini sebagai pertimbangan' ,
+        buttons: [
+          {
+            text: 'Ok',        
+          }
+        ]
+        }).then(alert=> alert.present());
+      }
     }
+
+   
     
+  }
+
+  detailKriterias:any = [];
+  detailKriteria(id, value){
+    this.kriteria.detail_kriteria_id(id).subscribe((data) => {          
+      this.detailKriterias = data;
+      this.show(this.detailKriterias, value);
+     });
+  }
+
+  show(data, value) {
+  let itemList = '';
+   data.forEach(element => {
+    itemList += '<li>'+ element['detail']+'</li>'
+    // console.log(element['detail']);
+   });
+
+   let message = `<ul>${itemList }</ul>`;
+      let alert = this.alertController.create({
+       header: 'Detail '+value,
+       message: message ,
+       buttons: [
+         {
+           text: 'Ok',        
+         }
+       ]
+      }).then(alert=> alert.present());
   }
 
 
@@ -150,17 +207,21 @@ export class SpkComponent implements OnInit {
     console.log(this.arr_sekolah);
 
 
+    if (this.arr_kriteria.length >= 2 && this.arr_sekolah.length >= 2  ) {
+      this.spk.proses_ahp(this.arr_kriteria,this.arr_sekolah, this.jarak).subscribe((data) => {    
+        console.log(data);
+        this.ve_kriteria = data.VE_CRIT;
+        this.cr_kriteria = data.CR_CRIT.toFixed(4);
+        this.alternatif = data.VE_ALT;
+        this.hasil_jadi = data.Hasil_jadi;
+        console.log(this.hasil_jadi);
+        this.progres("1.0");
+        console.log(this.alternatif);
+       });
+    } else {
+      this.peringatan('Perhatian', 'Jumlah Kriteria dan Sekolah yang dipilih harus lebih dari 1')
+    }
     
-    this.spk.proses_ahp(this.arr_kriteria,this.arr_sekolah, this.jarak).subscribe((data) => {    
-      console.log(data);
-      this.ve_kriteria = data.VE_CRIT;
-      this.cr_kriteria = data.CR_CRIT;
-      this.alternatif = data.VE_ALT;
-      this.hasil_jadi = data.Hasil_jadi;
-      console.log(this.hasil_jadi);
-      this.progres("1.0");
-      console.log(this.alternatif);
-     });
 
 
      
@@ -176,5 +237,18 @@ export class SpkComponent implements OnInit {
         this.datas_sekolah = data
       }            
      });
+  }
+
+
+  peringatan(header, massage){
+    let alert = this.alertController.create({
+      header: header,
+      message: massage,
+      buttons: [
+        {
+          text: 'Ok',        
+        }
+      ]
+      }).then(alert=> alert.present());
   }
 }

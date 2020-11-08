@@ -33,6 +33,16 @@ export class KriteriaService {
     return this.http.get("http://localhost/ta_backend/kriteria/tampil_bobot.php");
   }
 
+
+  tampil_bobot_user(idkriteria):Observable<any>{
+    let body = new HttpParams();
+    let Data:FormData = new FormData();
+    var json_arr = JSON.stringify(idkriteria);
+    Data.append('idkriteria',json_arr); 
+    return this.http.post<any>
+    ("http://localhost/ta_backend/kriteria/tampil_bobot_user.php", Data);
+  }
+
   search_bobot(key:string){
     return this.http.get("http://localhost/ta_backend/kriteria/search_bobot.php?key="+key);
   }
@@ -52,6 +62,10 @@ export class KriteriaService {
   //revisi
   detail_kriteria(){
     return this.http.get("http://localhost/revisi_ta/kriteria/kriteria_detail.php");
+  }
+
+  detail_kriteria_id(id){
+    return this.http.get("http://localhost/revisi_ta/kriteria/kriteria_detail_id.php?id_kriteria="+id);
   }
 
   subkriteria(namaKriteria){    
