@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRoute, RouterStateSnapshot, NavigationExtras } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { KriteriaService } from '../kriteria.service';
 import { Key } from 'protractor';
 import { SekolahService } from '../sekolah.service';
 import { EkstrakurikulerService } from '../ekstrakurikuler.service';
+import { PanduanLokasiComponent } from '../panduan-lokasi/panduan-lokasi.component';
 
 @Component({
   selector: 'app-sekolah-update',
@@ -20,6 +21,7 @@ export class SekolahUpdateComponent implements OnInit {
     public kr:KriteriaService,
     public sekolah:SekolahService,
     public ekstra: EkstrakurikulerService,
+    public modal: ModalController,
   ) { }
 
   data_kriteria:Object;
@@ -264,9 +266,10 @@ export class SekolahUpdateComponent implements OnInit {
   Save_info_kriteria(){
     console.log(this.arr_data)
     this.sekolah.Update_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
-      this.arr_data = new Array();
+      // this.arr_data = new Array();
       console.log(data)
       this.peringatanSukses();
+      // this.arr_data = null;
       // this.router.navigate(['/sekolah-admin'])
     });
   }
@@ -338,6 +341,26 @@ export class SekolahUpdateComponent implements OnInit {
     this.dataEkstra.push(this.listEkstra[this.addEkstra])
     this.newEkstra.push(this.listEkstra[this.addEkstra].id)
     this.addEkstra = '';
+  }
+
+
+  currentModal = null;
+  async presentModal() {
+    // console.log('masuk')
+    const modals = await this.modal.create({
+      component: PanduanLokasiComponent,
+      cssClass: 'my-custom-class'
+    });
+
+    this.currentModal = modals;
+    return await modals.present();
+
+  }
+
+  dismissModal() {
+    if (this.currentModal) {
+      this.currentModal.dismiss().then(() => { this.currentModal = null; });
+    }
   }
 
 }

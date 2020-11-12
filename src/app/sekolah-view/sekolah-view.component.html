@@ -150,13 +150,13 @@
       <ion-col size='12'>
         <ion-card >
           <ion-card-header color="tertiary">
-            Input Rating
+            Tambah Rating
           </ion-card-header>
           <ion-card-content>        
             <div >
               <ion-select [(ngModel)]="kriteria_rating" (ionChange)="optionsKriteriaRating()">
                 <ion-select-option value="">
-                  select kriteria
+                  Pilih kriteria
                 </ion-select-option>
                 <ion-select-option *ngFor="let data of arr_kriteria" value="{{data.id}}">
                   {{data.nama_kriteria}}
@@ -191,7 +191,7 @@
           <ion-card-content>
             <ion-select  [(ngModel)]="kriteria_review" (ionChange)="optionsKriteriaReview()">
               <ion-select-option value="">
-                select kriteria
+                Pilih kriteria
               </ion-select-option>
               <ion-select-option *ngFor="let data of arr_kriteria" value="{{data.id}}">
                 {{data.nama_kriteria}}

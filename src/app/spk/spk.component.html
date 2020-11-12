@@ -108,7 +108,7 @@
                   </ion-row>
                   <ion-row>
                     <ion-col>
-                      <ion-card class="button-card"  routerLink="/sekolah-view/{{data.idinfo_sekolah}}">
+                      <ion-card class="button-card"  routerLink="/sekolah-view/{{data.npsn}}">
                         <p>Lihat</p>
                       </ion-card>
                     </ion-col>  
@@ -145,6 +145,9 @@
               <div *ngFor ="let item of data | keyvalue">
                 <ion-col *ngIf ="item.key=='nama'">
                   {{item.value}}
+                </ion-col>
+                <ion-col *ngIf ="item.key=='hasil'">
+                  {{item.value.toFixed(4)}}
                 </ion-col>
               </div>
               <ion-col *ngIf ="i == 0"  class="right">

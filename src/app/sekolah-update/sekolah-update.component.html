@@ -188,6 +188,9 @@
           
         </div>
       </div>
+      <div *ngIf="kriteria.key == 'Lokasi'">
+        <ion-button expand="full" (click)="presentModal()" color="tertiary">Panduan Koordinat</ion-button>
+      </div>
 
       <ion-card *ngIf="kriteria.nama_kriteria != 'Ekstrakurikuler'" class="btn-next" color="tertiary" (click)="Save_info_kriteria();">
         <h3>Save</h3>
