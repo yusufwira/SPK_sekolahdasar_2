@@ -16,7 +16,7 @@
     </ion-card>  
   </div>
   <div class="content">
-    <ion-slides  #slides  pager="false">
+    <ion-slides  #slides  pager="false" class="swiper-no-swiping">
 
       <!-- section kriteria -->
       <ion-slide>
@@ -44,8 +44,11 @@
             </ion-item>                       
           </ion-list>
        
-          <ion-card class="btn-next" color="tertiary" (click)="progres(0.5); slides.slideNext() ">
-            <h3>Lanjutkan</h3>
+          <ion-card class="btn-next" color="tertiary" (click)="progres(0.5);">
+            <h3>Pilih Sekolah</h3>
+          </ion-card>
+          <ion-card class="btn-next" color="tertiary" (click)="ProsesAll()">
+            <h3>Langsung Cari Sekolah</h3>
           </ion-card>
         </div>
        
@@ -124,7 +127,7 @@
               </ion-row>
             </ion-card>
           </div>
-          <ion-card class="btn-next" color="tertiary" (click)="Proses(); slides.slideNext() ">
+          <ion-card class="btn-next" color="tertiary" (click)="Proses();">
             <h3>Proses</h3>
           </ion-card>
       

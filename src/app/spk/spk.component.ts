@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { KriteriaService } from '../kriteria.service';
 import { SekolahService } from '../sekolah.service';
 import { SpkService } from '../spk.service';
 import {Map,tileLayer,marker} from 'leaflet';
 import {NativeGeocoder,NativeGeocoderOptions} from "@ionic-native/native-geocoder/ngx";
-import { AlertController} from '@ionic/angular';
+import { AlertController, IonSlides} from '@ionic/angular';
 
 @Component({
   selector: 'app-spk',
@@ -13,6 +13,7 @@ import { AlertController} from '@ionic/angular';
 })
 export class SpkComponent implements OnInit {
 
+  @ViewChild('slides', { read: IonSlides, static:true }) slides: IonSlides;
   map:Map;
   newMarker:any;
   address:string[];
@@ -41,43 +42,20 @@ export class SpkComponent implements OnInit {
       console.log(data);            
       this.datas_sekolah = data;  
      });
-
-    //  this.kriteria.detail_kriteria().subscribe((data) => {    
-    //   console.log(data);            
-    //   this.datas_sekolah = data;  
-    //  });
   }
-
-  
-
- 
-
- 
-  
 
   progres(bar:String){
     this.prog_bar = bar;
-    console.log(this.prog_bar)
-    if(this.prog_bar == "0.5"){
-      let lebar = Object.keys(this.datas_sekolah)
-      //this.loadmap("-6.2008406","106.7987143",this.datas_sekolah[0].npsn)
-      for (let i = 0; i < lebar.length; i++) {       
-        let kx = this.datas_sekolah[i]['koor_X']
-        let ky = this.datas_sekolah[i]['koor_Y']
-        this.loadmap(kx,ky,this.datas_sekolah[i].npsn)
-        
-        //this.map.off();        
-      }
-
-      console.log(this.jarak)
+    if(this.prog_bar == "0.5"){      
+      if (this.arr_kriteria.length >= 2) {
+        this.slides.slideNext()
+        this.loadJarak();       
+      } else {
+        this.peringatan('Perhatian', 'Jumlah Kriteria yang dipilih harus lebih dari 1')
+      }            
     }
-    
-    
   }
 
-  
-  
-  
   getValue_kriteria(id,value){
     this.pilih = value;
     var sama = false;
@@ -119,9 +97,6 @@ export class SpkComponent implements OnInit {
         }).then(alert=> alert.present());
       }
     }
-
-   
-    
   }
 
   detailKriterias:any = [];
@@ -168,13 +143,21 @@ export class SpkComponent implements OnInit {
     }    
   }
 
+  loadJarak(){
+    let lebar = Object.keys(this.datas_sekolah)
+    for (let i = 0; i < lebar.length; i++) {       
+      let kx = this.datas_sekolah[i]['koor_X']
+      let ky = this.datas_sekolah[i]['koor_Y']
+      this.loadmap(kx,ky,this.datas_sekolah[i].npsn)    
+    }
+  }
+
   loadmap(x,y,npsn){
     this.map = new Map(npsn).setView([x,y], 13);   
     this.locatePosition(x,y);
-    
- }
+  }
 
- public jarak= [];
+  public jarak= [];
   locatePosition(x,y){
     this.map.locate({setView:true}).on("locationfound", (e: any)=> {
        this.newMarker = marker([x,y], {autoPan: 
@@ -185,9 +168,6 @@ export class SpkComponent implements OnInit {
          var to = markerTo.getLatLng();
          var jarak = this.getDistance(from, to);         
          this.jarak.push(jarak.toString());
-         
-         //this.map = new Map("mapId").setView([x,y], 13);
-         
     });
   }
 
@@ -203,29 +183,40 @@ export class SpkComponent implements OnInit {
   public alternatif:object;
   hasil_jadi = [];
   Proses(){
-    console.log(this.arr_kriteria);
-    console.log(this.arr_sekolah);
-
-
-    if (this.arr_kriteria.length >= 2 && this.arr_sekolah.length >= 2  ) {
+    if ( this.arr_sekolah.length >= 2  ) {
       this.spk.proses_ahp(this.arr_kriteria,this.arr_sekolah, this.jarak).subscribe((data) => {    
-        console.log(data);
         this.ve_kriteria = data.VE_CRIT;
         this.cr_kriteria = data.CR_CRIT.toFixed(4);
         this.alternatif = data.VE_ALT;
         this.hasil_jadi = data.Hasil_jadi;
         console.log(this.hasil_jadi);
         this.progres("1.0");
-        console.log(this.alternatif);
+        this.slides.slideNext();
        });
     } else {
-      this.peringatan('Perhatian', 'Jumlah Kriteria dan Sekolah yang dipilih harus lebih dari 1')
-    }
-    
+      this.peringatan('Perhatian', 'Jumlah Sekolah yang dipilih harus lebih dari 1')
+    }             
+  }
 
+  ProsesAll(){
+    if (this.arr_kriteria.length >= 2) {
+      this.loadJarak();
+      this.peringatanSemuaSekolah();       
+    } else {
+      this.peringatan('Perhatian', 'Jumlah Kriteria yang dipilih harus lebih dari 1')
+    }    
+  }
 
-     
-    
+  ProsesAllGo(){    
+    this.spk.proses_ahp_all(this.arr_kriteria, this.jarak).subscribe((data) => {    
+      this.ve_kriteria = data.VE_CRIT;
+      this.cr_kriteria = data.CR_CRIT.toFixed(4);
+      this.alternatif = data.VE_ALT;
+      this.hasil_jadi = data.Hasil_jadi;
+      console.log(this.hasil_jadi);
+      this.progres("1.0");
+      this.slides.slideTo(2, 100);
+     });
   }
 
   key = "";
@@ -247,6 +238,24 @@ export class SpkComponent implements OnInit {
       buttons: [
         {
           text: 'Ok',        
+        }
+      ]
+      }).then(alert=> alert.present());
+  }
+
+  peringatanSemuaSekolah(){
+    let alert = this.alertController.create({
+      header: "Peringatan",
+      message: "Apakah anda ingin membandingkan semua sekolah ?",
+      buttons: [
+        {
+          text: 'Ya',
+          handler: () => {            
+            this.ProsesAllGo()
+          }
+        },
+        {
+          text: 'Tidak',        
         }
       ]
       }).then(alert=> alert.present());

@@ -40,7 +40,8 @@ export class Registrasi2Component implements OnInit {
   	console.log(this.username+" "+this.password+" "+this.email)
   }
 
-file: File;
+ file: File;
+ checkFoto = false;
  changeListener($event) : void {
     this.file = $event.target.files[0];
     this.user.file = this.file;
@@ -49,6 +50,7 @@ file: File;
       this.img = data['link'];
       this.namaPhoto = data['namafile'];
       console.log(data);
+      this.checkFoto = true;
     });
     
   }
@@ -92,20 +94,27 @@ file: File;
    }
 
 
-   register(){     
-   	  this.user.username = this.username;
-      this.user.password = this.password;
-      this.user.email = this.email;
-      this.user.nama = this.nama;
-      this.user.alamat = this.alamat;
-      this.user.notelp = this.notelp;
-      this.user.kecamatan = this.kecamatan;
-      this.user.hak = this.hak_akses;
-      this.user.photo = this.namaPhoto;
-      this.user.Registrasi().subscribe((data) => {      
-        console.log(data);
-        this.peringatan(data);                
-      });
+   register(){
+     if (this.nama == "" || this.alamat == "" || this.notelp == "" || 
+        this.kecamatan == "" || this.hak_akses == "" || this.checkFoto == false) {
+       this.peringantanGagal();
+     }
+     else{
+        this.user.username = this.username;
+        this.user.password = this.password;
+        this.user.email = this.email;
+        this.user.nama = this.nama;
+        this.user.alamat = this.alamat;
+        this.user.notelp = this.notelp;
+        this.user.kecamatan = this.kecamatan;
+        this.user.hak = this.hak_akses;
+        this.user.photo = this.namaPhoto;
+        this.user.Registrasi().subscribe((data) => {      
+          console.log(data);
+          this.peringatan(data);                
+        });
+     }
+   	  
    }
 
 
@@ -119,6 +128,18 @@ file: File;
           handler: () => {
             this.router.navigate(['/login'])
           }
+        }
+      ]
+    }).then(alert=> alert.present());;
+   }
+
+   peringantanGagal(){
+    const alert =  this.alertController.create({
+      header: 'Registrasi Gagal',
+      message: "Data yang anda isi kurang lengkap",
+      buttons: [
+        {
+          text: 'Okay',          
         }
       ]
     }).then(alert=> alert.present());;
