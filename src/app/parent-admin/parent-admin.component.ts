@@ -19,7 +19,9 @@ export class ParentAdminComponent implements OnInit {
     this.user.dataOrangtua().subscribe((data) => {    
       this.datas = data;
       console.log(data);       
-     });
+     },(error)=>{
+      console.log(error)
+    });
   }
 
   Hapus(id){

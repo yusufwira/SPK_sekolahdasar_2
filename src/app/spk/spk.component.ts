@@ -190,8 +190,10 @@ export class SpkComponent implements OnInit {
         this.alternatif = data.VE_ALT;
         this.hasil_jadi = data.Hasil_jadi;
         console.log(this.hasil_jadi);
-        this.progres("1.0");
-        this.slides.slideNext();
+        this.spk.reset_bobot().subscribe((data) => {
+          this.progres("1.0");
+          this.slides.slideNext();
+        });        
        });
     } else {
       this.peringatan('Perhatian', 'Jumlah Sekolah yang dipilih harus lebih dari 1')
@@ -214,8 +216,10 @@ export class SpkComponent implements OnInit {
       this.alternatif = data.VE_ALT;
       this.hasil_jadi = data.Hasil_jadi;
       console.log(this.hasil_jadi);
-      this.progres("1.0");
-      this.slides.slideTo(2, 100);
+      this.spk.reset_bobot().subscribe((data) => {
+        this.progres("1.0");
+        this.slides.slideTo(2, 100);
+      });      
      });
   }
 
@@ -254,9 +258,6 @@ export class SpkComponent implements OnInit {
             this.ProsesAllGo()
           }
         },
-        {
-          text: 'Tidak',        
-        }
       ]
       }).then(alert=> alert.present());
   }

@@ -6,7 +6,7 @@
     </ion-buttons>
     <h1 class="title">Pemilihan Sekolah <br> Dasar</h1>
     <div style="margin-left: 5%;">
-      <a style="color:white; text-align:justify">Pencarian sekolah dasar yang dapat membandingkan antar sekolah dengan metode sistem penunjan keputusan</a>
+      <a style="color:white; text-align:justify">Pencarian sekolah dasar yang dapat membandingkan antar sekolah dengan metode sistem penunjang keputusan</a>
     </div>
     
     <!-- <p>Proses pemilihan sekolah dasar pada fitur ini menggunakan metode AHP yang dimana pengguna dapat memilih kriteria yang di inginkan dan sekolah yang dinginkan lalu dibandingkan berdasarkan masing-masing kirteria </p> -->
@@ -228,8 +228,11 @@
                       <div *ngFor="let hasil of data.value | keyvalue">
                         <div  *ngIf= "hasil.key == 0">
                           <div *ngFor="let result of hasil.value;let i=index">
-                            <ion-col slot='start'>
+                            <ion-col slot='start' *ngIf ="arr_sekolah.length != 0">
                               {{arr_sekolah[i]}}
+                            </ion-col>
+                            <ion-col slot='start' *ngIf ="arr_sekolah.length == 0">
+                              {{datas_sekolah[i].nama_sekolah}}
                             </ion-col>
                             <ion-col class="right" slot='end'>
                               {{result.toFixed(4)}}
