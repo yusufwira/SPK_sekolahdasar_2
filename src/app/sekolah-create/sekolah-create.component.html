@@ -12,13 +12,13 @@
 
 <!-- class="swiper-no-swiping" -->
 <ion-content padding>
-  <ion-slides  #slides  pager="false">
+  <ion-slides  #slides  pager="false" class="swiper-no-swiping">
 
     <ion-slide>
       <h2>Info Sekolah</h2>
       <ion-item>
         <ion-label position="floating">Nomor Pokok Sekolah Nasional (NPSN)</ion-label>
-        <ion-input type="text" (input)="inputnpsn($event)"></ion-input>
+        <ion-input type="number" (input)="inputnpsn($event)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Nama Sekolah</ion-label>
@@ -30,7 +30,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">No Telp Sekolah</ion-label>
-        <ion-input type="text" (input)="inputtelp($event)"></ion-input>
+        <ion-input type="number" (input)="inputtelp($event)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Kecamatan</ion-label>
@@ -142,7 +142,8 @@
         <div *ngIf="kriteria.nama_kriteria == detail.nama_kriteria">
           <ion-item *ngIf="detail.detail != 'Internet' && detail.detail != 'Akreditasi' && detail.detail != 'Tahun Kurikulum' ">
             <ion-label position="floating">{{detail.detail}}</ion-label>            
-            <ion-input (input)="inputAll($event, detail.id_detail)"></ion-input>            
+            <ion-input type="number" (input)="inputAll($event, detail.id_detail)"></ion-input>
+            <!-- <ion-input *ngIf="detail.detail == 'koor_X' || detail.detail == 'koor_Y'" (input)="inputAll($event, detail.id_detail)"></ion-input> -->
           </ion-item>
           
           <p *ngIf="detail.id_detail == 18" class="ion-text-end">{{ uangGedung | currency:'Rp.':true:'3.0' }}</p>

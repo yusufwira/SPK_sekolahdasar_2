@@ -166,66 +166,116 @@ export class SekolahCreateComponent implements OnInit {
     }); 
   }
 
-  defaultValueInfoKriteria(arr){
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].id == "11") {
-        arr.splice(i,1);
-      } else if (arr[i].id == "6"){
-        arr.splice(i,1);
-      } else if (this.arr_data[i].id == "7"){
-        arr.splice(i,1);
-      }      
-    }
-
+  defaultValueInfoKriteria(){
     if (this.successCount == 1) {
-        this.arr_data[11] = {id:'11',value:this.internet}
+      this.arr_data[11] = {id:'11',value:this.internet}
     } else if (this.successCount == 2) {
-        this.arr_data[6] = {id:'6',value:this.akreditasi}
-        this.arr_data[7] = {id:'7',value:this.TahunAkre}
+      this.arr_data[6] = {id:'6',value:this.akreditasi}
+      this.arr_data[7] = {id:'7',value:this.TahunAkre}
     }
   }
+
+  checkButton = false;
   Save_info_kriteria(){
-
-    if (this.successCount == 1) {
-        this.arr_data[11] = {id:'11',value:this.internet}
-    } else if (this.successCount == 2) {
-        this.arr_data[6] = {id:'6',value:this.akreditasi}
-        this.arr_data[7] = {id:'7',value:this.TahunAkre}
-    }
+    // this.successCount = 2
     var check = true;
-  
-    console.log(this.arr_data);
+
+    if (this.checkButton == false) {      
+      this.defaultValueInfoKriteria()
+      this.checkButton = true;
+    }
+
+    this.arr_data = this.arr_data.filter(function (el) {
+      return el != null;
+    });
+
+    // Pengecekan apakah value null dan -1
+    for (let i = 0; i < this.arr_data.length; i++) {
+      if (this.arr_data[i].value == "" || this.arr_data[i].value < 0) {
+        var foundId = this.arr_data[i].id;
+        for (let x = 0; x < this.arr_data.length; x++) {          
+          if(this.arr_data[x].id == foundId){
+            this.arr_data.splice(x,1);
+            continue;
+          } 
+        }
+      }
+    }
+
+    // Pengecekan apakah ada kolom yang belum terisi dan format pengisian pada spesifik kriteria
     if (this.successCount == 1) {
-      if (this.arr_data[14].value < this.arr_data[15].value) {
+      if (this.arr_data.length != 7) {
         this.peringatan();
         check = false;
       }
-      if (this.arr_data.length != 18) {
+      else {
+        var kelas = "";
+        var kelasAc = "";
+        var kelasAcIdx = 0;
+        for (let i = 0; i < this.arr_data.length; i++) {
+          if (this.arr_data[i].id == '14') {
+            kelas = this.arr_data[i].value
+          }
+          if (this.arr_data[i].id == '15') {
+            kelasAc = this.arr_data[i].value
+            kelasAcIdx = i;
+          }
+        }
+        if (parseInt(kelas) < parseInt(kelasAc)) {
+          this.arr_data.splice(kelasAcIdx, 1);
+          this.peringatan();
+          check = false;
+        }
+      }
+    }
+    else if (this.successCount == 2) {
+      if (this.arr_data.length != 5) {
         this.peringatan();
         check = false;
       }
-    } else if (this.successCount == 2) {
-      if (this.arr_data[8].value < this.arr_data[9].value) {
+      else{
+        var guru = "";
+        var sertif = "";
+        var sertifIdx = 0;
+        for (let i = 0; i < this.arr_data.length; i++) {
+          if (this.arr_data[i].id == '8') {
+            guru = this.arr_data[i].value
+          }
+          if (this.arr_data[i].id == '9') {
+            sertif = this.arr_data[i].value
+            sertifIdx = i;
+          }
+        }
+        if (parseInt(guru) < parseInt(sertif)) {
+          this.arr_data.splice(sertifIdx, 1);
+          this.peringatan();
+          check = false;
+        } 
+      }
+    }
+    else if (this.successCount == 4) {
+      if (this.arr_data.length != 2) {
         this.peringatan();
         check = false;
       }
-      if (this.arr_data.length != 11) {
+    }
+    else if (this.successCount == 5) {
+      if (this.arr_data.length != 5) {
         this.peringatan();
         check = false;
       }
     }
 
+    console.log(this.arr_data)
 
     if (check == true) {
-      this.arr_data = this.arr_data.filter(function (el) {
-        return el != null;
-      });
       this.sekolah.Create_infoKR(this.arr_data, this.id_sekolah).subscribe((data) => {   
         this.arr_data = new Array();
         this.successCount++;         
         if (this.successCount == 6) {
           this.router.navigate(['/sekolah-admin'])
         }
+        this.checkButton = false;
         this.slides.slideNext();
       },(error)=>{
         this.peringatan();
