@@ -203,7 +203,7 @@ export class SekolahUpdateComponent implements OnInit {
 
 
   Save_info_sekolah(){
-    console.log(this.id_sekolah, this.nama, this.alamat, this.telp, this.kecamatan, this.agama, this.kepala, this.jam, this.iduser)
+    // console.log(this.id_sekolah, this.nama, this.alamat, this.telp, this.kecamatan, this.agama, this.kepala, this.jam, this.iduser)
     this.sekolah.Update_infosekolah(this.id_sekolah, this.nama, this.alamat, this.telp, this.kecamatan, this.agama, this.kepala, this.jam, this.iduser).subscribe((data) => {      
       console.log(data)
       this.sekolah.datafoto = this.datafoto

@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-<h2 style="text-align: center;"><b>{{nama_sekolah}}</b></h2>
+<h2 style="text-align: center;">({{id_sekolah}})<b>{{nama_sekolah}}</b></h2>
 <ion-slides spaceBetween="10">
   <ion-slide *ngFor="let foto of arr_foto">
     <img src="http://localhost/ta_backend/sekolah/image/{{username}}/{{foto.nama_foto}}.{{foto.extention}}" alt="">

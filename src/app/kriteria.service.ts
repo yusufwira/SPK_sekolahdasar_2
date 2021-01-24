@@ -43,6 +43,15 @@ export class KriteriaService {
     ("http://localhost/ta_backend/kriteria/tampil_bobot_user.php", Data);
   }
 
+  tampil_subkriteria_bobot_user(idkriteria):Observable<any>{
+    let body = new HttpParams();
+    let Data:FormData = new FormData();
+    var json_arr = JSON.stringify(idkriteria);
+    Data.append('idkriteria',json_arr); 
+    return this.http.post<any>
+    ("http://localhost/revisi_ta/kriteria/subKriteria_bobot_user.php", Data);
+  }
+
   search_bobot(key:string){
     return this.http.get("http://localhost/ta_backend/kriteria/search_bobot.php?key="+key);
   }

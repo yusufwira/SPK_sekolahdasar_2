@@ -89,7 +89,7 @@ export class SekolahService {
     let Data:FormData = new FormData();
     Data.append('id', id); 
     Data.append('kolom',kolom ); 
-    Data.append('value',String(value)); 
+    Data.append('value',String(value));
     return this.http.post<any>
     ("http://localhost/ta_backend/sekolah/informasi_sekolah-update.php", Data);
   }

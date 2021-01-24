@@ -5,6 +5,7 @@ import { SpkService } from '../spk.service';
 import {Map,tileLayer,marker} from 'leaflet';
 import {NativeGeocoder,NativeGeocoderOptions} from "@ionic-native/native-geocoder/ngx";
 import { AlertController, IonSlides} from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-spk',
@@ -17,7 +18,12 @@ export class SpkComponent implements OnInit {
   map:Map;
   newMarker:any;
   address:string[];
-  constructor(private geocoder: NativeGeocoder,public kriteria:KriteriaService, public sekolah:SekolahService,public spk:SpkService, public alertController: AlertController) { }
+  constructor(private geocoder: NativeGeocoder,
+    public kriteria:KriteriaService, 
+    public sekolah:SekolahService,
+    public spk:SpkService, 
+    public alertController: AlertController,
+    private router: Router) { }
   
   prog_bar:String="0.2";
   public datas_kriteria:Object;
@@ -30,6 +36,9 @@ export class SpkComponent implements OnInit {
 
   x="";
   y="";
+
+  x_address = '';
+  y_address = '';
  
   ngOnInit() {
     console.log(this.arr_kriteria)
@@ -41,6 +50,13 @@ export class SpkComponent implements OnInit {
     this.sekolah.ListSekolah_ortu().subscribe((data) => {    
       console.log(data);            
       this.datas_sekolah = data;  
+     });
+
+     this.spk.getCoorAddress().subscribe((data) => {
+       this.x_address = data[0].lat
+       this.y_address = data[0].lon
+       console.log(this.x_address,'X address');
+       console.log(this.y_address,'Y address');
      });
   }
 
@@ -89,6 +105,21 @@ export class SpkComponent implements OnInit {
         let alert = this.alertController.create({
         header: 'Detail '+value,
         message: 'Jarak Lokasi Anda saat ini sebagai pertimbangan' ,
+        inputs: [
+          {
+            name: 'radio1',
+            type: 'radio',
+            label: 'Jarak lokasi anda saat ini',
+            value: '1',
+            checked: true
+          },
+          {
+            name: 'radio2',
+            type: 'radio',
+            label: 'Jarak lokasi dari rumah anda',
+            value: '2'
+          },
+        ],
         buttons: [
           {
             text: 'Ok',        
@@ -107,23 +138,78 @@ export class SpkComponent implements OnInit {
      });
   }
 
-  show(data, value) {
-  let itemList = '';
-   data.forEach(element => {
-    itemList += '<li>'+ element['detail']+'</li>'
-    // console.log(element['detail']);
-   });
+ 
+  public listSubKriteria = <any>{
+    Fasilitas:["11", "12", "13", "14", "15", "16", "17"],
+    Akademis:["6", "7", "8", "9", "10"],
+    Biaya:["18", "19", "20", "21", "22"]
+  }
 
-   let message = `<ul>${itemList }</ul>`;
-      let alert = this.alertController.create({
+  public isCheckFasilitas = false;
+  public isCheckAkademis = false;
+  public isCheckBiaya = false;
+
+  show(data, value) {
+    let itemList = '';
+    let input = [];
+    let namaKriteria = "";
+    let idKriteria = "";
+    input.push({
+      type: 'checkbox',
+      label: 'Unchecked All',
+      value: null,
+      checked: true,
+      handler: data =>  {
+        console.log(data.checked);
+      }
+    })
+    data.forEach(element => {
+      itemList += '<li>'+ element['detail']+'</li>';
+      namaKriteria = element['nama_kriteria'];
+      idKriteria = element['id_kriteria'];
+      input.push(
+        {
+          type: 'checkbox',
+          label:  element['detail'],
+          value: element['id_detail'],
+          checked: true
+        }
+      );
+    });
+
+    let message = `<ul>${itemList }</ul>`;
+    let alert = this.alertController.create({
        header: 'Detail '+value,
-       message: message ,
+       cssClass: 'my-custom-alert',
+       message: "Pilih Subkriteria" ,
+       inputs: input,
        buttons: [
          {
-           text: 'Ok',        
+           text: 'Ok',
+           handler:data=> {
+            console.log(data);
+            if (data.length < 2) {
+              this.peringatansub('Perhatian', 'Subkriteria yang dipilih harus lebih dari 1', idKriteria, namaKriteria);
+            }
+            else{
+              if (namaKriteria == 'Fasilitas') {
+                this.isCheckFasilitas = true;
+                this.listSubKriteria.Fasilitas = data
+              }
+              else if (namaKriteria == 'Akademis') {
+                this.isCheckAkademis = true;
+                this.listSubKriteria.Akademis = data;
+              }
+              else if (namaKriteria == 'Biaya') {
+                this.isCheckBiaya = true;
+                this.listSubKriteria.Biaya = data;
+              }
+            }
+            // console.log(this.listSubKriteria)
+          }
          }
        ]
-      }).then(alert=> alert.present());
+    }).then(alert=> alert.present());
   }
 
 
@@ -184,7 +270,7 @@ export class SpkComponent implements OnInit {
   hasil_jadi = [];
   Proses(){
     if ( this.arr_sekolah.length >= 2  ) {
-      this.spk.proses_ahp(this.arr_kriteria,this.arr_sekolah, this.jarak).subscribe((data) => {    
+      this.spk.proses_ahp(this.arr_kriteria, this.listSubKriteria ,this.arr_sekolah, this.jarak).subscribe((data) => {    
         this.ve_kriteria = data.VE_CRIT;
         this.cr_kriteria = data.CR_CRIT.toFixed(4);
         this.alternatif = data.VE_ALT;
@@ -210,7 +296,7 @@ export class SpkComponent implements OnInit {
   }
 
   ProsesAllGo(){    
-    this.spk.proses_ahp_all(this.arr_kriteria, this.jarak).subscribe((data) => {    
+    this.spk.proses_ahp_all(this.arr_kriteria, this.listSubKriteria, this.jarak).subscribe((data) => {    
       this.ve_kriteria = data.VE_CRIT;
       this.cr_kriteria = data.CR_CRIT.toFixed(4);
       this.alternatif = data.VE_ALT;
@@ -234,6 +320,13 @@ export class SpkComponent implements OnInit {
      });
   }
 
+  DetailResult(namaSekolah){
+    this.sekolah.Search("nama_sekolah", namaSekolah).subscribe((data) => {   
+      console.log(data[0].npsn);
+      this.router.navigate(['/sekolah-view/'+data[0].npsn])
+     });
+  }
+
 
   peringatan(header, massage){
     let alert = this.alertController.create({
@@ -242,6 +335,21 @@ export class SpkComponent implements OnInit {
       buttons: [
         {
           text: 'Ok',        
+        }
+      ]
+      }).then(alert=> alert.present());
+  }
+
+  peringatansub(header, massage, id, value){
+    let alert = this.alertController.create({
+      header: header,
+      message: massage,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {            
+            this.detailKriteria(id, value);
+          }
         }
       ]
       }).then(alert=> alert.present());

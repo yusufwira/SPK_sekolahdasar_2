@@ -191,13 +191,24 @@ export class SekolahCreateComponent implements OnInit {
 
     // Pengecekan apakah value null dan -1
     for (let i = 0; i < this.arr_data.length; i++) {
-      if (this.arr_data[i].value == "" || this.arr_data[i].value < 0) {
+      if (this.arr_data[i].value == "") {
         var foundId = this.arr_data[i].id;
         for (let x = 0; x < this.arr_data.length; x++) {          
           if(this.arr_data[x].id == foundId){
             this.arr_data.splice(x,1);
             continue;
           } 
+        }
+      }
+      if (this.successCount != 4) {
+        if (this.arr_data[i].value < 0) {
+          var foundId = this.arr_data[i].id;
+          for (let x = 0; x < this.arr_data.length; x++) {          
+            if(this.arr_data[x].id == foundId){
+              this.arr_data.splice(x,1);
+              continue;
+            } 
+          }
         }
       }
     }

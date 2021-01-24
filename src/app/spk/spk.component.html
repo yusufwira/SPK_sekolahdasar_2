@@ -33,15 +33,24 @@
           </ion-card>
 
           <ion-card *ngIf="arr_kriteria.length >= 2" class="btn-set" routerLink="/kriteria-bobot-user/{{arr_kriteria_id}}" color="tertiary">
-            <p>Atur Bobot Perbandingan</p>
+            <p>Atur Nilai Perbandingan Kriteria</p>
           </ion-card>
        
-          <ion-list padding>           
-            <ion-item *ngFor ="let data of datas_kriteria">
-              <ion-checkbox color="tertiary"  slot="start" (click) = "getValue_kriteria(data.id,data.nama_kriteria)"></ion-checkbox>
-              <ion-label slot="start">{{data.nama_kriteria}}</ion-label>
-              <!-- <ion-button *ngIf="data.id != 3 && data.id != 4" slot="end" > Lihat</ion-button> -->
-            </ion-item>                       
+          <ion-list padding>
+            <ion-row *ngFor ="let data of datas_kriteria">
+              <ion-col size="11">
+                <ion-item>
+                  <ion-checkbox color="tertiary"  slot="start" (click) = "getValue_kriteria(data.id,data.nama_kriteria)"></ion-checkbox>
+                  <ion-label slot="start">{{data.nama_kriteria}}</ion-label>
+                </ion-item>
+                <ion-button *ngIf="isCheckFasilitas == true && data.id == 1" class="ion-text-end" routerLink="/kriteria-subkriteria-user/{{listSubKriteria.Fasilitas}}"  color="tertiary"> Atur Nilai Perbandingan {{data.nama_kriteria}}</ion-button>
+                <ion-button *ngIf="isCheckAkademis == true && data.id == 2" class="ion-text-end" routerLink="/kriteria-subkriteria-user/{{listSubKriteria.Akademis}}" color="tertiary"> Atur Nilai Perbandingan {{data.nama_kriteria}}</ion-button>
+                <ion-button *ngIf="isCheckBiaya == true && data.id == 5" class="ion-text-end" routerLink="/kriteria-subkriteria-user/{{listSubKriteria.Biaya}}" color="tertiary"> Atur Nilai Perbandingan {{data.nama_kriteria}}</ion-button>
+              </ion-col>
+              <ion-col size="1">
+               
+              </ion-col>
+            </ion-row>
           </ion-list>
        
           <ion-card class="btn-next" color="tertiary" (click)="progres(0.5);">
@@ -147,7 +156,7 @@
               </ion-col>
               <div *ngFor ="let item of data | keyvalue">
                 <ion-col *ngIf ="item.key=='nama'">
-                  {{item.value}}
+                  <a (click)='DetailResult(item.value)'>{{item.value}}</a>
                 </ion-col>
                 <ion-col *ngIf ="item.key=='hasil'">
                   {{item.value.toFixed(4)}}
