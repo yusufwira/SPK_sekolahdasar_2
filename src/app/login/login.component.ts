@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
           localStorage['nama'] = data[0].nama_user;
           localStorage['photo'] = data[0].photo;
           localStorage['hak_akses'] = data[0].hak_akses;
+          localStorage['alamat'] = data[0].alamat_user;
           this.events.publish('user:created', this.username,data[0].nama_user,data[0].photo,data[0].hak_akses);
         	this.router.navigate(['/home'])
         }

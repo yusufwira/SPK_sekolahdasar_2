@@ -34,11 +34,13 @@ export class SpkComponent implements OnInit {
   public arr_kriteria_id='';
   arr_sekolah=[];
 
+  public checkLoc = "";
+
   x="";
   y="";
 
-  x_address = '';
-  y_address = '';
+  x_address = 0.0;
+  y_address = 0.0;
  
   ngOnInit() {
     console.log(this.arr_kriteria)
@@ -52,12 +54,25 @@ export class SpkComponent implements OnInit {
       this.datas_sekolah = data;  
      });
 
-     this.spk.getCoorAddress().subscribe((data) => {
-       this.x_address = data[0].lat
-       this.y_address = data[0].lon
+     var userAddress = this.filterAddress(localStorage['alamat']);
+     console.log(userAddress); 
+
+     this.spk.getCoorAddress(userAddress).subscribe((data) => {
+       this.x_address = parseFloat(data[0].lat)
+       this.y_address = parseFloat(data[0].lon);
        console.log(this.x_address,'X address');
        console.log(this.y_address,'Y address');
      });
+  }
+
+  filterAddress(address)
+  {
+    address = address.replace("Jl ", "");
+    var removeNo = address.substring(address.indexOf("no"));
+    address = address.replace(" "+removeNo, "");
+    address = address.replaceAll(" ", "+");
+    
+    return address;
   }
 
   progres(bar:String){
@@ -107,22 +122,26 @@ export class SpkComponent implements OnInit {
         message: 'Jarak Lokasi Anda saat ini sebagai pertimbangan' ,
         inputs: [
           {
-            name: 'radio1',
+            name: 'currentLoc',
             type: 'radio',
-            label: 'Jarak lokasi anda saat ini',
-            value: '1',
+            label: 'Lokasi Saat ini',
+            value: 'currentLoc',
             checked: true
           },
           {
-            name: 'radio2',
+            name: 'addressLoc',
             type: 'radio',
-            label: 'Jarak lokasi dari rumah anda',
-            value: '2'
+            label: 'Lokasi Alamat',
+            value: 'addressLoc'
           },
         ],
         buttons: [
           {
-            text: 'Ok',        
+            text: 'Ok',
+            handler: (data) => {            
+              console.log(data)
+              this.checkLoc = data;
+            }        
           }
         ]
         }).then(alert=> alert.present());
@@ -154,15 +173,6 @@ export class SpkComponent implements OnInit {
     let input = [];
     let namaKriteria = "";
     let idKriteria = "";
-    input.push({
-      type: 'checkbox',
-      label: 'Unchecked All',
-      value: null,
-      checked: true,
-      handler: data =>  {
-        console.log(data.checked);
-      }
-    })
     data.forEach(element => {
       itemList += '<li>'+ element['detail']+'</li>';
       namaKriteria = element['nama_kriteria'];
@@ -172,7 +182,7 @@ export class SpkComponent implements OnInit {
           type: 'checkbox',
           label:  element['detail'],
           value: element['id_detail'],
-          checked: true
+          checked: false
         }
       );
     });
@@ -247,12 +257,18 @@ export class SpkComponent implements OnInit {
   locatePosition(x,y){
     this.map.locate({setView:true}).on("locationfound", (e: any)=> {
        this.newMarker = marker([x,y], {autoPan: 
-        true}).addTo(this.map);       
-         var markerFrom = marker([e.latitude,e.longitude]);
+        true}).addTo(this.map); 
+        var markerFrom = null;
+        if (this.checkLoc == 'currentLoc') {
+          markerFrom = marker([e.latitude,e.longitude]);
+        } else {
+          markerFrom = marker([ this.x_address , this.y_address]);
+        }
          var markerTo =  marker([x,y]);
          var from = markerFrom.getLatLng();
          var to = markerTo.getLatLng();
-         var jarak = this.getDistance(from, to);         
+         var jarak = this.getDistance(from, to);
+         console.log(jarak);         
          this.jarak.push(jarak.toString());
     });
   }

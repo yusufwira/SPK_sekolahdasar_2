@@ -1,8 +1,16 @@
 
-.my-custom-alert .alert-wrapper {
-    min-width: 1000px !important;
-    background-color: red;
+::ng-deep {
+    .my-custom-alert {
+    --min-width: 350px;
+    --max-width: 350px;
+    --width: 400px;
+  }
 }
+
+.ch-kriteria{
+    width: 400px;
+}
+
 .bg{
     height: 30%;
     width: 100%;

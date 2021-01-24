@@ -38,8 +38,8 @@
        
           <ion-list padding>
             <ion-row *ngFor ="let data of datas_kriteria">
-              <ion-col size="11">
-                <ion-item>
+              <ion-col size="12">
+                <ion-item class="ch-kriteria">
                   <ion-checkbox color="tertiary"  slot="start" (click) = "getValue_kriteria(data.id,data.nama_kriteria)"></ion-checkbox>
                   <ion-label slot="start">{{data.nama_kriteria}}</ion-label>
                 </ion-item>

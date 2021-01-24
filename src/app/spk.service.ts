@@ -41,7 +41,7 @@ export class SpkService {
     return this.http.post("http://localhost/spk_backend/coba_hasil.php", coba, { headers: this.header });
   }
 
-  getCoorAddress(){
-    return this.http.get("//nominatim.openstreetmap.org/search?format=json&q=jalan+babatan+pantai+utara+7");
+  getCoorAddress(address){
+    return this.http.get("//nominatim.openstreetmap.org/search?format=json&q="+address);
   }
 }
