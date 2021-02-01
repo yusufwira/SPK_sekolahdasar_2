@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
 import { Events } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public menu: MenuController,
-    public events: Events
+    public events: Events,
+    private router: Router
   ) {
     this.initializeApp();
 
@@ -70,7 +72,7 @@ export class AppComponent implements OnInit {
       this.username = user;
       this.photo = foto;
       this.hak = hak;
-      this.img = "http://localhost/ta_backend/Auth/profile/"+this.username+"/"+ this.photo
+      this.img = "https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/profile/"+this.username+"/"+ this.photo
       console.log(hak)
       if(hak == "parent"){
         this.ngOnInit();
@@ -107,11 +109,15 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      if (this.username == "0" || this.username == "") {
+        this.router.navigate(['/login']);
+      }
+
       //localStorage['username'] =0;
       this.nama = localStorage['nama'];
       this.username = localStorage['username'];
       this.photo = localStorage['photo'];
-      this.img = "http://localhost/ta_backend/Auth/profile/"+this.username+"/"+localStorage['photo']
+      this.img = "https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/profile/"+this.username+"/"+localStorage['photo']
       this.hak = localStorage['hak_akses'];
       if(this.hak == "parent"){
         this.appPages.splice(1, 1);

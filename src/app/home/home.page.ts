@@ -26,11 +26,9 @@ export class HomePage {
 
 
   ngOnInit():void {
-  	if(localStorage['username'] == 0){  
+  	if(localStorage['username'] == 0 || localStorage['username'] == null){  
   		this.router.navigate(['/login'])
     }
-    
-    // this.router.navigate(['/panduan'])
   }
 
   ionViewWillEnter() {

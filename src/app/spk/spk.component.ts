@@ -32,14 +32,11 @@ export class SpkComponent implements OnInit {
   y="";
  
   ngOnInit() {
-    console.log(this.arr_kriteria)
     this.kriteria.dataKriteria().subscribe((data) => {      
       this.datas_kriteria = data;    
-      console.log(this.datas_kriteria);  
     });
 
-    this.sekolah.ListSekolah_ortu().subscribe((data) => {    
-      console.log(data);            
+    this.sekolah.ListSekolah_ortu().subscribe((data) => {              
       this.datas_sekolah = data;  
      });
   }
@@ -111,7 +108,6 @@ export class SpkComponent implements OnInit {
   let itemList = '';
    data.forEach(element => {
     itemList += '<li>'+ element['detail']+'</li>'
-    // console.log(element['detail']);
    });
 
    let message = `<ul>${itemList }</ul>`;
@@ -180,7 +176,7 @@ export class SpkComponent implements OnInit {
 
   ve_kriteria = [];
   cr_kriteria = "";
-  public alternatif:object;
+  public alternatif:any = [];
   hasil_jadi = [];
   Proses(){
     if ( this.arr_sekolah.length >= 2  ) {
@@ -189,9 +185,10 @@ export class SpkComponent implements OnInit {
         this.cr_kriteria = data.CR_CRIT.toFixed(4);
         this.alternatif = data.VE_ALT;
         this.hasil_jadi = data.Hasil_jadi;
-        console.log(this.hasil_jadi);
-        this.progres("1.0");
-        this.slides.slideNext();
+        this.spk.reset_bobot().subscribe((data) => {
+          this.progres("1.0");
+          this.slides.slideNext();
+        });
        });
     } else {
       this.peringatan('Perhatian', 'Jumlah Sekolah yang dipilih harus lebih dari 1')
@@ -213,17 +210,17 @@ export class SpkComponent implements OnInit {
       this.cr_kriteria = data.CR_CRIT.toFixed(4);
       this.alternatif = data.VE_ALT;
       this.hasil_jadi = data.Hasil_jadi;
-      console.log(this.hasil_jadi);
-      this.progres("1.0");
-      this.slides.slideTo(2, 100);
+      this.spk.reset_bobot().subscribe((data) => {
+        this.progres("1.0");
+        this.slides.slideTo(2, 100);
+      });      
      });
   }
 
   key = "";
   inputSearch(event:any) {    
     this.key = event.target.value;    
-    this.sekolah.Search("nama_sekolah", this.key).subscribe((data) => {   
-      console.log(data); 
+    this.sekolah.Search("nama_sekolah", this.key).subscribe((data) => {    
       if(data != "belum ada"){
         this.datas_sekolah = data
       }            
@@ -253,10 +250,7 @@ export class SpkComponent implements OnInit {
           handler: () => {            
             this.ProsesAllGo()
           }
-        },
-        {
-          text: 'Tidak',        
-        }
+        },        
       ]
       }).then(alert=> alert.present());
   }

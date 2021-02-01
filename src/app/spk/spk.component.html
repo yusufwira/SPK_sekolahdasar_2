@@ -44,7 +44,7 @@
             </ion-item>                       
           </ion-list>
        
-          <ion-card class="btn-next" color="tertiary" (click)="progres(0.5);">
+          <ion-card class="btn-next" color="tertiary" (click)="progres('0.5');">
             <h3>Pilih Sekolah</h3>
           </ion-card>
           <ion-card class="btn-next" color="tertiary" (click)="ProsesAll()">
@@ -92,7 +92,7 @@
             <ion-card  class="list_sekolah" >
               <ion-row>
                 <ion-col size="4.9">
-                  <img src="http://localhost/ta_backend/sekolah/image/{{data.username}}/{{data.nama_foto}}.{{data.extention}}" alt="">
+                  <img src="https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/image/{{data.username}}/{{data.nama_foto}}.{{data.extention}}" alt="">
                 </ion-col>
                 <ion-col>
                   <ion-row>
@@ -228,8 +228,11 @@
                       <div *ngFor="let hasil of data.value | keyvalue">
                         <div  *ngIf= "hasil.key == 0">
                           <div *ngFor="let result of hasil.value;let i=index">
-                            <ion-col slot='start'>
+                            <ion-col slot='start' *ngIf='arr_sekolah.length != 0'>
                               {{arr_sekolah[i]}}
+                            </ion-col>
+                            <ion-col slot='start' *ngIf='arr_sekolah.length == 0'>
+                              {{datas_sekolah[i].nama_sekolah}}
                             </ion-col>
                             <ion-col class="right" slot='end'>
                               {{result.toFixed(4)}}

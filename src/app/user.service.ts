@@ -30,47 +30,47 @@ export class UserService {
     testData.append('file_upload', this.file, this.file.name); 
     testData.append('username', this.username); 
     return this.http.post<any>
-    ("http://localhost/ta_backend/Auth/upload.php", testData);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/upload.php", testData);
   }
 
   CekUsername(username):Observable<any>{
     return this.http.get
-    ("http://localhost/ta_backend/Auth/data_user.php?username="+username);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/data_user.php?username="+username);
   }
 
   Registrasi():Observable<any>{
     return this.http.get
-    ("http://localhost/ta_backend/Auth/Register.php?username="+this.username+"&password="+this.password+"&email="+this.email+"&nama="+this.nama+"&alamat="+this.alamat+"&kecamatan="+this.kecamatan+"&notelp="+this.notelp+"&hak="+this.hak+"&photo="+this.photo);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/Register.php?username="+this.username+"&password="+this.password+"&email="+this.email+"&nama="+this.nama+"&alamat="+this.alamat+"&kecamatan="+this.kecamatan+"&notelp="+this.notelp+"&hak="+this.hak+"&photo="+this.photo);
   }
 
   Login():Observable<any>{
-    return this.http.get("http://localhost/ta_backend/Auth/Login.php?username="+this.username+"&password="+this.password);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/Login.php?username="+this.username+"&password="+this.password);
   }
 
   jumlahUsers(){
-    return this.http.get("http://localhost/ta_backend/Auth/jumlah.php?");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/jumlah.php?");
   }
 
   dataOrangtua(){
-    return this.http.get("http://localhost/ta_backend/Auth/data_orangtua.php?");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/data_orangtua.php?");
   }
 
   id_orangtua="";
   detailOrangtua(){
-    return this.http.get("http://localhost/ta_backend/Auth/detail_orangtua.php?id_users="+this.id_orangtua);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/detail_orangtua.php?id_users="+this.id_orangtua);
   }
 
   dataAdminSekolah(){
-    return this.http.get("http://localhost/ta_backend/Auth/data_admin_sekolah.php?");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/data_admin_sekolah.php?");
   }
 
   id_admin="";
   detailAdminSekolah(){
-    return this.http.get("http://localhost/ta_backend/Auth/detail_admin_sekolah.php?id_users="+this.id_admin);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/detail_admin_sekolah.php?id_users="+this.id_admin);
   }
 
   hapusOrangtua(id){
-    return this.http.get("http://localhost/ta_backend/Auth/delete_parent.php?id_users="+id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/Auth/delete_parent.php?id_users="+id);
   }
 
 

@@ -13,7 +13,7 @@
 <h2 style="text-align: center;"><b>{{nama_sekolah}}</b></h2>
 <ion-slides spaceBetween="10">
   <ion-slide *ngFor="let foto of arr_foto">
-    <img src="http://localhost/ta_backend/sekolah/image/{{username}}/{{foto.nama_foto}}.{{foto.extention}}" alt="">
+    <img src="https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/image/{{username}}/{{foto.nama_foto}}.{{foto.extention}}" alt="">
   </ion-slide>
 </ion-slides>
 <br>
@@ -163,17 +163,16 @@
                 </ion-select-option>
               </ion-select>
               <ion-item class="star" >              
-                <!-- <ion-icon name="star" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp; -->
-                <ion-icon *ngIf="rating1 == false" name="star-outline" style="font-size: 40px;" (click)="rating(1)"></ion-icon> 
-                <ion-icon *ngIf="rating1 == true" name="star"  (click)="rating(1)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-                <ion-icon *ngIf="rating2 == false" name="star-outline" style="font-size: 40px;" (click)="rating(2)"></ion-icon> 
-                <ion-icon *ngIf="rating2 == true" name="star"  (click)="rating(2)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-                <ion-icon *ngIf="rating3 == false" name="star-outline" style="font-size: 40px;" (click)="rating(3)"></ion-icon> 
-                <ion-icon *ngIf="rating3 == true" name="star"  (click)="rating(3)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-                <ion-icon *ngIf="rating4 == false" name="star-outline" style="font-size: 40px;" (click)="rating(4)"></ion-icon> 
-                <ion-icon *ngIf="rating4 == true" name="star"  (click)="rating(4)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
-                <ion-icon *ngIf="rating5 == false" name="star-outline" style="font-size: 40px;" (click)="rating(5)"></ion-icon> 
-                <ion-icon *ngIf="rating5 == true" name="star"  (click)="rating(5)" style="font-size: 40px; color: yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating1 == false" name="star" style="font-size: 40px;" (click)="rating(1)"></ion-icon> 
+                <ion-icon *ngIf="rating1 == true" name="star"  (click)="rating(1)" style="font-size: 40px; color:yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating2 == false" name="star" style="font-size: 40px;" (click)="rating(2)"></ion-icon> 
+                <ion-icon *ngIf="rating2 == true" name="star"  (click)="rating(2)" style="font-size: 40px; color:yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating3 == false" name="star" style="font-size: 40px;" (click)="rating(3)"></ion-icon> 
+                <ion-icon *ngIf="rating3 == true" name="star"  (click)="rating(3)" style="font-size: 40px; color:yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating4 == false" name="star" style="font-size: 40px;" (click)="rating(4)"></ion-icon> 
+                <ion-icon *ngIf="rating4 == true" name="star"  (click)="rating(4)" style="font-size: 40px; color:yellow;"></ion-icon> &nbsp;&nbsp;
+                <ion-icon *ngIf="rating5 == false" name="star" style="font-size: 40px;" (click)="rating(5)"></ion-icon> 
+                <ion-icon *ngIf="rating5 == true" name="star"  (click)="rating(5)" style="font-size: 40px; color:yellow;"></ion-icon> &nbsp;&nbsp;
               </ion-item> 
             </div>  
                            

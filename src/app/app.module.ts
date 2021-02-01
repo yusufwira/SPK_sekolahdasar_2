@@ -37,10 +37,10 @@ import { KriteriaAdminComponent } from './kriteria-admin/kriteria-admin.componen
 import { KriteriaCreateComponent } from './kriteria-create/kriteria-create.component';
 import { ParentAdminComponent } from './parent-admin/parent-admin.component';
 import { ParentViewComponent } from './parent-view/parent-view.component';
-import { AdminsekolahAdminComponent } from './Adminsekolah-admin/Adminsekolah-admin.component';
-import { AdminsekolahViewComponent } from './Adminsekolah-view/Adminsekolah-view.component';
-import { DaftarsekolahComponent } from './Daftarsekolah/Daftarsekolah.component';
-import { SpkComponent } from './Spk/Spk.component';
+import { AdminsekolahAdminComponent } from './adminsekolah-admin/adminsekolah-admin.component';
+import { AdminsekolahViewComponent } from './adminsekolah-view/adminsekolah-view.component';
+import { DaftarsekolahComponent } from './daftarsekolah/daftarsekolah.component';
+import { SpkComponent } from './spk/spk.component';
 import { KriteriaBobotComponent } from './kriteria-bobot/kriteria-bobot.component';
 import { KriteriaBobotUserComponent } from './kriteria-bobot-user/kriteria-bobot-user.component';
 import { KriteriaSubkriteriaComponent } from './kriteria-subkriteria/kriteria-subkriteria.component';

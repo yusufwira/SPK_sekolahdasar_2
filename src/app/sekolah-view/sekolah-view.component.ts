@@ -82,8 +82,7 @@ export class SekolahViewComponent implements OnInit {
     });
 
     this.kriteria.dataKriteria().subscribe((data) => {        
-      this.arr_kriteria = data       
-      console.log(data)              
+      this.arr_kriteria = data                   
     });
 
 
@@ -97,15 +96,13 @@ export class SekolahViewComponent implements OnInit {
     this.sekolah.GetReview().subscribe((data) => {   
       if(data != "tidak ada"){
         this.arr_komen = data;
-        console.log(this.arr_komen); 
       }                              
     });
   }
 
   getRating(){
     this.sekolah.GetRating(this.id_sekolah).subscribe((data) => {        
-      this.arr_rating = data       
-      console.log(data)              
+      this.arr_rating = data                    
     });
   }
 
@@ -133,12 +130,10 @@ export class SekolahViewComponent implements OnInit {
 
 
          var markerFrom = marker([e.latitude,e.longitude]);
-         console.log(markerFrom)
          var markerTo =  marker([x,y]);
          var from = markerFrom.getLatLng();
          var to = markerTo.getLatLng();
          var jarak = this.getDistance(from, to);
-         console.log(jarak)
          this.jarak = jarak.toString();
     });
   }
@@ -154,8 +149,7 @@ export class SekolahViewComponent implements OnInit {
   rating3=false;
   rating4=false;
   rating5=false;
-  rating(number,id_kriteria):void{
-    console.log(number);
+  rating(number):void{
     if(number == 1){
       this.rating1 = true;
       this.rating2=false;
@@ -193,7 +187,6 @@ export class SekolahViewComponent implements OnInit {
     }
 
     var id_user = localStorage['iduser'];
-   // console.log(this.id_sekolah)
    if(this.kriteria_rating == ""){
     this.peringatan('Gagal', "Kritera yang ingin diberi rating belum dipilih")
     this.rating1 = false;
@@ -204,7 +197,6 @@ export class SekolahViewComponent implements OnInit {
    }
    else{
     this.sekolah.Rating(this.id_sekolah,id_user,number,this.kriteria_rating).subscribe((data) => {    
-      console.log(data); 
       this.peringatan('Terima Kasih','Anda sudah memberikan rating pada sekolah ini'); 
       this.getRating();          
     });
@@ -227,32 +219,27 @@ export class SekolahViewComponent implements OnInit {
       this.rating3=false;
       this.rating4=false;
       this.rating5=false
-    console.log(this.kriteria_rating)
   }
 
   public komentar="";
   inputKomen(event:any) {    
-    this.komentar = event.target.value;
-    //console.log(this.komentar)    
+    this.komentar = event.target.value;   
    }
 
   kriteria_review = "";
   optionsKriteriaReview():void{
     let item = this.kriteria_review;
     this.kriteria_review = item;
-    console.log(this.kriteria_review)
   }
 
    kirimKomentar():void{
     var id_user = localStorage['iduser'];
     this.sekolah.Review(this.id_sekolah,id_user,this.komentar, this.kriteria_review).subscribe((data) => {    
-      console.log(data);
       if(data == 'Sukses') {
         this.getReview();
       } else {
         this.peringatan('Gagal', 'Maaf anda harus memilih kriteria yang ingin direview');
-      }
-                
+      }                
     });    
    }
 

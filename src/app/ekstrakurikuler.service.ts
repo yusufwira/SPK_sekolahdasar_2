@@ -15,7 +15,7 @@ export class EkstrakurikulerService {
   desc="";
 
   inputEkstra(){
-    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/insert.php?nama="+this.nama+"&desc="+this.desc);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/insert.php?nama="+this.nama+"&desc="+this.desc);
   }
 
   // dataEkstra(key):Observable<any>{
@@ -27,39 +27,39 @@ export class EkstrakurikulerService {
   // }
   dataEkstra(key){
     if (key != null) {
-      return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampil.php?key="+key); 
+      return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/tampil.php?key="+key); 
     } else {
-      return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampil.php");
+      return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/tampil.php");
     }
   }
 
   dataEkstraValid(key){
     if (key != null) {
-      return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampilValid.php?key="+key); 
+      return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/tampilValid.php?key="+key); 
     } else {
-      return this.http.get("http://localhost/ta_backend/ekstrakurikuler/tampilValid.php");
+      return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/tampilValid.php");
     }
   }
 
   Validasi(id, ket){
     console.log(id + ket);
-    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/updateKeterangan.php?id="+id+"&keterangan="+ket);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/updateKeterangan.php?id="+id+"&keterangan="+ket);
   }
 
   getEkstra(id){
-    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/get.php?id="+id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/get.php?id="+id);
   }
 
   deleteEks(id){
-    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/delete.php?id="+id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/delete.php?id="+id);
   }
 
   jumlahEks(){
-    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/jumlah.php?");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/jumlah.php?");
   }
 
   deleteEksSekolah(idEks, idSekolah) {
-    return this.http.get("http://localhost/ta_backend/ekstrakurikuler/delete_eks_sekolah.php?id_eks="+idEks+"&id_sekolah="+idSekolah);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/ekstrakurikuler/delete_eks_sekolah.php?id_eks="+idEks+"&id_sekolah="+idSekolah);
   }
 
 }

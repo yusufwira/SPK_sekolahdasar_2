@@ -19,61 +19,61 @@ export class SekolahService {
 
   id="";
   DetailSekolah():Observable<any>{
-    return this.http.get("http://localhost/revisi_ta/sekolah/sekolah_detail.php?id_sekolah="+this.id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/sekolah_detail.php?id_sekolah="+this.id);
   }
 
   Rating(idsekolah, iduser, rating, idkriteria){
     //console.log(idsekolah)
-    return this.http.get("http://localhost/revisi_ta/sekolah/rating.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&rating="+rating+"&id_kriteria="+idkriteria);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/rating.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&rating="+rating+"&id_kriteria="+idkriteria);
   }
 
   Review(idsekolah, iduser, review, idkriteria){
     console.log(idsekolah+ iduser+ review+ idkriteria)
-    return this.http.get("http://localhost/revisi_ta/sekolah/review.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&review="+review+"&id_kriteria="+idkriteria);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/review.php?id_sekolah="+idsekolah+"&id_user="+iduser+"&review="+review+"&id_kriteria="+idkriteria);
   }
 
   GetRating(ids){
-    return this.http.get("http://localhost/revisi_ta/sekolah/rating_get.php?id_sekolah="+ids);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/rating_get.php?id_sekolah="+ids);
   }
 
   GetReview(){
-    return this.http.get("http://localhost/revisi_ta/sekolah/review_get.php?id_sekolah="+this.id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/review_get.php?id_sekolah="+this.id);
   }
 
   DetailEkstra():Observable<any>{
-    return this.http.get("http://localhost/ta_backend/sekolah/detailSekolahEkstra.php?id_sekolah="+this.id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/detailSekolahEkstra.php?id_sekolah="+this.id);
   }
 
   ListSekolah():Observable<any>{
-    return this.http.get("http://localhost/revisi_ta/sekolah/list_sekolah.php");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/list_sekolah.php");
   }
 
   ListSekolah_ortu():Observable<any>{
-    return this.http.get("http://localhost/revisi_ta/sekolah/list_ortu_sekolah.php");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/list_ortu_sekolah.php");
   }
 
   ListSekolahAdmin(id):Observable<any>{
-    return this.http.get("http://localhost/revisi_ta/sekolah/list_admin_sekolah.php?iduser="+id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/list_admin_sekolah.php?iduser="+id);
   }
 
   Search(kategori:string,key:string):Observable<any>{
-    return this.http.get("http://localhost/revisi_ta/sekolah/search.php?kategori="+kategori+"&key="+key);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/search.php?kategori="+kategori+"&key="+key);
   }
 
   jumlahSekolah(){
-    return this.http.get("http://localhost/ta_backend/sekolah/jumlah.php?");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/jumlah.php?");
   }
 
   Delete(id:string):Observable<any>{
-    return this.http.get("http://localhost/ta_backend/sekolah/delete.php?idsekolah="+id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/delete.php?idsekolah="+id);
   }
 
   GetSekolahBobot():Observable<any>{
-    return this.http.get("http://localhost/ta_backend/sekolah/get_sekolah_bobot.php?");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/get_sekolah_bobot.php?");
   }
 
   GetInformasiSekolah(id:string):Observable<any>{
-    return this.http.get("http://localhost/ta_backend/sekolah/informasi_sekolah.php?id_sekolah="+id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/informasi_sekolah.php?id_sekolah="+id);
   }
 
   Validasi(id:string, validasi:string):Observable<any>{
@@ -81,7 +81,7 @@ export class SekolahService {
     Data.append('idsekolah', id); 
     Data.append('validasi',validasi ); 
     return this.http.post<any>
-    ("http://localhost/ta_backend/sekolah/validasi.php", Data);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/validasi.php", Data);
   }
 
   update_InformasiSekolah(id:string, kolom:string, value:unknown):Observable<any>{
@@ -91,7 +91,7 @@ export class SekolahService {
     Data.append('kolom',kolom ); 
     Data.append('value',String(value)); 
     return this.http.post<any>
-    ("http://localhost/ta_backend/sekolah/informasi_sekolah-update.php", Data);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/informasi_sekolah-update.php", Data);
   }
 
   update_bobot(bobot:string, crit:string, sekolah_1:string, sekolah_2:string):Observable<any>{
@@ -102,7 +102,7 @@ export class SekolahService {
     Data.append('sekolah_1',sekolah_1 ); 
     Data.append('sekolah_2',sekolah_2 );
     return this.http.post<any>
-    ("http://localhost/ta_backend/sekolah/update_bobot.php", Data);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/update_bobot.php", Data);
   }
 
   
@@ -120,7 +120,7 @@ export class SekolahService {
     }
     Data.append('idSekolah', this.sekolah); 
     return this.http.post<any>
-    ("http://localhost/ta_backend/sekolah/createEkstrakurikuler.php", Data);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/createEkstrakurikuler.php", Data);
   }
 
   data1:any;
@@ -166,7 +166,7 @@ export class SekolahService {
     data.append('ket', this.data2['ket']);    
     data.append('iduser', this.userid);
     var lastid = this.http.post<any>
-    ("http://localhost/ta_backend/sekolah/create.php", data);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/create.php", data);
 
     //console.log(this.datafoto[0].nama);
     return lastid;
@@ -178,7 +178,7 @@ export class SekolahService {
     Data.append('file_upload', this.file, this.file.name); 
     Data.append('username', this.username); 
     return this.http.post<any>
-    ("http://localhost/ta_backend/sekolah/upload.php", Data);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/upload.php", Data);
   }
 
 
@@ -195,7 +195,7 @@ export class SekolahService {
     }
     data.append("idSekolah",this.idSekolah);
     var hasil = this.http.post<any>
-    ("http://localhost/ta_backend/sekolah/foto.php", data);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/foto.php", data);
     this.arrayfoto.push(hasil);
     
     return hasil;
@@ -211,14 +211,14 @@ export class SekolahService {
     }
     data.append("idSekolah",this.idSekolah);
     var hasil = this.http.post<any>
-    ("http://localhost/ta_backend/sekolah/foto2.php", data);
+    ("https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/foto2.php", data);
     this.arrayfoto.push(hasil);
     
     return hasil;
   }
 
   Delete_foto(id){
-    return this.http.get("http://localhost/revisi_ta/sekolah/delete_foto.php?id="+id);
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/delete_foto.php?id="+id);
   }
 
 
@@ -239,7 +239,7 @@ export class SekolahService {
     data.append('jam', jam); 
     data.append('username', username); 
     var lastid = this.http.post<any>
-    ("http://localhost/revisi_ta/sekolah/create_info_sekolah.php", data);
+    ("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/create_info_sekolah.php", data);
     return lastid;
   }
 
@@ -250,7 +250,7 @@ export class SekolahService {
     data.append('data', doto);
     data.append('last_id', last_id);
     return this.http.post<any>
-    ("http://localhost/revisi_ta/sekolah/create_info.php", data);
+    ("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/create_info.php", data);
   }
 
  Update_infosekolah(npsp:string,nama:string,alamat:string,telp:string,kecamatan:string,agama:string,kepala:string,jam:string, username:string):Observable<any>{
@@ -267,7 +267,7 @@ export class SekolahService {
     data.append('jam', jam); 
     data.append('username', username); 
     var lastid = this.http.post<any>
-    ("http://localhost/revisi_ta/sekolah/sekolah_update.php", data);
+    ("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/sekolah_update.php", data);
     return lastid;
   }
 
@@ -280,7 +280,7 @@ export class SekolahService {
     data.append('data', doto);
     data.append('last_id', last_id);
     return this.http.post<any>
-    ("http://localhost/revisi_ta/sekolah/sekolah_update_info.php", data);
+    ("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/sekolah_update_info.php", data);
   }
 
   updateKeterangan(id,keterangan):Observable<any>{
@@ -289,6 +289,6 @@ export class SekolahService {
     data.append('id', id);
     data.append('keterangan', keterangan);
     return this.http.post<any>
-    ("http://localhost/revisi_ta/sekolah/updateKeterangan.php", data);
+    ("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/sekolah/updateKeterangan.php", data);
   }
 }

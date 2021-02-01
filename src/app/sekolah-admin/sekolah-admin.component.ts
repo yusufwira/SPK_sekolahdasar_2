@@ -20,6 +20,7 @@ export class SekolahAdminComponent implements OnInit {
   constructor(public alertController: AlertController, public sekolah:SekolahService,private modalCtrl: ModalController, private router: Router) { }
 
   public dataSekolah= [];
+  public dataSekolahNull= "";
   public temp_dataSekolah= [];
   public jumlah_sekolah="";
   public cek = false;
@@ -33,6 +34,7 @@ export class SekolahAdminComponent implements OnInit {
         if(data == 'belum ada'){
           // this.router.navigate(['/panduan-admin'])
           this.dataSekolah = null;
+          this.dataSekolahNull = 'belum ada';
           this.cek = true;
         }
         else{

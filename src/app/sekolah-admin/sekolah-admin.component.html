@@ -34,7 +34,7 @@
           <ion-row class="card-content">
             <ion-col size="4">
               <div routerLink="/sekolah-view/{{data.npsn}}">
-                <img src="http://localhost/ta_backend/sekolah/image/{{data.username}}/{{data.nama_foto}}.{{data.extention}}" alt=""> &nbsp;
+                <img src="https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/image/{{data.username}}/{{data.nama_foto}}.{{data.extention}}" alt=""> &nbsp;
               </div>
               </ion-col>
             <ion-col>
@@ -64,7 +64,7 @@
 
   </div> 
 
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="hak == 'admin_sekolah' && dataSekolah == belum ada">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" *ngIf="hak == 'admin_sekolah' && dataSekolahNull == 'belum ada'">
     <ion-fab-button color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

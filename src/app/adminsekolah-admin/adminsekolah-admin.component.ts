@@ -14,8 +14,7 @@ export class AdminsekolahAdminComponent implements OnInit {
   public datas:any;
   ngOnInit() {
     this.user.dataAdminSekolah().subscribe((data) => {    
-      this.datas = data;
-      console.log(data);       
+      this.datas = data;       
      });
   }
 

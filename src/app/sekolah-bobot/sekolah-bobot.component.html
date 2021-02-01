@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <ion-card class="search">
+  <!-- <ion-card class="search">
     <ion-row>
       <ion-col>
         <ion-input type="text" placeholder="cari" (input)="inputKey($event)"></ion-input>
@@ -18,8 +18,7 @@
         <ion-icon name="search"></ion-icon>
       </ion-col>
     </ion-row>
-    
-  </ion-card>
+  </ion-card> -->
   <ion-card *ngFor="let data of datas; let i = index">
     <ion-card-header color="tertiary">
       {{data[0].nama_kriteria}}

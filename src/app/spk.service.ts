@@ -19,7 +19,7 @@ export class SpkService {
     testData.append('sekolah', JSON.stringify(arr_sekolah)); 
     testData.append('jarak', JSON.stringify(arr_jarak)); 
     return this.http.post<any>
-    ("http://localhost/spk_backend/proses_hasil_5.php", testData);
+    ("https://schoolfindersurabaya.000webhostapp.com/spk_backend/proses_hasil_5.php", testData);
   }
 
   proses_ahp_all(arr_kriteria, arr_jarak):Observable<any>{
@@ -28,14 +28,14 @@ export class SpkService {
     testData.append('nama',JSON.stringify(arr_kriteria));     
     testData.append('jarak', JSON.stringify(arr_jarak));
     return this.http.post<any>
-    ("http://localhost/spk_backend/proses_hasil_5_all.php", testData);
+    ("https://schoolfindersurabaya.000webhostapp.com/spk_backend/proses_hasil_5_all.php", testData);
   }
 
   reset_bobot(){
-    return this.http.get("http://localhost/revisi_ta/kriteria/reset_bobot_kritera.php");
+    return this.http.get("https://schoolfindersurabaya.000webhostapp.com/revisi_ta/kriteria/reset_bobot_kritera.php");
   }
 
   Coba(coba):Observable<any> {
-    return this.http.post("http://localhost/spk_backend/coba_hasil.php", coba, { headers: this.header });
+    return this.http.post("https://schoolfindersurabaya.000webhostapp.com/spk_backend/coba_hasil.php", coba, { headers: this.header });
   }
 }

@@ -91,16 +91,16 @@ export class SekolahUpdateComponent implements OnInit {
   loadFoto(fotos:any[], username){
     for (let i = 0; i < fotos.length; i++) {
       if(i == 0){
-        this.img1 = "http://localhost/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
+        this.img1 = "https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
       }
       else if(i == 1){
-        this.img2 = "http://localhost/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
+        this.img2 = "https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
       }
       else if(i == 2){
-        this.img3 = "http://localhost/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
+        this.img3 = "https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
       }
       else if(i == 3){
-        this.img4 = "http://localhost/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
+        this.img4 = "https://schoolfindersurabaya.000webhostapp.com/ta_backend/sekolah/image/"+username+"/"+fotos[i]['nama_foto']+"."+fotos[i]['extention']
       }
       
     }

@@ -17,25 +17,19 @@ export class DaftarsekolahComponent implements OnInit {
       console.log(data); 
       if(data != "belum ada"){
         this.datas = data
-      }
-      
-      
-     });
-     
+      }            
+     });     
   }
 
   key=""
   inputKey(event:any) {    
     this.key = event.target.value;    
-    console.log(this.key)
   }
 
   kategori="nama_sekolah";
   optionsKategori():void{
     let item = this.kategori;
-    this.kategori = item;
-    console.log(this.kategori)
-    
+    this.kategori = item;   
   }
 
   Search(){
