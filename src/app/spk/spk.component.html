@@ -156,11 +156,13 @@
               </ion-col>
               <div *ngFor ="let item of data | keyvalue">
                 <ion-col *ngIf ="item.key=='nama'">
-                  <a (click)='DetailResult(item.value)'>{{item.value}}</a>
+                  <ion-button (click)='DetailResult(item.value)' color='primary'>Detail</ion-button>
+                  {{item.value}}
+                 
                 </ion-col>
-                <ion-col *ngIf ="item.key=='hasil'">
+                <!-- <ion-col *ngIf ="item.key=='hasil'">
                   {{item.value.toFixed(4)}}
-                </ion-col>
+                </ion-col> -->
               </div>
               <ion-col *ngIf ="i == 0"  class="right">
                 <ion-icon name="thumbs-up" color="success"></ion-icon>

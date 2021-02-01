@@ -54,15 +54,16 @@ export class SpkComponent implements OnInit {
       this.datas_sekolah = data;  
      });
 
-     var userAddress = this.filterAddress(localStorage['alamat']);
-     console.log(userAddress); 
+     if (localStorage['alamat'] != null) {
+      var userAddress = this.filterAddress(localStorage['alamat']);
 
-     this.spk.getCoorAddress(userAddress).subscribe((data) => {
-       this.x_address = parseFloat(data[0].lat)
-       this.y_address = parseFloat(data[0].lon);
-       console.log(this.x_address,'X address');
-       console.log(this.y_address,'Y address');
-     });
+      this.spk.getCoorAddress(userAddress).subscribe((data) => {
+        this.x_address = parseFloat(data[0].lat)
+        this.y_address = parseFloat(data[0].lon);
+        console.log(this.x_address,'X address');
+        console.log(this.y_address,'Y address');
+      });
+     }
   }
 
   filterAddress(address)
